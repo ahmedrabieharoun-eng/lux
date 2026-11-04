@@ -1734,6 +1734,44 @@ canvas.game-canvas{border-radius:18px;box-shadow:0 20px 40px -18px rgba(0,0,0,.7
 .math-opt.right{background:rgba(18,183,106,.85);border-color:transparent}
 .math-opt.wrong{background:rgba(240,68,56,.85);border-color:transparent}
 
+/* ═══════════════ LUX v3.1 — image backdrop + dark-card light text ═══════════════
+   User fixes (2026-11-04): (1) no plain white background — use the app image
+   behind everything, and the loading image on the loading screen.
+   (2) Cards that stayed dark get LIGHT text so names/labels are readable. */
+/* 1) App background = image under a light veil (cards/text stay readable) */
+html,body{
+  background-color:#DDE4F2 !important;
+  background-image:
+    linear-gradient(180deg,rgba(248,249,252,.90),rgba(237,240,247,.94) 55%,rgba(230,234,244,.96)),
+    url('assets/bg_app.jpg') !important;
+  background-size:cover !important;background-position:center !important;
+  background-repeat:no-repeat !important;background-attachment:fixed !important;
+}
+/* Loading screen = its own full-bleed image; panel frosted for readability */
+.loading-screen{
+  background:url('assets/loading.jpg') center/cover no-repeat !important;
+  background-color:#0B1026 !important;
+}
+.loading-panel{
+  background:rgba(255,255,255,.88) !important;backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.65);border-radius:28px;
+  box-shadow:0 24px 50px -18px rgba(5,8,30,.45);
+  padding:30px 28px !important;width:min(92vw,340px) !important;
+}
+/* 2) Dark surfaces keep the dark look — every text inside goes light */
+.forcesub-item,.ban-item,.rf-card,.wg-card,.rr-box,.rr-card,.rr-stat-box,.rr-table,.pf-hero{
+  color:#E9EEFF !important;
+}
+.forcesub-item-title,.ban-linked-name,.rf-name,.rf-stat-val,
+.rr-card-title,.rr-stat-val,.rr-table-row,
+.pf-hero .user-name{
+  color:#FFFFFF !important;
+}
+.ban-linked-username,.ban-note-text,.rf-meta,.rf-stat-lbl,
+.rr-card-desc,.rr-crystal-lbl,.rr-stat-lbl,.rr-cell-sub,
+.wg-text,.wg-keep,.wg-later,.pf-hero .user-handle{
+  color:#B9C6E8 !important;
+}
 </style>
 </head>
 <body>
