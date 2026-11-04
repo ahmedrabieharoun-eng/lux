@@ -1772,6 +1772,79 @@ html,body{
 .wg-text,.wg-keep,.wg-later,.pf-hero .user-handle{
   color:#B9C6E8 !important;
 }
+
+/* ═══════════════ LUX v4 — one system: photo backdrop, photo cards ═══════════════
+   User round (2026-11-04): drop the white loading card, visible image backdrop
+   inside the app, image backgrounds on most cards, one colour language,
+   new balance hero, contest + wallet redesign, referrals contrast fix. */
+/* Backdrop: the app photo, clearly visible around the cards */
+html,body{
+  background-image:
+    linear-gradient(180deg,rgba(246,247,251,.82),rgba(237,240,247,.88) 45%,rgba(232,235,244,.92)),
+    url('assets/bg_app.jpg') !important;
+}
+/* Loading: NO card — content floats on the loading photo, light text */
+.loading-panel{
+  background:transparent !important;border:none !important;box-shadow:none !important;
+  backdrop-filter:none !important;width:100% !important;padding:24px !important;
+}
+.loading-word{color:#FFFFFF !important;text-shadow:0 6px 34px rgba(124,92,255,.85),0 2px 10px rgba(0,0,0,.45)}
+.loading-sub{color:#D9CCFF !important}
+.loading-label{color:rgba(255,255,255,.82) !important}
+.loading-percent{color:#FFFFFF !important;text-shadow:0 3px 16px rgba(0,0,0,.5)}
+.ld-bar{background:rgba(255,255,255,.28) !important;box-shadow:inset 0 1px 3px rgba(0,0,0,.25) !important}
+/* Photo-tinted dark cards (texture of the app photo under deep navy) */
+.forcesub-item,.ban-card,.ban-item,.rr-box,.rr-stat-box,.rf2-wrap,.pf-hero,.wg-card{
+  background-image:linear-gradient(145deg,rgba(13,20,44,.93),rgba(7,11,24,.97)),url('assets/bg_app.jpg') !important;
+  background-size:cover !important;background-position:center !important;
+}
+.rf2-wrap{color:#E9EEFF !important}
+/* Whisper photo texture on the main light cards */
+.task-item,.stat-card,.bonus-card,.redeem-card,.convert-box,.wallet-form-card,
+.lang-item,.profile-menu-item,.limit-card,.modal,.ct-modal,.rr-card,.arc-stat,
+.quick-tile,.wheel-outer,.mine-ton-card{
+  background-image:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.985)),url('assets/bg_app.jpg') !important;
+  background-size:cover !important;background-position:center top !important;
+}
+/* Referrals info cards are LIGHT cards — dark text (fixes v3.1 clash) */
+.rr-card{color:#0C1330 !important}
+.rr-card-title{color:#0C1330 !important}
+.rr-card-desc{color:#5B6B8C !important}
+/* ── Home balance hero — redesigned ── */
+.lux-hero{border-radius:28px !important;border:1px solid rgba(255,255,255,.4) !important;
+  box-shadow:0 26px 48px -18px rgba(76,52,190,.55),inset 0 1px 0 rgba(255,255,255,.35) !important}
+.lux-hero-shade{background:linear-gradient(118deg,rgba(86,44,235,.90) 0%,rgba(62,102,255,.84) 52%,rgba(30,164,255,.80) 100%) !important}
+.lux-hero-body{padding:22px 20px 18px !important}
+.lux-hero .balance-label{font-size:11px !important;font-weight:800 !important;letter-spacing:3px !important;text-transform:uppercase;color:rgba(255,255,255,.85) !important}
+.lux-hero .balance-amount{gap:10px !important;margin:6px 0 2px !important}
+.lux-hero-coin{width:54px !important;height:54px !important;filter:drop-shadow(0 8px 18px rgba(0,0,0,.4))}
+.lux-hero .balance-num{font-size:46px !important;font-weight:900 !important;letter-spacing:.5px;line-height:1}
+.lux-hero-unit{font-size:13px !important;font-weight:900 !important;letter-spacing:2px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);padding:4px 10px;border-radius:99px;align-self:center}
+.lux-hero .balance-sub{color:rgba(255,255,255,.85) !important;font-size:12.5px !important}
+.lux-hero .home-actions{margin-top:14px !important;gap:10px !important}
+.lux-hero .home-action{border-radius:14px !important;padding:12px 0 !important;font-weight:800 !important}
+/* ── Contest — redesigned ── */
+.ct-pool{border-radius:26px !important;overflow:hidden !important;border:1px solid rgba(255,255,255,.35) !important;
+  background-image:linear-gradient(120deg,rgba(86,44,235,.88),rgba(30,164,255,.82)),url('assets/hero_home.jpg') !important;
+  background-size:cover !important;background-position:center !important;
+  box-shadow:0 22px 40px -16px rgba(76,52,190,.5) !important;color:#fff !important}
+.ct-pool-lbl{color:#FFE9A8 !important}
+.ct-pool-val,.ct-pool .ct-countdown{color:#fff !important}
+.ct-row{background:#fff !important;border:1px solid #E4E8F2 !important;border-radius:16px !important;color:#0C1330 !important;
+  box-shadow:0 6px 16px -10px rgba(16,24,64,.12) !important}
+.ct-row .ct-name{color:#0C1330 !important}
+.ct-row .ct-score{color:#5B3DF0 !important}
+.ct-me{background:linear-gradient(120deg,rgba(124,92,255,.14),rgba(56,182,255,.14)) !important;
+  border:1.5px solid #7C5CFF !important;color:#0C1330 !important}
+.ct-me .ct-name{color:#0C1330 !important}
+/* ── Wallet pages — redesigned ── */
+.wallet-form-card{border-radius:24px !important;padding:20px 18px !important;
+  box-shadow:0 14px 30px -14px rgba(16,24,64,.18) !important}
+.wallet-input,.modal-input{border-radius:14px !important;border:1.5px solid #DFE5F0 !important;background:#F7F9FD !important}
+.wallet-input:focus,.modal-input:focus{border-color:#7C5CFF !important;background:#fff !important;outline:none}
+.tx-item{background:#fff !important;border:1px solid #E4E8F2 !important;border-radius:16px !important;color:#0C1330 !important}
+.tx-item .tx-amount.pos{color:#0E9F6E !important}
+.tx-item .tx-amount.neg{color:#D92D20 !important}
 </style>
 </head>
 <body>
@@ -5169,18 +5242,21 @@ function gameOver(score){
     cb.disabled = true; cb.textContent = '...';
     api('claimGameReward', { gameId: d.id, score: score }).then(function(res){
       if (!res || !res.success){ showToast((res && res.error) || 'Could not collect', 'error'); cb.disabled = false; cb.textContent = 'Collect'; return; }
-      if (S.user) S.user.balance = res.shibaBalance;
+      var gd = res.data || {};
+      if (S.user && gd.shibaBalance != null) S.user.balance = gd.shibaBalance;
       if (S.data){
         if (!S.data.games) S.data.games = { earnedToday:0, playsLeftTotal:0, per:{} };
-        S.data.games.earnedToday = res.earnedToday;
+        if (gd.earnedToday != null) S.data.games.earnedToday = gd.earnedToday;
         var per = S.data.games.per[d.id] || { playsPerDay:3 };
-        per.playsUsed = res.playsUsed; per.playsLeft = res.playsLeft;
+        if (gd.playsUsed != null) per.playsUsed = gd.playsUsed;
+        if (gd.playsLeft != null) per.playsLeft = gd.playsLeft;
         S.data.games.per[d.id] = per;
         var tot = 0; Object.keys(S.data.games.per).forEach(function(k){ tot += S.data.games.per[k].playsLeft || 0; });
         S.data.games.playsLeftTotal = tot;
       }
-      cb.textContent = '✓ Collected +' + fmtNum(res.reward) + ' LUX';
-      showToast('+' + fmtNum(res.reward) + ' LUX added to your balance 🎉');
+      cb.textContent = '✓ Collected +' + fmtNum(gd.reward || 0) + ' LUX';
+      if (typeof renderArcade === 'function') renderArcade();
+      showToast('+' + fmtNum(gd.reward || 0) + ' LUX added to your balance 🎉');
       try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback) Telegram.WebApp.HapticFeedback.notificationOccurred('success'); } catch(_){}
       render();
     }).catch(function(){ showToast('Network error', 'error'); cb.disabled = false; cb.textContent = 'Collect'; });
