@@ -2272,6 +2272,31 @@ html,body{
 .ban-reason-text{color:var(--ink) !important}
 .ban-note-text{color:var(--mut) !important}
 .ban-id-box{background:#F2F4FA !important;color:var(--mut) !important;border:1px solid var(--line) !important}
+
+/* ═══════════════ LUX v5.2 — contrast fixes + full-screen games ═══════════════
+   Order-1 class fix: explicit text colours written for the old DARK theme
+   survived while their surfaces were flipped light in v4/v5/v5.1. Each rule
+   below is pinned to the element the audit proved invisible/illegible. */
+/* History rows: label was color:#fff (dark-theme rule) on the white card */
+.tx-label{color:#141433 !important}
+/* History badges: legacy bright palette on pale tints -> system tones */
+.tx-badge.ok{background:#DFF7EC !important;color:#0E9F6E !important}
+.tx-badge.pend{background:#FFF3D6 !important;color:#B47A08 !important}
+.tx-badge.err{background:#FDECEA !important;color:#D92D20 !important}
+/* Convert: the currency panel kept its dark-navy fill while its name/amount
+   were flipped to ink -> flip the panel itself to the light system */
+.convert-currency{background:#fff !important;border:1px solid var(--line) !important}
+/* Language: flag tile was a leftover dark-navy blob on the white row */
+.lang-flag{background:#ECEAFF !important;border:none !important}
+/* Arcade pips: spent-play dots #CBD5E1 on white were 1.48:1 -> deepen */
+.arc-pips .off{color:#9FB0C6}
+/* ── Order 2: games own the screen ── */
+.game-overlay{height:100dvh}
+.game-top{padding-top:calc(12px + env(safe-area-inset-top))}
+.game-stage{min-height:0}
+canvas.game-canvas{max-width:100%;max-height:100%}
+.g2048-wrap{width:100%;justify-content:center}
+.math-wrap{width:min(94vw,560px)}
 </style>
 </head>
 <body>
@@ -5676,8 +5701,9 @@ function openGame(id){
     '<button class="game-big-btn" id="gamePlayBtn"' + (st.playsLeft<=0 ? ' disabled' : '') + '>' + (st.playsLeft<=0 ? 'Come back tomorrow' : '▶ Play') + '</button>' +
     '<button class="game-ghost-btn" onclick="closeGame()">Back to Arcade</button></div>';
   document.getElementById('gameOverlay').classList.add('show');
+  try { SFX.syncBtn(); } catch(_){}
   var pb = document.getElementById('gamePlayBtn');
-  if (pb) pb.onclick = function(){ startGame(id); };
+  if (pb) pb.onclick = function(){ try { SFX.click(); } catch(_){} startGame(id); };
   try { document.getElementById('gameOverlay').scrollTop = 0; } catch(_){}
 }
 function closeGame(){
@@ -5703,6 +5729,7 @@ function gameOver(score){
   if (_gameCleanup){ try { _gameCleanup(); } catch(_){} _gameCleanup = null; }
   if (!_game) return;
   var d = gameDef(_game.id);
+  try { SFX.over(); } catch(_){}
   var est = gameEst(_game.id, score);
   var st = gameState(_game.id);
   var panel = document.getElementById('gamePanel');
@@ -5732,6 +5759,7 @@ function gameOver(score){
         S.data.games.playsLeftTotal = tot;
       }
       cb.textContent = '✓ Collected +' + fmtNum(gd.reward || 0) + ' LUX';
+      try { SFX.success(); } catch(_){}
       if (typeof renderArcade === 'function') renderArcade();
       showToast('+' + fmtNum(gd.reward || 0) + ' LUX added to your balance 🎉');
       try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback) Telegram.WebApp.HapticFeedback.notificationOccurred('success'); } catch(_){}
@@ -5749,11 +5777,137 @@ function roundRectPath(ctx, x, y, w, h, r){
   ctx.closePath();
 }
 
+/* ── v5.2: full-screen canvas fit ────────────────────────────────────────
+   The overlay is a fixed full-screen takeover; this scales the game's
+   canvas (CSS size) to fill the stage while the backing store is scaled
+   by the same factor (x devicePixelRatio, capped at 2), and gameCtx()
+   pre-scales the 2d context so every game keeps drawing in its own
+   internal coordinates. Pointer handlers already map via
+   getBoundingClientRect(), so input stays exact at any scale. */
+function fitGameCanvas(cv, W, H){
+  try {
+    var stage = document.getElementById('gameStage');
+    var sw = (stage && stage.clientWidth) || window.innerWidth || W;
+    var sh = (stage && stage.clientHeight) || window.innerHeight || H;
+    var scale = Math.min(sw / W, sh / H);
+    if (!(scale > 0)) scale = 1;
+    var cw = Math.max(1, Math.floor(W * scale)), ch = Math.max(1, Math.floor(H * scale));
+    cv.style.width = cw + 'px'; cv.style.height = ch + 'px';
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
+  } catch(_){}
+}
+function gameCtx(cv, W, H){
+  fitGameCanvas(cv, W, H);
+  var ctx = cv.getContext('2d');
+  try { ctx.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0); } catch(_){}
+  return ctx;
+}
+
+/* ── v5.2: WebAudio SFX — synthesized, no audio files ────────────────────
+   Lazily created on the first sound (which always follows a user
+   gesture in this app, satisfying autoplay policies). Master gain is
+   modest; mute persists in localStorage ('lux_sfx_muted'), default ON. */
+var SFX = (function(){
+  var actx = null, master = null;
+  var muted = false; try { muted = localStorage.getItem('lux_sfx_muted') === '1'; } catch(_){}
+  function ac(){
+    if (muted) return null;
+    if (!actx){
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      try { actx = new AC(); master = actx.createGain(); master.gain.value = 0.16; master.connect(actx.destination); } catch(_){ return null; }
+    }
+    if (actx.state === 'suspended'){ try { actx.resume(); } catch(_){} }
+    return actx;
+  }
+  function tone(freq, dur, type, vol, slideTo, delay){
+    var c = ac(); if (!c) return;
+    try {
+      var t0 = c.currentTime + (delay || 0);
+      var o = c.createOscillator(), g = c.createGain();
+      o.type = type || 'sine'; o.frequency.setValueAtTime(freq, t0);
+      if (slideTo) o.frequency.exponentialRampToValueAtTime(Math.max(1, slideTo), t0 + dur);
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(vol || 0.5, t0 + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      o.connect(g); g.connect(master); o.start(t0); o.stop(t0 + dur + 0.05);
+    } catch(_){}
+  }
+  function noiseSfx(dur, vol, freq, delay){
+    var c = ac(); if (!c) return;
+    try {
+      var t0 = c.currentTime + (delay || 0);
+      var len = Math.max(1, (dur * c.sampleRate) | 0);
+      var buf = c.createBuffer(1, len, c.sampleRate);
+      var ch = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) ch[i] = Math.random() * 2 - 1;
+      var src = c.createBufferSource(); src.buffer = buf;
+      var f = c.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = freq || 1200; f.Q.value = 0.7;
+      var g = c.createGain();
+      g.gain.setValueAtTime(vol || 0.4, t0);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      src.connect(f); f.connect(g); g.connect(master); src.start(t0); src.stop(t0 + dur + 0.02);
+    } catch(_){}
+  }
+  var api = {
+    click:    function(){ tone(660, 0.05, 'triangle', 0.25); },
+    laser:    function(){ tone(880, 0.09, 'square', 0.10, 160); },
+    explosion:function(){ noiseSfx(0.28, 0.5, 300); tone(120, 0.25, 'sawtooth', 0.22, 40); },
+    coin:     function(){ tone(990, 0.07, 'square', 0.16); tone(1320, 0.12, 'square', 0.16, null, 0.06); },
+    pop:      function(){ tone(420, 0.07, 'sine', 0.4, 760); },
+    whoosh:   function(){ noiseSfx(0.16, 0.30, 2400); },
+    splat:    function(){ noiseSfx(0.14, 0.4, 700); tone(300, 0.1, 'sine', 0.25, 120); },
+    good:     function(){ tone(660, 0.09, 'triangle', 0.3); tone(880, 0.14, 'triangle', 0.3, null, 0.08); },
+    bad:      function(){ tone(220, 0.16, 'sawtooth', 0.22, 140); },
+    success:  function(){ var self = this; [523, 659, 784, 1047].forEach(function(fr, i){ tone(fr, 0.16, 'triangle', 0.3, null, i * 0.08); }); },
+    over:     function(){ [392, 330, 262].forEach(function(fr, i){ tone(fr, 0.22, 'triangle', 0.28, null, i * 0.13); }); },
+    toggleMute: function(el){
+      muted = !muted;
+      try { localStorage.setItem('lux_sfx_muted', muted ? '1' : '0'); } catch(_){}
+      if (el) el.textContent = muted ? '🔇' : '🔊';
+      if (!muted) api.click();
+      return muted;
+    },
+    isMuted: function(){ return muted; },
+    syncBtn: function(){ var b = document.getElementById('gameMuteBtn'); if (b) b.textContent = muted ? '🔇' : '🔊'; }
+  };
+  return api;
+})();
+
+/* ── v5.2: game art (photos) — preloaded async, never blocks boot ────────
+   Every draw site falls back to the original vector art when an image
+   is missing or has not loaded yet, so a missing asset can never break
+   a game. */
+var GAME_ART = { fruitImgs: {}, wood: null, spaceBg: null };
+(function(){
+  function load(src, cb){
+    try {
+      var im = new Image();
+      im.onload = function(){ cb(im); };
+      im.onerror = function(){ cb(null); };
+      im.src = src;
+    } catch(_){ cb(null); }
+  }
+  ['watermelon', 'orange', 'lemon', 'apple', 'pineapple'].forEach(function(n){
+    load('assets/fruit_' + n + '.png', function(im){ if (im) GAME_ART.fruitImgs[n] = im; });
+  });
+  load('assets/fruit_wood_bg.png', function(im){ if (im) GAME_ART.wood = im; });
+  load('assets/space_bg.png', function(im){ if (im) GAME_ART.spaceBg = im; });
+})();
+function drawCoverImg(ctx, im, W, H){
+  var iw = im.naturalWidth || im.width, ih = im.naturalHeight || im.height;
+  if (!iw || !ih) return false;
+  var sc = Math.max(W / iw, H / ih);
+  ctx.drawImage(im, (W - iw * sc) / 2, (H - ih * sc) / 2, iw * sc, ih * sc);
+  return true;
+}
+
 /* ── Snake ── */
 function playSnake(stage, panel){
   stage.innerHTML = '<canvas class="game-canvas" id="snkCv" width="340" height="340"></canvas>';
   panel.innerHTML = '<div class="dpad"><button class="up" data-d="up">▲</button><button class="left" data-d="left">◀</button><button class="down" data-d="down">▼</button><button class="right" data-d="right">▶</button></div>';
-  var cv = document.getElementById('snkCv'), ctx = cv.getContext('2d');
+  var cv = document.getElementById('snkCv'); var ctx = gameCtx(cv, 340, 340);
   var N = 17, C = 20;
   var snake = [{x:8,y:9},{x:7,y:9},{x:6,y:9}], dir = {x:1,y:0}, pend = {x:1,y:0};
   var apple = null, score = 0, speed = 145, timer = null, dead = false;
@@ -5794,17 +5948,19 @@ function playSnake(stage, panel){
     if (!nd) return;
     if (nd.x === -dir.x && nd.y === -dir.y) return;
     pend = nd;
+    try { SFX.click(); } catch(_){}
   }
   function tick(){
     if (dead) return;
     dir = pend;
     var head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
     if (head.x < 0 || head.y < 0 || head.x >= N || head.y >= N || snake.some(function(p){ return p.x===head.x && p.y===head.y; })){
-      dead = true; draw(); setTimeout(function(){ gameOver(score); }, 250); return;
+      dead = true; try { SFX.explosion(); } catch(_){} draw(); setTimeout(function(){ gameOver(score); }, 250); return;
     }
     snake.unshift(head);
     if (head.x === apple.x && head.y === apple.y){
       score += 10; gameSetScore(score);
+      try { SFX.pop(); } catch(_){}
       speed = Math.max(70, speed - 4);
       placeApple();
     } else snake.pop();
@@ -5836,7 +5992,9 @@ function playSnake(stage, panel){
 
 /* ── 2048 ── */
 function play2048(stage, panel){
-  var BW = Math.min(330, Math.floor((stage.clientWidth || 330) * 0.94));
+  var _gsw = stage.clientWidth || 330, _gsh = stage.clientHeight || 0;
+  var BW = Math.floor(Math.min(520, _gsw * 0.96, _gsh > 0 ? _gsh * 0.96 : 520));
+  if (!(BW >= 200)) BW = Math.min(330, Math.floor(_gsw * 0.94));
   var GAP = 9, CELL = (BW - GAP*5) / 4;
   stage.innerHTML = '<div class="g2048-wrap"><div class="g2048-board" id="gBoard" style="width:' + BW + 'px;height:' + BW + 'px"></div></div>';
   panel.innerHTML = '<p style="text-align:center;color:#8A96B2;font-size:12px;margin:2px 0 0">Swipe or use the arrow keys — merge tiles to grow your score</p>';
@@ -5928,11 +6086,13 @@ function play2048(stage, panel){
       }
     });
     if (!moved){ busy = false; return; }
+    try { SFX.whoosh(); } catch(_){}
     setTimeout(function(){
       consumed.forEach(function(t){ t.el.remove(); });
       tiles = tiles.filter(function(t){ return consumed.indexOf(t) === -1; });
       tiles.forEach(function(t){ if (t.pendingVal){ t.val = t.pendingVal; delete t.pendingVal; t.el.classList.remove('new'); void t.el.offsetWidth; t.el.classList.add('new'); paint(t); } });
       score += gained; gameSetScore(score);
+      if (gained > 0){ try { SFX.pop(); } catch(_){} }
       spawn();
       busy = false;
       if (!canMove()){ over = true; setTimeout(function(){ gameOver(score); }, 300); }
@@ -5960,7 +6120,7 @@ function play2048(stage, panel){
 function playStack(stage, panel){
   stage.innerHTML = '<canvas class="game-canvas" id="stkCv" width="340" height="430"></canvas>';
   panel.innerHTML = '<button class="game-big-btn" id="stkDrop">⬇ DROP BLOCK</button>';
-  var cv = document.getElementById('stkCv'), ctx = cv.getContext('2d');
+  var cv = document.getElementById('stkCv'); var ctx = gameCtx(cv, 340, 430);
   var LH = 26, layers = [], cur = null, dir = 1, speed = 2.1, score = 0, raf = null, dead = false, combo = 0, flash = '';
   var baseW = 190;
   layers.push({ x:(340-baseW)/2, w:baseW });
@@ -6020,6 +6180,7 @@ function playStack(stage, panel){
     var overlap = right - left;
     if (overlap <= 0){
       dead = true;
+      try { SFX.bad(); } catch(_){}
       setTimeout(function(){ gameOver(score); }, 200);
       return;
     }
@@ -6027,7 +6188,8 @@ function playStack(stage, panel){
       cur.x = below.x; overlap = below.w; combo++;
       flash = combo > 1 ? 'PERFECT ×' + combo : 'PERFECT!';
       score += 2;
-    } else { combo = 0; flash = ''; score += 1; }
+      try { SFX.good(); } catch(_){}
+    } else { combo = 0; flash = ''; score += 1; try { SFX.pop(); } catch(_){} }
     layers.push({ x:left, w:overlap });
     gameSetScore(score);
     speed = Math.min(6.5, speed + 0.22);
@@ -6048,7 +6210,7 @@ function playStack(stage, panel){
 function playRacer(stage, panel){
   stage.innerHTML = '<canvas class="game-canvas" id="rcrCv" width="300" height="430"></canvas>';
   panel.innerHTML = '<div class="racer-controls"><button id="rcrL">◀</button><button id="rcrR">▶</button></div>';
-  var cv = document.getElementById('rcrCv'), ctx = cv.getContext('2d');
+  var cv = document.getElementById('rcrCv'); var ctx = gameCtx(cv, 300, 430);
   var LANES = [52, 150, 248], lane = 1, carX = LANES[1], enemies = [], dist = 0, speed = 3.4, tickN = 0, raf = null, dead = false;
   var CARW = 44, CARH = 74, playerY = 430 - CARH - 26;
   var ECOLORS = ['#F04438','#7C5CFF','#F79009','#12B76A','#EE46BC'];
@@ -6097,11 +6259,12 @@ function playRacer(stage, panel){
         enemies.push({ lane:l, x:LANES[l], y:-CARH - 10, color:ECOLORS[(Math.random()*ECOLORS.length)|0] });
     }
     enemies.forEach(function(e){ e.y += speed * 0.92; });
+    enemies.forEach(function(e){ if (!e.passed && e.y > playerY + CARH){ e.passed = true; try { SFX.whoosh(); } catch(_){} } });
     enemies = enemies.filter(function(e){ return e.y < 460; });
     for (var i=0;i<enemies.length;i++){
       var e = enemies[i];
       if (Math.abs(e.x - carX) < CARW - 8 && Math.abs((e.y + CARH/2) - (playerY + CARH/2)) < CARH - 14){
-        dead = true; draw();
+        dead = true; try { SFX.explosion(); } catch(_){} draw();
         setTimeout(function(){ gameOver(Math.floor(dist)); }, 300);
         return;
       }
@@ -6165,12 +6328,14 @@ function playMath(stage, panel){
     if (dead) return;
     if (v === answer){
       streak++;
+      try { SFX.good(); } catch(_){}
       score += 10 + (streak >= 3 ? 5 : 0);
       gameSetScore(score);
       btn.classList.add('right');
       setTimeout(gen, 130);
     } else {
       streak = 0;
+      try { SFX.bad(); } catch(_){}
       timeLeft = Math.max(0, timeLeft - 30);
       btn.classList.add('wrong');
       btn.disabled = true;
@@ -6184,6 +6349,7 @@ function playMath(stage, panel){
     fillEl.style.width = Math.max(0, timeLeft/3) + '%';
     if (timeLeft <= 0){
       dead = true; clearInterval(timer);
+      try { SFX.bad(); } catch(_){}
       gameOver(score);
     }
   }, 100);
@@ -6197,7 +6363,7 @@ function playFruit(stage, panel){
   panel.innerHTML = '<div class="fruit-hud"><span class="fruit-lives" id="fruitLives"></span>' +
     '<span class="fruit-best" id="fruitBest"></span></div>' +
     '<div class="game-hint">Swipe through the fruits to slice them — miss 3 and it\'s over!</div>';
-  var cv = document.getElementById('fruitCv'), ctx = cv.getContext('2d');
+  var cv = document.getElementById('fruitCv'); var ctx = gameCtx(cv, 340, 430);
   var W = 340, H = 430;
   var COLORS = ['#FF5252', '#FF9F1C', '#37D67A', '#FFD93B', '#9B5CFF', '#FF5C8A'];
   var fruits = [], halves = [], parts = [], trail = [];
@@ -6212,20 +6378,27 @@ function playFruit(stage, panel){
     var b = document.getElementById('fruitBest'); if (b) b.textContent = 'Best: ' + fmtNum(Math.max(best, score));
   }
   drawLives();
+  var FRUIT_KINDS = [
+    { name:'watermelon', color:'#3FA34D' }, { name:'orange', color:'#FF9F1C' },
+    { name:'lemon', color:'#FFD93B' }, { name:'apple', color:'#FF5252' },
+    { name:'pineapple', color:'#E8A33D' }
+  ];
   function spawn(){
-    var colors = COLORS[Math.floor(Math.random() * COLORS.length)];
+    var kind = FRUIT_KINDS[(Math.random() * FRUIT_KINDS.length) | 0];
     fruits.push({
       x: 40 + Math.random() * (W - 80), y: H + 30,
       vx: (Math.random() * 2 - 1) * 1.7, vy: -(10.6 + Math.random() * 3.1),
-      r: 17 + Math.random() * 8, color: colors,
+      r: 17 + Math.random() * 8, color: kind.color, kind: kind.name,
       ang: Math.random() * 6.28, va: (Math.random() * 2 - 1) * 0.05, sliced: false
     });
+    try { SFX.whoosh(); } catch(_){}
   }
   function sliceFruit(f){
     f.sliced = true;
     score++; gameSetScore(score); drawLives();
+    try { SFX.splat(); } catch(_){}
     for (var s = -1; s <= 1; s += 2){
-      halves.push({ x:f.x, y:f.y, vx:f.vx + s * 1.6, vy:f.vy * 0.45 + 0.5, r:f.r, color:f.color, ang:f.ang, va:f.va + s * 0.09, side:s, a:1 });
+      halves.push({ x:f.x, y:f.y, vx:f.vx + s * 1.6, vy:f.vy * 0.45 + 0.5, r:f.r, color:f.color, kind:f.kind, ang:f.ang, va:f.va + s * 0.09, side:s, a:1 });
     }
     for (var i = 0; i < 10; i++){
       parts.push({ x:f.x, y:f.y, vx:(Math.random() * 2 - 1) * 3.4, vy:(Math.random() * 2 - 1) * 3.4 - 1, r:2 + Math.random() * 3, color:f.color, a:1 });
@@ -6238,8 +6411,19 @@ function playFruit(stage, panel){
     var ex = x1 + t * dx - f.x, ey = y1 + t * dy - f.y;
     return (ex * ex + ey * ey) < f.r * f.r;
   }
+  function drawFruitPhoto(im, r){
+    var iw = im.naturalWidth || im.width, ih = im.naturalHeight || im.height;
+    if (!iw || !ih) return false;
+    ctx.save();
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, 6.29); ctx.clip();
+    var sc = (2 * r) / Math.min(iw, ih);
+    ctx.drawImage(im, -iw * sc / 2, -ih * sc / 2, iw * sc, ih * sc);
+    ctx.restore();
+    return true;
+  }
   function drawFruit(f){
     ctx.save(); ctx.translate(f.x, f.y); ctx.rotate(f.ang);
+    if (f.kind && GAME_ART.fruitImgs[f.kind] && drawFruitPhoto(GAME_ART.fruitImgs[f.kind], f.r)){ ctx.restore(); return; }
     ctx.beginPath(); ctx.arc(0, 0, f.r, 0, 6.29); ctx.fillStyle = f.color; ctx.fill();
     ctx.beginPath(); ctx.arc(-f.r * 0.32, -f.r * 0.34, f.r * 0.30, 0, 6.29);
     ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fill();
@@ -6254,6 +6438,13 @@ function playFruit(stage, panel){
     var interval = Math.max(34, 52 - Math.floor(elapsed / 300) * 3);
     if (spawnT <= 0){ spawn(); spawnT = interval + Math.random() * 14; }
     ctx.clearRect(0, 0, W, H);
+    if (GAME_ART.wood && drawCoverImg(ctx, GAME_ART.wood, W, H)){
+      ctx.fillStyle = 'rgba(24,12,4,.20)'; ctx.fillRect(0, 0, W, H);
+    } else {
+      var wg = ctx.createLinearGradient(0, 0, 0, H);
+      wg.addColorStop(0, '#2A1A12'); wg.addColorStop(1, '#17100B');
+      ctx.fillStyle = wg; ctx.fillRect(0, 0, W, H);
+    }
     var i, f;
     for (i = fruits.length - 1; i >= 0; i--){
       f = fruits[i];
@@ -6264,6 +6455,7 @@ function playFruit(stage, panel){
         fruits.splice(i, 1);
         if (!f.sliced){
           misses++; drawLives();
+          try { SFX.bad(); } catch(_){}
           if (misses >= 3){
             dead = true;
             if (score > best){ try { localStorage.setItem('lux_fruit_best', String(score)); } catch(_){} }
@@ -6280,9 +6472,19 @@ function playFruit(stage, panel){
       h.x += h.vx; h.y += h.vy; h.vy += 0.3; h.ang += h.va; h.a -= 0.012;
       if (h.y > H + 40 || h.a <= 0){ halves.splice(i, 1); continue; }
       ctx.save(); ctx.translate(h.x, h.y); ctx.rotate(h.ang); ctx.globalAlpha = Math.max(0, h.a);
-      ctx.beginPath(); ctx.arc(0, 0, h.r, h.side > 0 ? 0.3 : 3.44, h.side > 0 ? 3.44 : 6.58); ctx.closePath();
-      ctx.fillStyle = h.color; ctx.fill();
-      ctx.beginPath(); ctx.arc(0, 0, h.r * 0.62, h.side > 0 ? 0.3 : 3.44, h.side > 0 ? 3.44 : 6.58); ctx.closePath();
+      var him = (h.kind && GAME_ART.fruitImgs[h.kind]) || null;
+      var a0 = h.side > 0 ? 0.3 : 3.44, a1 = h.side > 0 ? 3.44 : 6.58;
+      if (him){
+        var hiw = him.naturalWidth || him.width, hih = him.naturalHeight || him.height;
+        ctx.save();
+        ctx.beginPath(); ctx.arc(0, 0, h.r, a0, a1); ctx.closePath(); ctx.clip();
+        if (hiw && hih){ var hsc = (2 * h.r) / Math.min(hiw, hih); ctx.drawImage(him, -hiw * hsc / 2, -hih * hsc / 2, hiw * hsc, hih * hsc); }
+        ctx.restore();
+      } else {
+        ctx.beginPath(); ctx.arc(0, 0, h.r, a0, a1); ctx.closePath();
+        ctx.fillStyle = h.color; ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(0, 0, h.r * 0.62, a0, a1); ctx.closePath();
       ctx.fillStyle = 'rgba(255,255,255,.55)'; ctx.fill();
       ctx.restore(); ctx.globalAlpha = 1;
     }
@@ -6344,7 +6546,7 @@ function playSpace(stage, panel){
     '<span class="space-right"><span class="space-coins" id="spaceCoins">🪙 0</span><button class="space-pause" id="spacePauseBtn" type="button">⏸</button></span></div>' +
     '<div class="space-sub"><span class="space-pills" id="spacePills"></span><span class="space-best" id="spaceBest"></span></div>' +
     '<div class="game-hint">Drag to steer — your rocket fires on its own. Grab the 🛡 Shield and ⚡ Triple Shot drops!</div>';
-  var cv = document.getElementById('spaceCv'), ctx = cv.getContext('2d');
+  var cv = document.getElementById('spaceCv'); var ctx = gameCtx(cv, 340, 430);
   var W = 340, H = 430;
   var ship = { x: W / 2, y: H - 54, tx: W / 2, ty: H - 54 };
   var bullets = [], enemies = [], parts = [], floats = [], drops = [], stars = [];
@@ -6370,7 +6572,9 @@ function playSpace(stage, panel){
   function burst(x, y, colors, n, spd){
     for (var i = 0; i < n; i++) parts.push({ x: x, y: y, vx: (Math.random() * 2 - 1) * spd, vy: (Math.random() * 2 - 1) * spd, r: 1.6 + Math.random() * 2.6, color: colors[i % colors.length], a: 1 });
   }
+  var sfxFireAlt = false;
   function fire(){
+    sfxFireAlt = !sfxFireAlt; if (sfxFireAlt){ try { SFX.laser(); } catch(_){} }
     bullets.push({ x: ship.x, y: ship.y - 24, vx: 0, vy: -9.5 });
     if (tripleT > 0){
       bullets.push({ x: ship.x - 6, y: ship.y - 18, vx: -1.7, vy: -9 });
@@ -6398,17 +6602,20 @@ function playSpace(stage, panel){
     score += pts; gameSetScore(score);
     floats.push({ x: e.x, y: e.y, txt: '+' + pts, a: 1, color: '#FFD93B' });
     burst(e.x, e.y, ['#FFD93B', '#FF9F1C', '#FFF3B0'], 8, 3);
+    try { SFX.explosion(); SFX.coin(); } catch(_){}
     if (Math.random() < 0.12) drops.push({ x: e.x, y: e.y, type: Math.random() < 0.5 ? 'shield' : 'triple', vy: 1.7 });
     updateHud();
   }
   function hurt(){
     if (shield){
       shield = false; pillCache = '__';
+      try { SFX.bad(); } catch(_){}
       floats.push({ x: ship.x, y: ship.y - 32, txt: 'SHIELD DOWN', a: 1, color: '#4DD8FF' });
       updateHud();
       return;
     }
     hearts--; streak = 0; mult = 1;
+    try { SFX.explosion(); } catch(_){}
     burst(ship.x, ship.y, ['#FF5252', '#FF9F1C', '#FFFFFF'], 10, 3.4);
     updateHud();
     try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback) Telegram.WebApp.HapticFeedback.impactOccurred('medium'); } catch(_){}
@@ -6421,7 +6628,7 @@ function playSpace(stage, panel){
   function step(){
     elapsed++;
     var w = 1 + Math.floor(elapsed / 1200);
-    if (w !== wave){ wave = w; var we = document.getElementById('spaceWave'); if (we) we.textContent = 'W' + wave; }
+    if (w !== wave){ wave = w; var we = document.getElementById('spaceWave'); if (we) we.textContent = 'W' + wave; try { SFX.good(); } catch(_){} }
     if (tripleT > 0){ tripleT--; if (tripleT === 0){ pillCache = '__'; updateHud(); } }
     ship.x += (ship.tx - ship.x) * 0.35;
     ship.y += (ship.ty - ship.y) * 0.35;
@@ -6463,6 +6670,7 @@ function playSpace(stage, panel){
         if (d.type === 'shield'){ shield = true; floats.push({ x: ship.x, y: ship.y - 32, txt: 'SHIELD!', a: 1, color: '#4DD8FF' }); }
         else { tripleT = 600; floats.push({ x: ship.x, y: ship.y - 32, txt: 'TRIPLE SHOT!', a: 1, color: '#FFD93B' }); }
         pillCache = '__'; updateHud();
+        try { SFX.good(); } catch(_){}
         drops.splice(i, 1);
       }
     }
@@ -6527,10 +6735,14 @@ function playSpace(stage, panel){
     ctx.restore();
   }
   function draw(){
-    ctx.fillStyle = '#0B1030'; ctx.fillRect(0, 0, W, H);
-    ctx.beginPath(); ctx.arc(W - 56, 62, 42, 0, 6.29); ctx.fillStyle = 'rgba(124,92,255,.18)'; ctx.fill();
-    ctx.beginPath(); ctx.ellipse(W - 56, 62, 66, 16, -0.32, 0, 6.29); ctx.strokeStyle = 'rgba(185,168,255,.30)'; ctx.lineWidth = 5; ctx.stroke();
-    ctx.beginPath(); ctx.arc(38, 48, 10, 0, 6.29); ctx.fillStyle = 'rgba(255,255,255,.10)'; ctx.fill();
+    if (GAME_ART.spaceBg && drawCoverImg(ctx, GAME_ART.spaceBg, W, H)){
+      ctx.fillStyle = 'rgba(5,6,20,.28)'; ctx.fillRect(0, 0, W, H);
+    } else {
+      ctx.fillStyle = '#0B1030'; ctx.fillRect(0, 0, W, H);
+      ctx.beginPath(); ctx.arc(W - 56, 62, 42, 0, 6.29); ctx.fillStyle = 'rgba(124,92,255,.18)'; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(W - 56, 62, 66, 16, -0.32, 0, 6.29); ctx.strokeStyle = 'rgba(185,168,255,.30)'; ctx.lineWidth = 5; ctx.stroke();
+      ctx.beginPath(); ctx.arc(38, 48, 10, 0, 6.29); ctx.fillStyle = 'rgba(255,255,255,.10)'; ctx.fill();
+    }
     var i, e, b, d;
     for (i = 0; i < stars.length; i++){ var st = stars[i]; ctx.globalAlpha = 0.35 + st.s * 0.4; ctx.fillStyle = '#FFFFFF'; ctx.fillRect(st.x, st.y, st.r, st.r); }
     ctx.globalAlpha = 1;
@@ -6623,6 +6835,7 @@ function playSpace(stage, panel){
       <div class="game-score" id="gameScore">0</div>
     </div>
     <div class="game-reward-chip"><img src="assets/coin.png" alt=""><span id="gameRewardEst">+0</span></div>
+    <button class="game-close" id="gameMuteBtn" type="button" onclick="SFX.toggleMute(this)" aria-label="Toggle sound">🔊</button>
   </div>
   <div class="game-stage" id="gameStage"></div>
   <div class="game-panel" id="gamePanel"></div>
