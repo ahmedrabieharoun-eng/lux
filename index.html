@@ -2347,6 +2347,152 @@ body{
 .page{padding-bottom:140px !important}
 
 
+/* ═══ LUX v7.1 — official AD VOLT logo + animated yellow-thunder cards ═══
+   Owner round (2026-11-06): the supplied logo (gold bolts + AdVOLT wordmark
+   on baked black) becomes the brand face; every card surface WITHOUT art
+   gets an animated YELLOW LIGHTNING background (blue thunder stays in the
+   art/pages character). Thunder = solid near-black base on the card +
+   a ::after layer of 3 gold bolt glyphs (SVG), slow drift + flicker.
+   Contrast contract: worst-case text pixel = base #121215 blended with
+   bolt gold #FFC400 at effective alpha .40 (layer peak opacity .5 x bolt
+   fill .8) — asserted >= 2:1 for the faintest card text in the suites. */
+/* — official logo plates: pure-black plate, so the baked black art
+   background meets #000 and no seam can show — */
+.loading-logo{display:block;width:min(62vw,232px);height:auto;margin:0 auto;background:#000;border:1px solid rgba(255, 196, 0, .35);border-radius:24px;box-shadow:0 18px 44px -14px rgba(0, 0, 0, .85),0 0 34px -6px rgba(255, 196, 0, .45)}
+.dogs-hero-logo{display:block;width:min(56vw,204px);height:auto;background:#000;border:1px solid rgba(255, 196, 0, .35);border-radius:20px;box-shadow:0 14px 34px -12px rgba(0, 0, 0, .85),0 0 26px -6px rgba(255, 196, 0, .5)}
+/* — thunder card base: one solid near-black, lifted off the page #070708 — */
+.mine-ton-card,
+.bonus-card,
+.redeem-card,
+.wheel-card-btn,
+.quick-tile,
+.stat-card,
+.task-item,
+.add-task-btn,
+.price-box,
+.ref-link-box,
+.rr-tile,
+.rr-claim-card,
+.rr-box,
+.rr-card,
+.rr-stat-box,
+.how-step,
+.rf2-wrap,
+.arc-stat,
+.store-pack-card,
+.wallet-form-card,
+.wl-card,
+.convert-box,
+.dep-steps,
+.profile-menu,
+.profile-balance-tile,
+.lang-item,
+.tx-item,
+.wheel-info-banner,
+.combo-attempts-card,
+.combo-info-card,
+.modal,
+.ct-modal,
+.wg-card,
+.forcesub-card,
+.ban-card,
+.ban-item,
+.forcesub-item{
+  position:relative !important;
+  background-color:#121215 !important;background-image:none !important;
+}
+/* — thunder layer: 3 gold bolts, glow, drift + flicker (opacity/transform) — */
+.mine-ton-card::after,
+.bonus-card::after,
+.redeem-card::after,
+.wheel-card-btn::after,
+.quick-tile::after,
+.stat-card::after,
+.task-item::after,
+.add-task-btn::after,
+.price-box::after,
+.ref-link-box::after,
+.rr-tile::after,
+.rr-claim-card::after,
+.rr-box::after,
+.rr-card::after,
+.rr-stat-box::after,
+.how-step::after,
+.rf2-wrap::after,
+.arc-stat::after,
+.store-pack-card::after,
+.wallet-form-card::after,
+.wl-card::after,
+.convert-box::after,
+.dep-steps::after,
+.profile-menu::after,
+.profile-balance-tile::after,
+.lang-item::after,
+.tx-item::after,
+.wheel-info-banner::after,
+.combo-attempts-card::after,
+.combo-info-card::after,
+.modal::after,
+.ct-modal::after,
+.wg-card::after,
+.forcesub-card::after,
+.ban-card::after,
+.ban-item::after,
+.forcesub-item::after{
+  content:'' !important;position:absolute !important;inset:0 !important;
+  width:auto !important;height:auto !important;left:0 !important;top:0 !important;
+  border-radius:inherit;pointer-events:none !important;transform:none;
+  background-image:url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20120%27%3E%3Cpath%20d%3D%27M60%202%20L18%2068%20L42%2068%20L30%20118%20L84%2044%20L56%2044%20Z%27%20fill%3D%27%23FFC400%27%20fill-opacity%3D%270.8%27%2F%3E%3C%2Fsvg%3E"),url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20120%27%3E%3Cg%20transform%3D%22translate%28100%200%29%20scale%28-1%201%29%22%3E%3Cpath%20d%3D%27M60%202%20L18%2068%20L42%2068%20L30%20118%20L84%2044%20L56%2044%20Z%27%20fill%3D%27%23FFC400%27%20fill-opacity%3D%270.5%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20120%27%3E%3Cpath%20d%3D%27M60%202%20L18%2068%20L42%2068%20L30%20118%20L84%2044%20L56%2044%20Z%27%20fill%3D%27%23FFC400%27%20fill-opacity%3D%270.38%27%2F%3E%3C%2Fsvg%3E");
+  background-repeat:no-repeat;
+  background-size:58px auto,38px auto,24px auto;
+  background-position:88% 14%,5% 84%,20% 6%;
+  filter:drop-shadow(0 0 7px rgba(255, 196, 0, .55));
+  opacity:.4;animation:voltDrift 11s ease-in-out infinite alternate,voltPulse 7.5s linear infinite;
+}
+.quick-tile::after,.rr-tile::after,.tx-item::after{animation-delay:-2.5s,-3.5s}
+.modal::after,.wallet-form-card::after,.profile-menu::after{animation-delay:-5s,-1.5s}
+@keyframes voltDrift{from{transform:translate3d(-2px,1px,0)}to{transform:translate3d(2px,-1px,0)}}
+@keyframes voltPulse{0%,100%{opacity:.30}7%{opacity:.5}11%{opacity:.36}44%{opacity:.42}50%{opacity:.5}56%{opacity:.38}78%{opacity:.46}}
+@media (prefers-reduced-motion:reduce){
+  .mine-ton-card::after,
+.bonus-card::after,
+.redeem-card::after,
+.wheel-card-btn::after,
+.quick-tile::after,
+.stat-card::after,
+.task-item::after,
+.add-task-btn::after,
+.price-box::after,
+.ref-link-box::after,
+.rr-tile::after,
+.rr-claim-card::after,
+.rr-box::after,
+.rr-card::after,
+.rr-stat-box::after,
+.how-step::after,
+.rf2-wrap::after,
+.arc-stat::after,
+.store-pack-card::after,
+.wallet-form-card::after,
+.wl-card::after,
+.convert-box::after,
+.dep-steps::after,
+.profile-menu::after,
+.profile-balance-tile::after,
+.lang-item::after,
+.tx-item::after,
+.wheel-info-banner::after,
+.combo-attempts-card::after,
+.combo-info-card::after,
+.modal::after,
+.ct-modal::after,
+.wg-card::after,
+.forcesub-card::after,
+.ban-card::after,
+.ban-item::after,
+.forcesub-item::after{animation:none !important;opacity:.38}
+}
+
 </style>
 </head>
 <body>
@@ -2356,8 +2502,7 @@ body{
 <!-- Loading -->
 <div class="loading-screen" id="loadingScreen">
   <div class="loading-panel">
-    <img class="loading-coin" src="assets/volt_coin.png" alt="AD VOLT" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2247%22 fill=%22%23111316%22/><circle cx=%2250%22 cy=%2250%22 r=%2243%22 fill=%22none%22 stroke=%22%23FFC400%22 stroke-width=%222%22/><path d=%22M55 10 L26 57 L45 57 L38 90 L76 39 L55 39 Z%22 fill=%22%23FFC400%22/></svg>'">
-    <div class="loading-word">AD VOLT</div>
+    <img class="loading-logo" src="assets/advolt_logo.png" alt="AD VOLT">
     <div class="loading-sub">FEEL THE THUNDER</div>
     <div class="loading-label">AD VOLT IS CHARGING<span class="ld-dot">.</span><span class="ld-dot">.</span><span class="ld-dot">.</span></div>
     <div class="ld-bar">
@@ -2446,7 +2591,7 @@ body{
       <img class="dogs-hero-img" src="assets/volt_hero.png" alt="" onerror="this.parentNode.classList.add('art-missing');this.remove()">
       <div class="dogs-hero-scrim"></div>
       <div class="dogs-hero-top">
-        <div class="dogs-hero-name">AD VOLT</div>
+        <img class="dogs-hero-logo" src="assets/advolt_logo.png" alt="AD VOLT">
         <div class="dogs-hero-tag">FEEL THE THUNDER · EARN THE CHARGE</div>
       </div>
       <div class="dogs-hero-balance">
