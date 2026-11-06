@@ -17,7 +17,6 @@
 <script src="https://sad.adsgram.ai/js/sad.min.js" async></script>
 <script src="https://ad.gigapub.tech/script?id=8362" async></script>
 <script src="https://adloopnetwork.com/adloop.js?sid=SITE-YLLT9NDRKK" async></script>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
@@ -2622,12 +2621,64 @@ body{
 .ct-bar i{background:linear-gradient(90deg,#FFC400,#2E7CF6) !important}
 .ctp-big.g1{background:linear-gradient(160deg,#3A2A05,#171205) !important;border:1px solid rgba(255,196,0,.45) !important}
 .ctp-big.g2{background:linear-gradient(160deg,#26262B,#121215) !important;border:1px solid rgba(255,255,255,.3) !important}
-.ctp-big.g3{background:linear-gradient(160deg,#33200F,#140C05) !important;border:1px solid rgba(
+.ctp-big.g3{background:linear-gradient(160deg,#33200F,#140C05) !important;border:1px solid rgba(217,119,6,.6) !important}
 
-/* ═══ LUX v7.3 — Space Shooter ◀ ▶ hold buttons (owner order) ═══ */
-.space-nav{position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:space-between;padding:0 20px;pointer-events:none;z-index:6}
-.space-nav-btn{pointer-events:auto;width:62px;height:62px;border-radius:50%;background:rgba(11,30,62,.55);border:1px solid rgba(255,196,0,.55);color:#FFC400;font-size:23px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:none;user-select:none;-webkit-user-select:none}
-.space-nav-btn:active{background:rgba(255,196,0,.4);color:#FFFFFF}
+/* ═══ LUX v7.4 — owner fixes 2026-11-07 ═══ */
+/* — games: the screen stays put while playing (no scroll / pull) — */
+html,body{overscroll-behavior:none}
+canvas.game-canvas{touch-action:none}
+/* — Space Shooter: the v7.3 round overlay buttons are gone; the game now
+     uses the big Lane Racer control bar under the HUD (see playSpace) — */
+.space-nav{display:none !important}
+/* — white cards -> dark + gold edge, "same color as the cards" (owner) — */
+/* home Earn / Withdraw */
+.home-action.earn,.home-action.wd{background:#121215 !important;color:#FFDE59 !important;border:1px solid rgba(255,196,0,.38) !important;box-shadow:none !important}
+.home-action.wd .home-action-sub,.home-action.earn .home-action-sub{color:#9A9AA2 !important}
+.home-action.wd .ha-ico{background:rgba(255,196,0,.12) !important;color:#FFC400 !important}
+/* referrals: share CTA + link box match the cards */
+#page-refs .dogs-cta{background:#121215 !important;border:1px solid rgba(255,196,0,.38) !important;color:#FFDE59 !important;box-shadow:none !important}
+#page-refs .ref-link-url{background:#121215 !important;border:1px solid rgba(255,196,0,.38) !important;color:#FFE9A8 !important}
+/* contest / ranking page */
+.ct-me{background:#121215 !important;border:1px solid rgba(255,196,0,.38) !important;border-radius:20px !important;box-shadow:none !important;color:#fff !important}
+.ct-me-name{color:#fff !important}
+.ct-me-sub{color:#9A9AA2 !important}
+.ct-me-rank{background:rgba(255,196,0,.12) !important;border:1px solid rgba(255,196,0,.3) !important}
+.ct-me-rank b{color:#FFDE59 !important}
+.ct-me-rank span{color:#9A9AA2 !important}
+.ct-av{background:#1B1B1F !important;color:#FFDE59 !important;border:1px solid rgba(255,196,0,.35) !important;box-shadow:none !important}
+.ct-row{background:#121215 !important;border:1px solid rgba(255,196,0,.38) !important;border-radius:16px !important;color:#fff !important;box-shadow:none !important}
+.ct-row.r1{background:#121215 !important;border-color:rgba(255,196,0,.6) !important}
+.ct-row-name{color:#fff !important}
+.ct-row-cnt{color:#9A9AA2 !important}
+.ct-pos{color:#9A9AA2 !important}
+.ct-bar{background:rgba(255,255,255,.08) !important}
+.ct-row-prize{color:#FFDE59 !important;background:rgba(255,196,0,.12) !important;border:1px solid rgba(255,196,0,.3) !important}
+.ct-row-prize.none{background:transparent !important;color:#6E6E76 !important;border:none !important}
+.ct-you{background:#FFC400 !important;color:#141416 !important}
+.ctp-big{background:#121215 !important;border:1px solid rgba(255,196,0,.38) !important;border-radius:18px !important;box-shadow:none !important}
+.ctp-big.g1{background:#121215 !important;border-color:rgba(255,196,0,.65) !important}
+.ctp-big.g2{background:#121215 !important;border-color:rgba(255,255,255,.35) !important}
+.ctp-big.g3{background:#121215 !important;border-color:rgba(216,154,91,.6) !important}
+.ctp-amt{color:#fff !important}
+.ctp-big.g1 .ctp-amt{color:#FFDE59 !important}
+.ctp-lbl{color:#9A9AA2 !important}
+.ctp-chip{background:#121215 !important;border:1px solid rgba(255,196,0,.38) !important}
+.ctp-chip span{color:#9A9AA2 !important}
+.ctp-chip b{color:#fff !important}
+.ct-help{background:#121215 !important;border:1px solid rgba(255,196,0,.38) !important;color:#FFDE59 !important;box-shadow:none !important}
+.ct-sheet{background:#121215 !important;color:#fff !important;border:1px solid rgba(255,196,0,.25) !important}
+.ct-sheet h3{color:#fff !important}
+.ct-sheet-sub{color:#9A9AA2 !important}
+.ct-step{background:#121215 !important;border:1px solid rgba(255,196,0,.38) !important}
+.ct-step-t{color:#E8E8EC !important}
+.ct-step-t b{color:#FFDE59 !important}
+#ctPrizes:empty::after,#adPrizes:empty::after{background:#121215 !important;border:1.5px dashed rgba(255,196,0,.38) !important;color:#9A9AA2 !important}
+.pd-name{color:#fff !important}
+.pd-cnt{color:#9A9AA2 !important}
+.pd-prize{color:#FFDE59 !important;background:rgba(255,196,0,.12) !important;border:1px solid rgba(255,196,0,.3) !important}
+.ct-title{-webkit-text-fill-color:#fff !important;color:#fff !important}
+.ct-sub{color:#9A9AA2 !important}
+.ct-sec{color:#FFDE59 !important}
 </style>
 </head>
 <body>
@@ -3379,16 +3430,6 @@ body{
   </div>
 </div>
 
-<!-- Security Captcha Modal (Cloudflare Turnstile) — shown ONCE when the bot is opened; mandatory, cannot be dismissed -->
-<div class="modal-overlay" id="captchaModal" style="z-index:1100">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title">🔒 Security Check</div>
-    <div class="modal-desc">Please complete this quick one-time verification to continue using the bot.</div>
-    <div id="captchaWidgetBox" style="display:flex;justify-content:center;min-height:65px;margin:16px 0;"></div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <!-- WITHDRAW GATE: shown when the admin forces a package purchase before withdrawing -->
@@ -3686,7 +3727,7 @@ var selectedTaskCategory = 'channels';
 
 // Daily Combo items — key must match the server's COMBO_EMOJI_POOL keys exactly
 // Default settings for the lucky wheel (used only if the server hasn't sent them yet)
-var WHEEL_DEFAULT_SEGMENTS = [100,500,0,1000,250,2000,5000,10000];
+var WHEEL_DEFAULT_SEGMENTS = [100,500,50,1000,250,2000,5000,10000]; // v7.4: was 0 — now 50
 var wheelRotation = 0;
 var wheelSpinning = false;
 
@@ -3723,7 +3764,7 @@ var ADSGRAM_TASK_BLOCK_ID = 'int-52358';  // block used by the Complete Task (ve
 var adsgramWatchBusy = false;
 var adsgramCooldownUntil = 0;
 var adsgramTimerId = null;
-var adGateBusy = false;            // one mandatory-ad flow at a time
+// v7.4: the busy flag went away with the mandatory ad gate.
 var AD_AFTER_DELAY_MS = 2000;      // pause after the ad ends, before the request is sent
 
 // ── GigaPub ───────────────────────────────────────────────────────────
@@ -3786,7 +3827,7 @@ startLoadingProgress();
     if (window.Telegram && window.Telegram.WebApp){
       if (iv) clearInterval(iv);
       S.inTelegram = true;
-      try { Telegram.WebApp.ready(); Telegram.WebApp.expand(); } catch(_){}
+      try { Telegram.WebApp.ready(); Telegram.WebApp.expand(); if (Telegram.WebApp.disableVerticalSwipes) Telegram.WebApp.disableVerticalSwipes(); } catch(_){}
       S.initData = Telegram.WebApp.initData || '';
       S.startParam = getTelegramStartParam();
       loadState();
@@ -3820,79 +3861,8 @@ function startHeartbeat(){
 
 // ── API ──────────────────────────────────────────────────────────────
 // The new worker.js routes requests via the path: POST /getState, POST /verifyTask ...
-// ── Cloudflare Turnstile (Captcha) — ONE-TIME session captcha ───────────
-// The captcha is shown once when the bot is opened. Until it is solved the
-// server rejects every request with {requiresCaptcha:true, captchaSession:true};
-// api() catches that, shows the (non-dismissible) modal, calls /verifyCaptcha,
-// then transparently retries the original request. After that there is no
-// captcha anywhere else (ads, mining, daily bonus, combo, tasks...).
-var TURNSTILE_SITE_KEY = '0x4AAAAAACOf6mYyukJx5XVy';
-var captchaWidgetId = null;
-var captchaResolve = null;
-var _captchaSessionPromise = null;
-
-function openCaptchaModal(){
-  return new Promise(function(resolve){
-    captchaResolve = resolve;
-    openModal('captchaModal');
-    renderCaptchaWidget();
-  });
-}
-
-function renderCaptchaWidget(){
-  var box = document.getElementById('captchaWidgetBox');
-  if (!box) return;
-  if (typeof turnstile === 'undefined' || !turnstile.render){
-    // Turnstile's script may still be loading (it's included with defer).
-    setTimeout(renderCaptchaWidget, 300);
-    return;
-  }
-  if (captchaWidgetId !== null){
-    try { turnstile.remove(captchaWidgetId); } catch(_){}
-    captchaWidgetId = null;
-  }
-  box.innerHTML = '';
-  captchaWidgetId = turnstile.render(box, {
-    sitekey: TURNSTILE_SITE_KEY,
-    theme: 'dark',
-    action: 'session_verify',
-    callback: function(token){
-      var resolve = captchaResolve;
-      captchaResolve = null;
-      closeModal('captchaModal');
-      if (resolve) resolve(token);
-    },
-    'error-callback': function(){
-      showToast('Verification failed, please try again','error');
-    },
-    'expired-callback': function(){
-      if (captchaWidgetId !== null) turnstile.reset(captchaWidgetId);
-    }
-  });
-}
-
-// Solves the captcha and registers the session on the server. Mandatory: it
-// keeps asking until the server accepts the token. Concurrent callers share
-// the same promise so only one modal is ever shown.
-function ensureCaptchaSession(){
-  if (_captchaSessionPromise) return _captchaSessionPromise;
-  _captchaSessionPromise = new Promise(function(resolve){
-    (function attempt(){
-      openCaptchaModal().then(function(token){
-        return _apiRaw('verifyCaptcha', { turnstileToken: token });
-      }).then(function(res){
-        if (res && res.success){ resolve(true); return; }
-        if (res && res.blocked){ resolve(false); return; }
-        showToast((res && res.error && !res.requiresCaptcha) ? res.error : 'Verification failed, please try again','error');
-        attempt();
-      }).catch(function(){
-        showToast('Connection problem, please try again','error');
-        setTimeout(attempt, 1500);
-      });
-    })();
-  }).then(function(v){ _captchaSessionPromise = null; return v; });
-  return _captchaSessionPromise;
-}
+// ── Captcha REMOVED in v7.4 (owner order 2026-11-07): no Turnstile,
+// no session gate — api() talks to the worker directly.
 
 // Kept as a thin alias so older call sites keep working: there is no
 // per-action captcha anymore, the one-time session captcha is handled in api().
@@ -4055,13 +4025,7 @@ async function _apiRaw(action, data){
 // been solved yet (first request after opening the bot, or after a server
 // restart), solve it and retry the same request once.
 async function api(action, data){
-  var res = await _apiRaw(action, data);
-  if (res && res.captchaSession && action !== 'verifyCaptcha'){
-    var okSession = await ensureCaptchaSession();
-    if (!okSession) return res;
-    res = await _apiRaw(action, data);
-  }
-  return res;
+  return _apiRaw(action, data);
 }
 
 // ── Load state ───────────────────────────────────────────────────────
@@ -4352,32 +4316,10 @@ function render(){
    renderWheelInfo();
 }
 
-// ── Shared: require a completed AdsGram ad view before running an action ──
-function watchAdThen(gate, onSuccess, onFail, blockId, minWatchMs){
-  if (adGateBusy) return;
-  var controller = ensureAdsgramInit(blockId);
-  if (!controller){ showToast('Ad loading, try again','error'); if (onFail) onFail(); return; }
-  adGateBusy = true;
-  function fail(msg){ adGateBusy = false; showToast(msg || 'Ad was not completed','error'); if (onFail) onFail(); }
-  // 1) ask the server for a single-use ad ticket BEFORE the ad starts
-  api('adGateStart', { gate:gate }).then(function(tk){
-    if (!tk || !tk.success){ fail((tk && tk.error) || 'Ad unavailable, try again'); return; }
-    var ticket = tk.data.gate;
-    // 2) show the ad; show() only resolves when the user watched it to the end
-    var shownAt = Date.now();
-    controller.show().then(function(result){
-      if (result && result.done === false){ fail('Watch the full ad to continue'); return; }
-      // Optional minimum watch time: closing/skipping the ad early = no reward
-      if (minWatchMs && (Date.now() - shownAt) < minWatchMs){
-        fail('Watch the full ad (' + Math.round(minWatchMs/1000) + 's) to earn'); return;
-      }
-      // 3) wait AD_AFTER_DELAY_MS after the ad ended, then run the real request
-      setTimeout(function(){ adGateBusy = false; onSuccess(ticket); }, AD_AFTER_DELAY_MS);
-    }).catch(function(err){
-      fail((err && (err.description || err.message)) || 'Watch the full ad to continue');
-    });
-  }).catch(function(){ fail('Network error'); });
-}
+// ── v7.4: the mandatory AdsGram gate is REMOVED (owner order 2026-11-07).
+// Daily bonus, redeem code, task verify and withdrawals call the API
+// directly — no forced ad before any action. (Voluntary rewarded ads
+// in the Tasks → Ads tab are untouched.)
 
 function syncDailyBonusUI(){
   var d = S.data || {};
@@ -4393,20 +4335,17 @@ function syncDailyBonusUI(){
 function claimDailyBonus(){
   var btn = document.getElementById('dailyBonusBtn');
   if (!btn || btn.disabled) return;
-  btn.disabled = true; btn.textContent = '📺 Watch Ad...';
-  watchAdThen('claimDailyBonus', function(ticket){
-    btn.textContent = '...';
-    apiCaptcha('claimDailyBonus', { adGate:ticket }).then(function(res){
-      if (!res.success){ btn.disabled=false; btn.textContent='Claim'; showToast(res.error||'Could not claim bonus','error'); return; }
-      S.user.balance = res.data.shibaBalance;
-      updateCrystalTonValueDisplays();
-      S.data.daily = S.data.daily || {};
-      S.data.daily.claimed = true;
-      document.getElementById('homeTon').textContent = fmtShiba(S.user.balance);
-      btn.textContent = 'Claimed';
-      showToast('+'+fmtShiba(res.data.shibaAdded)+' AD VOLT added 🎉', null, true);
-    }).catch(function(){ btn.disabled=false; btn.textContent='Claim'; showToast('Network error','error'); });
-  }, function(){ btn.disabled=false; btn.textContent='Claim'; });
+  btn.disabled = true; btn.textContent = '...';
+  api('claimDailyBonus', {}).then(function(res){
+    if (!res.success){ btn.disabled=false; btn.textContent='Claim'; showToast(res.error||'Could not claim bonus','error'); return; }
+    S.user.balance = res.data.shibaBalance;
+    updateCrystalTonValueDisplays();
+    S.data.daily = S.data.daily || {};
+    S.data.daily.claimed = true;
+    document.getElementById('homeTon').textContent = fmtShiba(S.user.balance);
+    btn.textContent = 'Claimed';
+    showToast('+'+fmtShiba(res.data.shibaAdded)+' AD VOLT added 🎉', null, true);
+  }).catch(function(){ btn.disabled=false; btn.textContent='Claim'; showToast('Network error','error'); });
 }
 
 function redeemCode(){
@@ -4415,20 +4354,17 @@ function redeemCode(){
   var code = (input.value||'').trim();
   if (!code){ showToast('Enter a redeem code','error'); return; }
   if (btn.disabled) return;
-  btn.disabled=true; btn.textContent='📺 Watch Ad...';
-  watchAdThen('redeemCode', function(ticket){
-    btn.textContent='Checking...';
-    api('redeemCode', { code:code, adGate:ticket }).then(function(res){
-      btn.disabled=false; btn.textContent='Redeem Reward';
-      if (!res.success){ showToast(res.error||'Invalid code','error'); return; }
-      S.user.balance = res.data.shibaBalance;
-      updateCrystalTonValueDisplays();
-      document.getElementById('homeTon').textContent = fmtShiba(S.user.balance);
-      input.value='';
-      closeModal('redeemModal');
-      showToast('+'+fmtShiba(res.data.shibaAdded)+' AD VOLT added 🎉', null, true);
-    }).catch(function(){ btn.disabled=false; btn.textContent='Redeem Reward'; showToast('Network error','error'); });
-  }, function(){ btn.disabled=false; btn.textContent='Redeem Reward'; });
+  btn.disabled=true; btn.textContent='Checking...';
+  api('redeemCode', { code:code }).then(function(res){
+    btn.disabled=false; btn.textContent='Redeem Reward';
+    if (!res.success){ showToast(res.error||'Invalid code','error'); return; }
+    S.user.balance = res.data.shibaBalance;
+    updateCrystalTonValueDisplays();
+    document.getElementById('homeTon').textContent = fmtShiba(S.user.balance);
+    input.value='';
+    closeModal('redeemModal');
+    showToast('+'+fmtShiba(res.data.shibaAdded)+' AD VOLT added 🎉', null, true);
+  }).catch(function(){ btn.disabled=false; btn.textContent='Redeem Reward'; showToast('Network error','error'); });
 }
 
 function renderActivity(log){
@@ -4924,30 +4860,26 @@ function submitWithdrawal(){
   if (amount > tonBuckets().total){ showToast('Insufficient TON balance','error'); return; }
   var btn = document.getElementById('withdrawSubmitBtn');
   if (btn.disabled) return;
-  btn.disabled = true; btn.textContent = '📺 Watch Ad...';
+  btn.disabled = true; btn.textContent = 'Submitting...';
   function resetBtn(){ btn.disabled = false; btn.textContent = t('withdraw.submit'); }
-  // Validation above runs first so the user never watches an ad for an invalid request.
-  watchAdThen('requestWithdrawal', function(ticket){
-    btn.textContent = 'Submitting...';
-    api('requestWithdrawal', { walletAddress:wallet, amountTon:amount, adGate:ticket }).then(function(res){
-      resetBtn();
-      if (!res.success){
-        if (res.code === 'PACKAGE_REQUIRED' && res.gate){ S.data.withdrawalGate = res.gate; showWithdrawGate(res.gate); return; }
-        showToast(res.error||'Withdrawal failed','error'); return;
-      }
-      syncTonFromServer(res.data);
-      S.user.tonWallet = wallet;
-      updateWalletTonBalance();
-      S.data.withdrawals = S.data.withdrawals || [];
-      S.data.withdrawals.unshift({ id:res.data.withdrawalId, walletAddress:wallet, amount:res.data.netAmount, requestedAmount:amount, fee:res.data.fee, currency:'TON', status:'pending', ts:Date.now() });
-      renderWalletHistory(S.data.balanceLogs||[]);
-      switchPage('profile');
-      showToast('Withdrawal request submitted ✅');
-    }).catch(function(){
-      resetBtn();
-      showToast('Network error','error');
-    });
-  }, resetBtn);
+  api('requestWithdrawal', { walletAddress:wallet, amountTon:amount }).then(function(res){
+    resetBtn();
+    if (!res.success){
+      if (res.code === 'PACKAGE_REQUIRED' && res.gate){ S.data.withdrawalGate = res.gate; showWithdrawGate(res.gate); return; }
+      showToast(res.error||'Withdrawal failed','error'); return;
+    }
+    syncTonFromServer(res.data);
+    S.user.tonWallet = wallet;
+    updateWalletTonBalance();
+    S.data.withdrawals = S.data.withdrawals || [];
+    S.data.withdrawals.unshift({ id:res.data.withdrawalId, walletAddress:wallet, amount:res.data.netAmount, requestedAmount:amount, fee:res.data.fee, currency:'TON', status:'pending', ts:Date.now() });
+    renderWalletHistory(S.data.balanceLogs||[]);
+    switchPage('profile');
+    showToast('Withdrawal request submitted ✅');
+  }).catch(function(){
+    resetBtn();
+    showToast('Network error','error');
+  });
 }
 
 // ── Premium "package required" card shown when withdrawals are gated ──
@@ -5665,33 +5597,27 @@ function doJoinTask(id, btn){
 }
 
 function doVerifyTask(id, btn){
-  if (btn){ if (btn.disabled) return; btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = '📺 Watch Ad...'; }
-  watchAdThen('verifyTask', function(ticket){
-    if (btn) btn.textContent = 'Checking...';
-    withTimeout(apiCaptcha('verifyTask', { taskId:id, adGate:ticket }), 180000).then(function(res){
-      if (!res.success){
-        showToast(res.error||'Verification failed','error');
-        resetTaskToOpen(id);   // not completed -> button goes back to "Open"
-        return;
-      }
-      S.data.completedTasks = S.data.completedTasks || [];
-      S.data.completedTasks.push(id);
-      S.user.balance = res.data.shibaBalance;
-      updateCrystalTonValueDisplays();
-      delete S.taskJoined[id];
-      delete S.taskTried[id];
-      document.getElementById('homeTon').textContent = fmtShiba(S.user.balance);
-      updateWalletTonBalance();
-      renderTasks(currentTab);
-      showToast('+'+fmtShiba(res.data.shibaAdded)+' '+SHIBA_ICON+' added! 🎉',null,true);
-    }).catch(function(){
-      showToast('Network error — tap Open to try again','error');
-      resetTaskToOpen(id);     // timeout / network error -> never stays stuck on "Checking..."
-    });
-  }, function(){
-    // ad not completed -> keep the task on "Verify" so the user can try again
-    if (btn){ btn.disabled = false; btn.textContent = btn.dataset.label || 'Verify'; }
-  }, ADSGRAM_TASK_BLOCK_ID, ADSGRAM_TASK_MIN_WATCH_MS);
+  if (btn){ if (btn.disabled) return; btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = 'Checking...'; }
+  withTimeout(api('verifyTask', { taskId:id }), 180000).then(function(res){
+    if (!res.success){
+      showToast(res.error||'Verification failed','error');
+      resetTaskToOpen(id);   // not completed -> button goes back to "Open"
+      return;
+    }
+    S.data.completedTasks = S.data.completedTasks || [];
+    S.data.completedTasks.push(id);
+    S.user.balance = res.data.shibaBalance;
+    updateCrystalTonValueDisplays();
+    delete S.taskJoined[id];
+    delete S.taskTried[id];
+    document.getElementById('homeTon').textContent = fmtShiba(S.user.balance);
+    updateWalletTonBalance();
+    renderTasks(currentTab);
+    showToast('+'+fmtShiba(res.data.shibaAdded)+' '+SHIBA_ICON+' added! 🎉',null,true);
+  }).catch(function(){
+    showToast('Network error — tap Open to try again','error');
+    resetTaskToOpen(id);     // timeout / network error -> never stays stuck on "Checking..."
+  });
 }
 
 /* v6.2: Invite Tasks UI + render/claim code removed with the section (order 1). The claimTask backend action remains; the normal Tasks page claims via verifyTask/startTask. */
@@ -6126,6 +6052,12 @@ function closeGame(){
   document.getElementById('gameOverlay').classList.remove('show');
   renderArcade();
 }
+// v7.4: while a game is open, swiping on the canvas must move the game only —
+// never scroll/pull the mini app page underneath (owner: «الشاشه مش ثابته»).
+document.addEventListener('touchmove', function(e){
+  var ov = document.getElementById('gameOverlay');
+  if (ov && ov.classList.contains('show') && e.target && e.target.tagName === 'CANVAS') e.preventDefault();
+}, { passive:false });
 function startGame(id){
   var stage = document.getElementById('gameStage');
   var panel = document.getElementById('gamePanel');
@@ -6823,7 +6755,8 @@ function playFruit(stage, panel){
     var t = l2 ? ((f.x - x1) * dx + (f.y - y1) * dy) / l2 : 0;
     t = Math.max(0, Math.min(1, t));
     var ex = x1 + t * dx - f.x, ey = y1 + t * dy - f.y;
-    return (ex * ex + ey * ey) < f.r * f.r;
+    var rr = f.r + 16;   // v7.4: forgiving blade — a near pass still slices
+    return (ex * ex + ey * ey) < rr * rr;
   }
   function drawFruitPhoto(im, r){
     var iw = im.naturalWidth || im.width, ih = im.naturalHeight || im.height;
@@ -6912,10 +6845,15 @@ function playFruit(stage, panel){
     }
     if (trail.length > 1){
       ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      // v7.4: fat glowing blade (owner: «الخط اللي بيقطع صغير») — soft halo pass…
+      ctx.beginPath(); ctx.moveTo(trail[0].x, trail[0].y);
+      for (i = 1; i < trail.length; i++) ctx.lineTo(trail[i].x, trail[i].y);
+      ctx.strokeStyle = 'rgba(255, 213, 82, .20)'; ctx.lineWidth = 17; ctx.stroke();
+      // …then the bright tapered core
       for (i = 1; i < trail.length; i++){
         var k = i / trail.length;
         ctx.beginPath(); ctx.moveTo(trail[i - 1].x, trail[i - 1].y); ctx.lineTo(trail[i].x, trail[i].y);
-        ctx.strokeStyle = 'rgba(255, 255, 255, ' + (k * 0.9) + ')'; ctx.lineWidth = 1 + k * 4; ctx.stroke();
+        ctx.strokeStyle = 'rgba(255, 255, 255, ' + (k * 0.95) + ')'; ctx.lineWidth = 3 + k * 9; ctx.stroke();
       }
       ctx.restore();
     }
@@ -6936,7 +6874,15 @@ function playFruit(stage, panel){
     }
     px = p.x; py = p.y;
   }
-  function onDown(e){ pDown = true; trail = []; var p = pos(e); px = p.x; py = p.y; if (e.cancelable) e.preventDefault(); }
+  function onDown(e){
+    pDown = true; trail = []; var p = pos(e); px = p.x; py = p.y;
+    if (e.cancelable) e.preventDefault();
+    // v7.4: a direct tap on a fruit slices it too (no swipe needed)
+    for (var i = 0; i < fruits.length; i++){
+      var f = fruits[i];
+      if (!f.sliced && segHit(p.x, p.y, p.x, p.y, f)) sliceFruit(f);
+    }
+  }
   function onUp(){ pDown = false; trail = []; }
   cv.addEventListener('pointerdown', onDown);
   cv.addEventListener('pointermove', onMove);
@@ -6954,13 +6900,14 @@ function playFruit(stage, panel){
 
 
 function playSpace(stage, panel){
-  stage.innerHTML = '<canvas class="game-canvas" id="spaceCv" width="340" height="430"></canvas>' +
-    '<div class="space-nav"><button class="space-nav-btn" id="spaceLeftBtn" type="button" aria-label="Move left">◀</button><button class="space-nav-btn" id="spaceRightBtn" type="button" aria-label="Move right">▶</button></div>';
+  stage.innerHTML = '<canvas class="game-canvas" id="spaceCv" width="340" height="430"></canvas>';
   panel.innerHTML = '<div class="space-hud"><span class="space-hearts" id="spaceHearts"></span>' +
     '<span class="space-mid"><span class="space-wave" id="spaceWave">W1</span><span class="space-combo" id="spaceCombo" style="display:none"></span></span>' +
     '<span class="space-right"><span class="space-coins" id="spaceCoins">🪙 0</span><button class="space-pause" id="spacePauseBtn" type="button">⏸</button></span></div>' +
     '<div class="space-sub"><span class="space-pills" id="spacePills"></span><span class="space-best" id="spaceBest"></span></div>' +
-    '<div class="game-hint">Drag or hold ◀ ▶ to steer — your rocket fires on its own. Grab the 🛡 Shield and ⚡ Triple Shot drops!</div>';
+    '<div class="game-hint">Drag or hold ◀ ▶ to steer — your rocket fires on its own. Grab the 🛡 Shield and ⚡ Triple Shot drops!</div>' +
+    // v7.4 (owner): big movement buttons under the game, exactly like Lane Racer
+    '<div class="racer-controls"><button id="spaceLeftBtn" type="button" aria-label="Move left">◀</button><button id="spaceRightBtn" type="button" aria-label="Move right">▶</button></div>';
   var cv = document.getElementById('spaceCv'); var ctx = gameCtx(cv, 340, 430);
   var W = 340, H = 430;
   var ship = { x: W / 2, y: H - 54, tx: W / 2, ty: H - 54 };
