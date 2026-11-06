@@ -123,7 +123,7 @@ html,body{height:100%;
 .nav-item.active .nav-label{color:var(--orange)}
 
 /* Glass */
-.glass-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);backdrop-filter:blur(10px)}
+.glass-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius)}
 
 /* ===== HOME PAGE ===== */
 .home-header{margin:16px 16px 12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;background:rgba(120, 130, 150, .14);border:1px solid rgba(180, 190, 210, .22);border-radius:22px;backdrop-filter:blur(10px)}
@@ -270,8 +270,8 @@ html,body{height:100%;
 .ref-stat-val{font-size:18px;font-weight:800;color:var(--text);line-height:1;margin-bottom:4px}
 .ref-stat-val.orange{color:var(--orange)}
 .ref-stat-lbl{font-size:10px;color:var(--text3)}
-.active-dot{width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;margin-right:4px;animation:blink 1.5s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
+.active-dot{width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;margin-right:4px;}
+
 
 .ref-list-section{padding:0 16px 16px}
 .ref-list-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:12px}
@@ -469,9 +469,8 @@ html,body{height:100%;
 /* ===== Lucky Wheel Card (Home) ===== */
 .wheel-card-btn{width:100%;padding:18px 24px;border-radius:16px;background:linear-gradient(135deg,var(--orange),var(--orange2));border:none;cursor:pointer;display:flex;align-items:center;gap:14px;transition:transform 0.15s;position:relative;overflow:hidden}
 .wheel-card-btn:active{transform:scale(0.97)}
-.wheel-card-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent,rgba(255, 255, 255, 0.08));pointer-events:none}
-.wheel-card-icon{font-size:30px;flex-shrink:0;animation:wheelSpinIdle 6s linear infinite}
-@keyframes wheelSpinIdle{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.wheel-card-icon{font-size:30px;flex-shrink:0;}
+
 .wheel-card-text{flex:1;text-align:left}
 .wheel-card-title{font-size:17px;font-weight:800;color:#FFFFFF;display:block}
 .wheel-card-sub{font-size:12px;color:rgba(255, 255, 255, 0.75);display:block;margin-top:2px}
@@ -576,14 +575,14 @@ html,body{height:100%;
 /* شفاف عشان خلفية الـ aurora بتاعة الصفحة تظهر، ونفس ستايل كروت التطبيق */
 .forcesub-screen{position:fixed;inset:0;background:transparent;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:998;padding:24px 16px;padding-top:max(24px,env(safe-area-inset-top));padding-bottom:max(24px,env(safe-area-inset-bottom));overflow-y:auto}
 .forcesub-screen.show{display:flex}
-.forcesub-card{position:relative;overflow:hidden;width:100%;max-width:400px;margin:auto;padding:26px 18px 18px;text-align:center;border-radius:22px;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 8px 28px rgba(0, 0, 0, .45),inset 0 1px 0 rgba(255, 255, 255, .03);animation:cardBorder 5s ease-in-out infinite}
+.forcesub-card{position:relative;overflow:hidden;width:100%;max-width:400px;margin:auto;padding:26px 18px 18px;text-align:center;border-radius:22px;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 8px 28px rgba(0, 0, 0, .45),inset 0 1px 0 rgba(255, 255, 255, .03);}
 .forcesub-card::before{content:"";position:absolute;left:50%;top:-70px;width:240px;height:160px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(255, 221, 110, .16),transparent);pointer-events:none}
 .forcesub-hero{position:relative;width:84px;height:84px;margin:0 auto 14px;border-radius:24px;display:grid;place-items:center;background:rgba(11, 26, 59, .85);border:1px solid rgba(255, 196, 0, .3);box-shadow:0 0 22px rgba(255, 196, 0, .18)}
 .forcesub-hero .ic{width:60px;height:60px}
 .forcesub-title{position:relative;font-size:20px;font-weight:800;color:var(--text);margin-bottom:8px;letter-spacing:.2px}
 .forcesub-desc{position:relative;font-size:13px;color:#8EA2CF;margin-bottom:18px;line-height:1.6}
 .forcesub-list{position:relative;margin-bottom:16px;text-align:left}
-.forcesub-item{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);margin-bottom:10px;animation:cardBorder 5s ease-in-out infinite}
+.forcesub-item{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);margin-bottom:10px;}
 .forcesub-item:last-child{margin-bottom:0}
 .forcesub-item-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(11, 26, 59, .65);border:1px solid rgba(255, 196, 0, .3)}
 .forcesub-item-icon .ic{width:36px;height:36px}
@@ -608,7 +607,6 @@ html,body{height:100%;
 .ban-title{position:relative;font-size:21px;font-weight:800;letter-spacing:.3px;margin-bottom:8px;background:linear-gradient(180deg,#FEDD72,#EFC744);-webkit-background-clip:text;background-clip:text;color:transparent}
 .ban-desc{position:relative;font-size:13px;color:#8EA2CF;line-height:1.65;margin-bottom:16px}
 .ban-item{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;text-align:left;direction:ltr;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);margin-bottom:10px}
-.ban-item::after{content:'';position:absolute;top:0;left:-60%;width:38%;height:100%;background:linear-gradient(100deg,transparent,rgba(239, 199, 68, .09),transparent);transform:skewX(-20deg);animation:cardGold 6s ease-in-out infinite;pointer-events:none}
 .ban-item.reason{border-color:rgba(239, 199, 68, .3);align-items:flex-start}
 .ban-item-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(11, 26, 59, .65);border:1px solid rgba(255, 196, 0, .3)}
 .ban-item.reason .ban-item-icon{border-color:rgba(239, 199, 68, .35)}
@@ -633,16 +631,16 @@ html,body{height:100%;
 .ic .r{stroke:url(#R);stroke-width:2.4}
 .ic .rs{fill:url(#R);stroke:none}
 .ic .fr{fill:rgba(239, 199, 68, .16)}
-.ic-ban .sl{stroke-dasharray:100;stroke-width:3.4;animation:ic-ban-sl 4s ease-in-out infinite}
-.ic-ban .po{animation:ic-ban-po 2.4s ease-out infinite}
-.ic-ban .rn{animation:ic-bob 2.8s ease-in-out infinite}
-.ic-dev .ph{animation:ic-tilt 3.4s ease-in-out infinite}
-.ic-dev .ln{animation:ic-blink 1.8s ease-in-out infinite}
-.ic-dev .bd{animation:ic-beat 2.2s ease-in-out infinite}
-.ic-lock .sh{animation:ic-bob 2.6s ease-in-out infinite}
-.ic-lock .kh{animation:ic-beat 2.4s ease-in-out infinite}
-@keyframes ic-ban-sl{0%,18%{stroke-dashoffset:100}42%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:100}}
-@keyframes ic-ban-po{0%{transform:scale(.8);opacity:.55}100%{transform:scale(1.15);opacity:0}}
+.ic-ban .sl{stroke-dasharray:100;stroke-width:3.4;}
+.ic-ban .po{}
+.ic-ban .rn{}
+.ic-dev .ph{}
+.ic-dev .ln{}
+.ic-dev .bd{}
+.ic-lock .sh{}
+.ic-lock .kh{}
+
+
 @media (prefers-reduced-motion:reduce){.ban-item::after,.ic-ban *,.ic-dev *,.ic-lock *{animation:none!important}.ic-ban .sl{stroke-dashoffset:0}}
 
 /* LUX home refresh */
@@ -687,8 +685,8 @@ html,body{height:100%;
 .mine-total-val{font-size:30px;font-weight:900;color:#5EB7EA;text-shadow:0 0 14px rgba(45, 151, 212, .55);margin-top:4px;font-variant-numeric:tabular-nums}
 .mine-crystal-hero{display:flex;align-items:center;justify-content:center;margin:0 0 14px}
 .mine-flake{width:min(72vw,300px);height:auto;max-width:100%;display:block;pointer-events:none}
-.sf-glow{transform-origin:200px 200px;animation:sfPulse 3s ease-in-out infinite}
-@keyframes sfPulse{0%,100%{filter:drop-shadow(0 0 6px rgba(56, 178, 248, .5))}50%{filter:drop-shadow(0 0 16px rgba(255, 196, 0, .6))}}
+.sf-glow{transform-origin:200px 200px;}
+
 .mine-claim-btn{width:100%;padding:15px;border:0;border-radius:16px;background:linear-gradient(135deg,#1C9DFA,#0A5FD4);color:#FFFFFF;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(28, 157, 250, .35);display:flex;align-items:center;justify-content:center;gap:8px}
 .mine-claim-btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
 .mine-claim-btn.running{background:rgba(255, 255, 255, .12);box-shadow:none;font-variant-numeric:tabular-nums;letter-spacing:.5px}
@@ -714,51 +712,51 @@ html,body{height:100%;
 .ic .occ{fill:#0B1A3B}
 .ic .sg{fill:url(#G);stroke:none}
 .ic .sp{fill:url(#P);stroke:none}
-.ic .sw{fill:#FFFFFF;opacity:.6;stroke:none;animation:ic-sw 5s ease-in-out infinite}
-.ic .tw{opacity:0;animation:ic-tw 2.6s ease-in-out infinite}
-.ic-adsgram .ply{animation:ic-beat 2.4s ease-in-out infinite}
-.ic-adsgram .pg{transform-origin:0 50%;animation:ic-pgr 4s ease-in-out infinite}
-.ic-adsgram .nmt{animation:ic-blink 3s ease-in-out infinite}
-.ic-gigapub .ply{animation:ic-beat 2.4s ease-in-out infinite}
-.ic-gigapub .rg{stroke-dasharray:100;stroke-width:3;animation:ic-rg 4s ease-in-out infinite}
-.ic-monetag .ply{animation:ic-beat 2.4s ease-in-out infinite}
-.ic-monetag .eye{animation:ic-eb 4s ease-in-out infinite}
-.ic-monetag .pl{animation:ic-pl 4s ease-in-out infinite}
-.ic-bots .rb{animation:ic-bob 2.6s ease-in-out infinite}
-.ic-bots .ey{animation:ic-eb 3.2s ease-in-out infinite}
-.ic-bots .an{animation:ic-beat 1.4s ease-in-out infinite}
-.ic-channels .mg{transform-origin:0 100%;animation:ic-mgt 2.8s ease-in-out infinite}
-.ic-channels .wv1,.ic-channels .wv2{animation:ic-wave 1.6s ease-in-out infinite}
-.ic-channels .pl5{animation:ic-beat 2s ease-in-out infinite}
-.ic-daily .ck{stroke-dasharray:100;animation:ic-ckd 3.8s ease-in-out infinite}
-.ic-daily .cal{animation:ic-calb 3.8s ease-in-out infinite}
-.ic-promo .pr{animation:ic-tilt 3.6s ease-in-out infinite}
-.ic-promo .pc{animation:ic-beat 2.4s ease-in-out infinite}
-.ic-partner .pa1{animation:ic-pa1 2.8s ease-in-out infinite}
-.ic-partner .pa2{animation:ic-pa2 2.8s ease-in-out infinite}
-.ic-partner .lk{animation:ic-dash 1s linear infinite}
-.ic-partner .pu{animation:ic-beat 2.8s ease-in-out infinite}
-.ic-usertasks .ck2{stroke-dasharray:10;animation:ic-ck2 4.2s ease-in-out infinite}
-.ic-ads .bk{animation:ic-blink 1.2s linear infinite}
-.ic-ads .adt{animation:ic-beat 2.6s ease-in-out infinite}
-@keyframes ic-beat{0%,40%,100%{transform:scale(1)}15%{transform:scale(1.22)}30%{transform:scale(1.05)}}
-@keyframes ic-blink{0%,100%{opacity:1}50%{opacity:.2}}
-@keyframes ic-sw{0%,45%{transform:translateX(-14px) skewX(-20deg)}70%,100%{transform:translateX(58px) skewX(-20deg)}}
-@keyframes ic-tw{0%,100%{opacity:0;transform:scale(.2) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
-@keyframes ic-eb{0%,88%,100%{transform:scaleY(1)}93%{transform:scaleY(.1)}}
-@keyframes ic-pgr{0%{transform:scaleX(.02)}80%,92%{transform:scaleX(1)}100%{transform:scaleX(.02)}}
-@keyframes ic-rg{0%{stroke-dashoffset:100}75%,92%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
-@keyframes ic-pl{0%,100%{transform:translateX(0)}30%{transform:translateX(-3px)}65%{transform:translateX(3px)}}
-@keyframes ic-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
-@keyframes ic-mgt{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(4deg)}}
-@keyframes ic-wave{0%,100%{opacity:.25}50%{opacity:1}}
-@keyframes ic-calb{0%,32%,46%,100%{transform:scale(1)}38%{transform:scale(1.06)}}
-@keyframes ic-ckd{0%,10%{stroke-dashoffset:100}35%,86%{stroke-dashoffset:0}95%,100%{stroke-dashoffset:100}}
-@keyframes ic-tilt{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
-@keyframes ic-dash{to{stroke-dashoffset:-8}}
-@keyframes ic-pa1{0%,100%{transform:translateX(-1px)}50%{transform:translateX(2px)}}
-@keyframes ic-pa2{0%,100%{transform:translateX(1px)}50%{transform:translateX(-2px)}}
-@keyframes ic-ck2{0%,8%{stroke-dashoffset:10}20%,84%{stroke-dashoffset:0}94%,100%{stroke-dashoffset:10}}
+.ic .sw{fill:#FFFFFF;opacity:.6;stroke:none;}
+.ic .tw{opacity:0;}
+.ic-adsgram .ply{}
+.ic-adsgram .pg{transform-origin:0 50%;}
+.ic-adsgram .nmt{}
+.ic-gigapub .ply{}
+.ic-gigapub .rg{stroke-dasharray:100;stroke-width:3;}
+.ic-monetag .ply{}
+.ic-monetag .eye{}
+.ic-monetag .pl{}
+.ic-bots .rb{}
+.ic-bots .ey{}
+.ic-bots .an{}
+.ic-channels .mg{transform-origin:0 100%;}
+.ic-channels .wv1,.ic-channels .wv2{}
+.ic-channels .pl5{}
+.ic-daily .ck{stroke-dasharray:100;}
+.ic-daily .cal{}
+.ic-promo .pr{}
+.ic-promo .pc{}
+.ic-partner .pa1{}
+.ic-partner .pa2{}
+.ic-partner .lk{}
+.ic-partner .pu{}
+.ic-usertasks .ck2{stroke-dasharray:10;}
+.ic-ads .bk{}
+.ic-ads .adt{}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* icon containers */
 .task-logo.ic-logo{background:rgba(11, 26, 59, .65);border-color:rgba(255, 196, 0, .3)}
 .task-logo .ic{width:36px;height:36px}
@@ -769,26 +767,24 @@ html,body{height:100%;
 
 /* ── Tasks page: dark gold-accent cards ── */
 .tabs{background:rgba(13, 14, 19, .9);border-color:rgba(255, 221, 110, .14)}
-.task-item,.bonus-card,.redeem-card,.combo-attempts-card,.combo-info-card{position:relative;overflow:hidden;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);animation:cardBorder 5s ease-in-out infinite}
-.task-item::after,.bonus-card::after,.redeem-card::after,.combo-attempts-card::after,.combo-info-card::after,.add-task-btn::after{content:'';position:absolute;top:0;left:-60%;width:38%;height:100%;background:linear-gradient(100deg,transparent,rgba(255, 221, 110, .10),transparent);transform:skewX(-20deg);animation:cardGold 6s ease-in-out infinite;pointer-events:none}
+.task-item,.bonus-card,.redeem-card,.combo-attempts-card,.combo-info-card{position:relative;overflow:hidden;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);}
 .task-item:nth-child(2)::after{animation-delay:1.4s}.task-item:nth-child(3)::after{animation-delay:2.8s}.task-item:nth-child(4)::after{animation-delay:4.2s}.task-item:nth-child(n+5)::after{animation-delay:5s}
-.redeem-card::after{animation-delay:1.5s}.combo-attempts-card::after{animation-delay:.8s}.combo-info-card::after{animation-delay:2.2s}
 .combo-item{background:rgba(13, 14, 19, .85);border-color:rgba(255, 221, 110, .12)}
 .combo-slot{background:rgba(7, 8, 12, .6)}
-@keyframes cardGold{0%,55%{left:-60%}100%{left:130%}}
-@keyframes cardBorder{0%,100%{border-color:rgba(255, 221, 110, .12)}50%{border-color:rgba(255, 221, 110, .27)}}
+
+
 /* ── Add Task card ── */
-.add-task-btn{position:relative;overflow:hidden;width:100%;padding:14px 16px;border-radius:18px;border:1.5px solid transparent;background:linear-gradient(135deg,#0D1832,#0D0F13) padding-box,linear-gradient(110deg,#FFDE73,#FFC400,#FFDE73) border-box;background-size:100% 100%,300% 100%;animation:atBorder 6s linear infinite;display:flex;align-items:center;justify-content:flex-start;gap:14px;text-align:left;color:var(--text);cursor:pointer;box-shadow:0 6px 20px rgba(0, 0, 0, .4),0 0 18px rgba(255, 221, 110, .08)}
+.add-task-btn{position:relative;overflow:hidden;width:100%;padding:14px 16px;border-radius:18px;border:1.5px solid transparent;background:linear-gradient(135deg,#0D1832,#0D0F13) padding-box,linear-gradient(110deg,#FFDE73,#FFC400,#FFDE73) border-box;background-size:100% 100%,300% 100%;display:flex;align-items:center;justify-content:flex-start;gap:14px;text-align:left;color:var(--text);cursor:pointer;box-shadow:0 6px 20px rgba(0, 0, 0, .4),0 0 18px rgba(255, 221, 110, .08)}
 .add-task-btn:active{background:linear-gradient(135deg,#0D1832,#0D0F13) padding-box,linear-gradient(110deg,#FFDE73,#FFC400,#FFDE73) border-box;transform:scale(.98)}
-.at-plus{position:relative;width:46px;height:46px;flex-shrink:0;border-radius:14px;background:linear-gradient(145deg,#FDE68A,#F59E0B);animation:atPulse 2.6s ease-out infinite}
+.at-plus{position:relative;width:46px;height:46px;flex-shrink:0;border-radius:14px;background:linear-gradient(145deg,#FDE68A,#F59E0B);}
 .at-plus i{position:absolute;left:50%;top:50%;background:#0B1A3B;border-radius:2px;transform:translate(-50%,-50%)}
 .at-plus i:first-child{width:20px;height:3.5px}.at-plus i:last-child{width:3.5px;height:20px}
 .at-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
 .at-title{font-size:15px;font-weight:800;color:#FFFFFF;letter-spacing:.3px}
 .at-sub{font-size:11.5px;font-weight:500;color:#8EA2CF;line-height:1.35}
 .at-tag{flex-shrink:0;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.8px;color:#93C5FD;background:rgba(255, 196, 0, .14);border:1px solid rgba(255, 196, 0, .35)}
-@keyframes atBorder{to{background-position:0 0,300% 0}}
-@keyframes atPulse{0%{box-shadow:0 0 0 0 rgba(255, 221, 110, .45)}70%,100%{box-shadow:0 0 0 12px rgba(255, 221, 110, 0)}}
+
+
 /* ── Add Task modal ── */
 #addTaskModal{background:rgba(5, 6, 8, .84)}
 #addTaskModal .modal{position:relative;background:radial-gradient(120% 60% at 50% 0%,rgba(255, 196, 0, .18),transparent 62%),linear-gradient(180deg,#0E1A36,#0C0D12);border:1px solid rgba(255, 196, 0, .2);box-shadow:0 22px 60px rgba(0, 0, 0, .65),0 0 40px rgba(255, 196, 0, .08);padding:24px 20px 18px}
@@ -806,27 +802,24 @@ html,body{height:100%;
 #addTaskModal #qtyChips .qty-chip::after{color:#FFDC6B}
 #addTaskModal #qtyChips .qty-chip.active::after{color:#FFDE73}
 #addTaskModal .modal-submit{position:relative;overflow:hidden;background:linear-gradient(135deg,#FDE68A,#FFDE73 45%,#F59E0B);color:#1A1200;box-shadow:0 6px 20px rgba(255, 221, 110, .28)}
-#addTaskModal .modal-submit::after{content:'';position:absolute;top:0;left:-60%;width:35%;height:100%;background:linear-gradient(100deg,transparent,rgba(255, 255, 255, .5),transparent);transform:skewX(-20deg);animation:cardGold 4s ease-in-out infinite;pointer-events:none}
 #addTaskModal .modal-close{border-color:rgba(255, 196, 0, .28);color:#8EA2CF}
 #addTaskModal .task-channel-warning{border:1px solid rgba(255, 221, 110, .35);border-left:3px solid #FFDE73;background:rgba(255, 221, 110, .07);color:#FCD34D}
 
 /* ── Referrals page ── */
-.ic-link .la{animation:ic-la 2.8s ease-in-out infinite}
-.ic-link .lb{animation:ic-lb 2.8s ease-in-out infinite}
-.ic-gem .gm{animation:ic-beat 2.8s ease-in-out infinite}
-@keyframes ic-la{0%,100%{transform:translate(-2px,2px)}50%{transform:translate(0,0)}}
-@keyframes ic-lb{0%,100%{transform:translate(2px,-2px)}50%{transform:translate(0,0)}}
+.ic-link .la{}
+.ic-link .lb{}
+.ic-gem .gm{}
+
+
 #page-refs .rr-row:first-of-type{margin-top:0}
-.rr-box,.rr-card,.rr-stat-box,.rr-table{position:relative;overflow:hidden;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);animation:cardBorder 5s ease-in-out infinite}
-.rr-box::after,.rr-card::after,.rr-stat-box::after,.rr-table::after{content:'';position:absolute;top:0;left:-60%;width:38%;height:100%;background:linear-gradient(100deg,transparent,rgba(255, 221, 110, .10),transparent);transform:skewX(-20deg);animation:cardGold 6s ease-in-out infinite;pointer-events:none}
+.rr-box,.rr-card,.rr-stat-box,.rr-table{position:relative;overflow:hidden;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);}
 .rr-card:nth-child(2)::after{animation-delay:1.5s}.rr-stat-box:nth-child(2)::after{animation-delay:2.5s}.rr-table::after{animation-delay:3.5s}
 .rr-crystal-box{border-radius:18px;padding:16px 18px}
-.rr-crystal-icon{width:40px;height:40px;filter:drop-shadow(0 0 8px rgba(255, 221, 110, .45));animation:ic-bob 2.6s ease-in-out infinite}
+.rr-crystal-icon{width:40px;height:40px;filter:drop-shadow(0 0 8px rgba(255, 221, 110, .45));}
 .rr-crystal-val{font-size:26px;background:linear-gradient(180deg,#EDE9FE,#FFDE73 60%,#3A88ED);-webkit-background-clip:text;background-clip:text;color:transparent}
 .rr-crystal-lbl{color:#8EA2CF}
 .rr-action-btn{border-radius:16px;box-shadow:0 6px 18px rgba(255, 196, 0, .22)}
 #rrCollectBtn{position:relative;overflow:hidden;min-width:108px;background:linear-gradient(135deg,#FDE68A,#FFDE73 45%,#F59E0B);color:#1A1200;box-shadow:0 6px 18px rgba(255, 221, 110, .28)}
-#rrCollectBtn::after{content:'';position:absolute;top:0;left:-60%;width:35%;height:100%;background:linear-gradient(100deg,transparent,rgba(255, 255, 255, .5),transparent);transform:skewX(-20deg);animation:cardGold 4s ease-in-out infinite;pointer-events:none}
 .rr-link-box{gap:12px;border-radius:18px}
 .rr-link-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(11, 26, 59, .85);border:1px solid rgba(255, 196, 0, .3)}
 .rr-link-icon .ic{width:32px;height:32px}
@@ -848,9 +841,8 @@ html,body{height:100%;
 .rr-table-row .rr-income{color:#FFDE73}
 
 /* ── Profile page: same dark gold cards ── */
-.profile-menu-item,.profile-id-row,.profile-status{position:relative;overflow:hidden;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);animation:cardBorder 5s ease-in-out infinite}
+.profile-menu-item,.profile-id-row,.profile-status{position:relative;overflow:hidden;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);}
 .profile-menu-item{border-radius:16px}
-.profile-menu-item::after,.profile-id-row::after,.profile-status::after{content:'';position:absolute;top:0;left:-60%;width:38%;height:100%;background:linear-gradient(100deg,transparent,rgba(255, 221, 110, .10),transparent);transform:skewX(-20deg);animation:cardGold 6s ease-in-out infinite;pointer-events:none}
 .profile-menu-item:nth-child(2)::after{animation-delay:1.2s}.profile-menu-item:nth-child(3)::after{animation-delay:2.4s}.profile-menu-item:nth-child(4)::after{animation-delay:3.6s}.profile-menu-item:nth-child(5)::after{animation-delay:4.8s}
 .profile-status::after{animation-delay:2s}
 .profile-menu-item:active{background:linear-gradient(145deg,#111C38,#0F1117)}
@@ -859,29 +851,27 @@ html,body{height:100%;
 .profile-menu-chevron{color:#FFDE73}
 
 /* ── Home: dark gold cards ── */
-.mine-stat-box,.stat-card{position:relative;overflow:hidden;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);animation:cardBorder 5s ease-in-out infinite}
+.mine-stat-box,.stat-card{position:relative;overflow:hidden;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);}
 .mine-stat-box,.stat-card{border-radius:16px}
-.mine-stat-box::after,.stat-card::after{content:'';position:absolute;top:0;left:-60%;width:38%;height:100%;background:linear-gradient(100deg,transparent,rgba(255, 221, 110, .10),transparent);transform:skewX(-20deg);animation:cardGold 6s ease-in-out infinite;pointer-events:none}
 .mine-stat-box:nth-child(2)::after{animation-delay:1.8s}
 .mine-stat-icon{background:rgba(11, 26, 59, .85);border:1px solid rgba(255, 196, 0, .3)}
 .mine-stat-label{color:#8EA2CF}
 
 /* ── Profile redesign ── */
-.ic-deposit .ar{animation:ic-dn 1.8s ease-in-out infinite}
-.ic-withdraw .ar{animation:ic-upk 1.8s ease-in-out infinite}
-.ic-convert .cv{animation:ic-spin 7s linear infinite}
-.ic-convert .cn{animation:ic-beat 2.4s ease-in-out infinite}
-.ic-language .mer{animation:ic-gl 3.6s ease-in-out infinite}
-.ic-history .ck2{stroke-dasharray:10;animation:ic-ck2 4.2s ease-in-out infinite}
-@keyframes ic-dn{0%,100%{transform:translateY(-1px);opacity:.6}50%{transform:translateY(3px);opacity:1}}
-@keyframes ic-upk{0%,100%{transform:translateY(1px);opacity:.6}50%{transform:translateY(-3px);opacity:1}}
-@keyframes ic-spin{to{transform:rotate(360deg)}}
-@keyframes ic-gl{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.25)}}
-.pf-hero{position:relative;margin:14px 16px 14px;padding:0 16px 20px;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .18);box-shadow:0 8px 26px rgba(0, 0, 0, .4),inset 0 1px 0 rgba(255, 255, 255, .04);animation:cardBorder 5s ease-in-out infinite}
-.pf-hero::after{content:'';position:absolute;top:0;left:-60%;width:38%;height:100%;background:linear-gradient(100deg,transparent,rgba(255, 221, 110, .08),transparent);transform:skewX(-20deg);animation:cardGold 7s ease-in-out infinite;pointer-events:none}
+.ic-deposit .ar{}
+.ic-withdraw .ar{}
+.ic-convert .cv{}
+.ic-convert .cn{}
+.ic-language .mer{}
+.ic-history .ck2{stroke-dasharray:10;}
+
+
+
+
+.pf-hero{position:relative;margin:14px 16px 14px;padding:0 16px 20px;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .18);box-shadow:0 8px 26px rgba(0, 0, 0, .4),inset 0 1px 0 rgba(255, 255, 255, .04);}
 .pf-cover{align-self:stretch;height:88px;margin:0 -16px;background:radial-gradient(60% 130% at 15% 0%,rgba(255, 196, 0, .5),transparent 70%),radial-gradient(60% 130% at 88% 0%,rgba(255, 221, 110, .38),transparent 70%),linear-gradient(180deg,#13235A,#111319)}
 .pf-avatar-wrap{position:relative;width:108px;height:108px;padding:4px;margin-top:-54px;flex-shrink:0}
-.pf-avatar-wrap::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(#FFDE73,#FFC400,#FDE68A,#FFC400,#FFDE73);animation:ic-spin 6s linear infinite;box-shadow:0 0 22px rgba(255, 221, 110, .25)}
+.pf-avatar-wrap::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(#FFDE73,#FFC400,#FDE68A,#FFC400,#FFDE73);box-shadow:0 0 22px rgba(255, 221, 110, .25)}
 #page-profile .profile-avatar{position:relative;z-index:1;width:100%;height:100%;margin:0;border:4px solid #101117;box-shadow:none;font-size:38px}
 #page-profile .profile-name{margin:12px 0 2px;font-size:22px}
 #page-profile .profile-username{margin-bottom:14px}
@@ -890,8 +880,7 @@ html,body{height:100%;
 .pf-chips .profile-id-row{padding:8px 8px 8px 14px}
 .profile-copy-btn .ic{width:24px;height:24px}
 .pf-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px 12px}
-.pf-tile{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 6px 14px;border-radius:18px;cursor:pointer;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);animation:cardBorder 5s ease-in-out infinite;transition:transform .15s,border-color .2s}
-.pf-tile::after{content:'';position:absolute;top:0;left:-60%;width:38%;height:100%;background:linear-gradient(100deg,transparent,rgba(255, 221, 110, .10),transparent);transform:skewX(-20deg);animation:cardGold 6s ease-in-out infinite;pointer-events:none}
+.pf-tile{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 6px 14px;border-radius:18px;cursor:pointer;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03);transition:transform .15s,border-color .2s}
 .pf-tile:nth-child(2)::after{animation-delay:1.6s}.pf-tile:nth-child(3)::after{animation-delay:3.2s}
 .pf-tile:active{transform:scale(.96)}
 .pf-tile-ico{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;background:rgba(11, 26, 59, .85);border:1px solid rgba(255, 196, 0, .3)}
@@ -900,29 +889,29 @@ html,body{height:100%;
 .profile-menu-icon .ic{width:36px;height:36px}
 
 /* ── Final icon set (new animations) ── */
-.ic .grow{transform-origin:50% 100%;animation:n-grow 3s ease-in-out infinite}
-.ic .bt{animation:ic-beat 2.4s ease-in-out infinite}
-.ic .bb{animation:ic-bob 2.6s ease-in-out infinite}
-.ic .cp{animation:n-cp 2.2s ease-in-out infinite}
-.ic .dn{animation:n-dn 1.6s ease-in-out infinite}
-.ic .up{animation:n-up 1.6s ease-in-out infinite}
-.ic .sa{animation:n-sa 2.4s ease-in-out infinite}
-.ic .sb{animation:n-sb 2.4s ease-in-out infinite}
-.ic .flip{animation:n-flip 3.4s ease-in-out infinite}
-.ic .hd{transform-box:view-box;transform-origin:27px 24px;animation:ic-spin 5s linear infinite}
-.ic .shk{animation:n-shk 3.4s ease-in-out infinite}
-.ic .blk{animation:ic-blink 1.4s ease-in-out infinite}
-.ic .pop{animation:n-pop 2.4s ease-in-out infinite}
-.ic-wallet-on .ck{stroke-dasharray:100;animation:ic-ckd 3.8s ease-in-out infinite}
-@keyframes n-grow{0%{transform:scaleY(.2)}40%,85%{transform:scaleY(1)}100%{transform:scaleY(.2)}}
-@keyframes n-cp{0%,100%{transform:translate(0,0)}50%{transform:translate(-3px,3px)}}
-@keyframes n-dn{0%,100%{transform:translateY(-3px)}50%{transform:translateY(4px)}}
-@keyframes n-up{0%,100%{transform:translateY(3px)}50%{transform:translateY(-4px)}}
-@keyframes n-sa{0%,100%{transform:translateX(-3px)}50%{transform:translateX(3px)}}
-@keyframes n-sb{0%,100%{transform:translateX(3px)}50%{transform:translateX(-3px)}}
-@keyframes n-flip{0%,55%,100%{transform:scaleX(1)}78%{transform:scaleX(.1)}}
-@keyframes n-shk{0%,60%,100%{transform:translateX(0)}66%{transform:translateX(-2px)}72%{transform:translateX(2px)}78%{transform:translateX(-2px)}84%{transform:translateX(0)}}
-@keyframes n-pop{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.ic .grow{transform-origin:50% 100%;}
+.ic .bt{}
+.ic .bb{}
+.ic .cp{}
+.ic .dn{}
+.ic .up{}
+.ic .sa{}
+.ic .sb{}
+.ic .flip{}
+.ic .hd{transform-box:view-box;transform-origin:27px 24px;}
+.ic .shk{}
+.ic .blk{}
+.ic .pop{}
+.ic-wallet-on .ck{stroke-dasharray:100;}
+
+
+
+
+
+
+
+
+
 #profileStatusIcon{display:inline-flex}
 #profileStatusIcon .ic{width:28px;height:28px}
 .rr-icon-badge .ic-bonus{width:38px;height:38px}
@@ -940,8 +929,7 @@ html,body{height:100%;
 .wheel-page-header .back-btn{background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .2);color:#FFDE73}
 [dir=rtl] .wheel-page-header .back-btn{transform:scaleX(-1)}
 #page-deposit .wallet-form-card,#page-withdraw .wallet-form-card,#page-convert .wallet-form-card,.lang-item,.tx-item{position:relative;overflow:hidden;background:linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(255, 221, 110, .14);box-shadow:0 4px 14px rgba(0, 0, 0, .35),inset 0 1px 0 rgba(255, 255, 255, .03)}
-#page-deposit .wallet-form-card,#page-withdraw .wallet-form-card,#page-convert .wallet-form-card{border-radius:20px;padding:18px;animation:cardBorder 5s ease-in-out infinite}
-#page-deposit .wallet-form-card::after,#page-withdraw .wallet-form-card::after,#page-convert .wallet-form-card::after{content:'';position:absolute;top:0;left:-60%;width:38%;height:100%;background:linear-gradient(100deg,transparent,rgba(255, 221, 110, .08),transparent);transform:skewX(-20deg);animation:cardGold 7s ease-in-out infinite;pointer-events:none}
+#page-deposit .wallet-form-card,#page-withdraw .wallet-form-card,#page-convert .wallet-form-card{border-radius:20px;padding:18px;}
 .wallet-form-title{font-size:16px;font-weight:800;color:#FFFFFF;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid rgba(255, 221, 110, .12)}
 .wallet-form-help{color:#8EA2CF;line-height:1.7;margin:0 0 14px}
 #tonConnectButton{display:flex;justify-content:center;margin-bottom:14px}
@@ -980,7 +968,6 @@ html,body{height:100%;
 
 /* ── TON balance card on the Mining page ── */
 .mine-ton-card{position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;margin:0 16px 12px;padding:14px 14px 14px 16px;border-radius:20px;background:radial-gradient(90% 160% at 0% 0%,rgba(0, 152, 234, .22),transparent 60%),linear-gradient(145deg,#111319,#0C0D12);border:1px solid rgba(0, 152, 234, .38);box-shadow:0 6px 20px rgba(0, 0, 0, .4),0 0 22px rgba(0, 152, 234, .14),inset 0 1px 0 rgba(255, 255, 255, .04)}
-.mine-ton-card::after{content:'';position:absolute;top:0;left:-60%;width:38%;height:100%;background:linear-gradient(100deg,transparent,rgba(125, 205, 252, .12),transparent);transform:skewX(-20deg);animation:cardGold 6s ease-in-out infinite;pointer-events:none}
 .mine-ton-ico{width:50px;height:50px;border-radius:16px;display:grid;place-items:center;flex-shrink:0;background:rgba(0, 152, 234, .14);border:1px solid rgba(0, 152, 234, .45);box-shadow:0 0 16px rgba(0, 152, 234, .3)}
 .mine-ton-ico img{width:28px;height:28px}
 .mine-ton-body{flex:1;min-width:0}
@@ -1036,16 +1023,16 @@ html,body{height:100%;
 .nv-home .fp{fill:rgba(255, 196, 0, .18)}
 .nv-home .sg{fill:url(#NG-home);stroke:none}
 .nv-home .tw{opacity:0}
-.nav-item.active .nv-home .tw{animation:nv-home-tw 2.6s ease-in-out infinite}
+.nav-item.active .nv-home .tw{}
 .nv-home .dr{transform-origin:0 50%}
 .nv-home .sk{opacity:0}
-.nav-item.active .nv-home .rf{animation:nv-home-hhop 2.8s ease-in-out infinite}
-.nav-item.active .nv-home .dr{animation:nv-home-hdr 3.2s ease-in-out infinite}
-.nav-item.active .nv-home .sk{animation:nv-home-hsk 2.6s ease-out infinite}
-@keyframes nv-home-hdr{0%,35%,100%{transform:scaleX(1)}48%,78%{transform:scaleX(.25)}}
-@keyframes nv-home-hhop{0%,60%,100%{transform:none}68%{transform:translateY(-2.5px)}78%{transform:none}}
-@keyframes nv-home-hsk{0%{opacity:0;transform:translate(0,0) scale(.5)}20%{opacity:.9}100%{opacity:0;transform:translate(4px,-11px) scale(1.5)}}
-@keyframes nv-home-tw{0%,100%{opacity:0;transform:scale(.2) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.nav-item.active .nv-home .rf{}
+.nav-item.active .nv-home .dr{}
+.nav-item.active .nv-home .sk{}
+
+
+
+
 
 .nv-store{width:30px;height:30px;overflow:visible;filter:drop-shadow(0 0 2px rgba(255, 196, 0, .55))}
 .nv-store *{transform-box:fill-box;transform-origin:center}
@@ -1058,12 +1045,12 @@ html,body{height:100%;
 .nv-store .sg{fill:url(#NG-store);stroke:none}
 .nv-store .aw{transform-origin:50% 0}
 .nv-store .dr{transform-origin:0 50%}
-.nav-item.active .nv-store .aw{animation:nv-store-saw 3.4s ease-in-out infinite}
-.nav-item.active .nv-store .dr{animation:nv-store-sdr 3.6s ease-in-out infinite}
-.nav-item.active .nv-store .gn{animation:nv-store-sfl 4s linear infinite}
-@keyframes nv-store-saw{0%,100%{transform:skewX(0)}25%{transform:skewX(-3deg)}75%{transform:skewX(3deg)}}
-@keyframes nv-store-sdr{0%,45%,100%{transform:scaleX(1)}58%,82%{transform:scaleX(.25)}}
-@keyframes nv-store-sfl{0%,100%{opacity:1}8%{opacity:.35}10%{opacity:1}12%{opacity:.6}14%{opacity:1}}
+.nav-item.active .nv-store .aw{}
+.nav-item.active .nv-store .dr{}
+.nav-item.active .nv-store .gn{}
+
+
+
 
 .nv-tasks{width:30px;height:30px;overflow:visible;filter:drop-shadow(0 0 2px rgba(255, 196, 0, .55))}
 .nv-tasks *{transform-box:fill-box;transform-origin:center}
@@ -1074,13 +1061,13 @@ html,body{height:100%;
 .nv-tasks .occ{fill:#0B1A3B}
 .nv-tasks .sg{fill:url(#NG-tasks);stroke:none}
 .nv-tasks .tw{opacity:0}
-.nav-item.active .nv-tasks .tw{animation:nv-tasks-tw 2.6s ease-in-out infinite}
+.nav-item.active .nv-tasks .tw{}
 .nv-tasks .ck{stroke-dasharray:10}
-.nav-item.active .nv-tasks .ck{animation:nv-tasks-tck 3.8s ease-in-out infinite}
-.nav-item.active .nv-tasks .cb{animation:nv-tasks-bob 2.8s ease-in-out infinite}
-@keyframes nv-tasks-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
-@keyframes nv-tasks-tck{0%,6%{stroke-dashoffset:10}18%,82%{stroke-dashoffset:0}92%,100%{stroke-dashoffset:10}}
-@keyframes nv-tasks-tw{0%,100%{opacity:0;transform:scale(.2) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.nav-item.active .nv-tasks .ck{}
+.nav-item.active .nv-tasks .cb{}
+
+
+
 
 .nv-combo{width:30px;height:30px;overflow:visible;filter:drop-shadow(0 0 2px rgba(255, 196, 0, .55))}
 .nv-combo *{transform-box:fill-box;transform-origin:center}
@@ -1089,15 +1076,15 @@ html,body{height:100%;
 .nv-combo .sg{fill:url(#NG-combo);stroke:none}
 .nv-combo .sp{fill:url(#NP-combo);stroke:none}
 .nv-combo .tw{opacity:0}
-.nav-item.active .nv-combo .tw{animation:nv-combo-tw 2.6s ease-in-out infinite}
+.nav-item.active .nv-combo .tw{}
 .nv-combo .cl{opacity:.45}
-.nav-item.active .nv-combo .cl{animation:nv-combo-ccl 3s ease-in-out infinite}
-.nav-item.active .nv-combo .td{animation:nv-combo-beat 1.6s ease-in-out infinite}
-.nav-item.active .nv-combo .cal{animation:nv-combo-bob 3s ease-in-out infinite}
-@keyframes nv-combo-beat{0%,40%,100%{transform:scale(1)}15%{transform:scale(1.22)}30%{transform:scale(1.05)}}
-@keyframes nv-combo-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
-@keyframes nv-combo-ccl{0%,100%{opacity:.45;transform:scale(1)}12%{opacity:1;transform:scale(1.3)}28%{opacity:.45;transform:scale(1)}}
-@keyframes nv-combo-tw{0%,100%{opacity:0;transform:scale(.2) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.nav-item.active .nv-combo .cl{}
+.nav-item.active .nv-combo .td{}
+.nav-item.active .nv-combo .cal{}
+
+
+
+
 
 .nv-referrals{width:30px;height:30px;overflow:visible;filter:drop-shadow(0 0 2px rgba(255, 196, 0, .55))}
 .nv-referrals *{transform-box:fill-box;transform-origin:center}
@@ -1107,13 +1094,13 @@ html,body{height:100%;
 .nv-referrals .occ{fill:#0B1A3B}
 .nv-referrals .sg{fill:url(#NG-referrals);stroke:none}
 .nv-referrals .tw{opacity:0}
-.nav-item.active .nv-referrals .tw{animation:nv-referrals-tw 2.6s ease-in-out infinite}
-.nav-item.active .nv-referrals .u1{animation:nv-referrals-bob 2.6s ease-in-out infinite}
-.nav-item.active .nv-referrals .u2{animation:nv-referrals-bob 2.6s ease-in-out .5s infinite}
-.nav-item.active .nv-referrals .pl{animation:nv-referrals-beat 1.8s ease-in-out infinite}
-@keyframes nv-referrals-beat{0%,40%,100%{transform:scale(1)}15%{transform:scale(1.22)}30%{transform:scale(1.05)}}
-@keyframes nv-referrals-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
-@keyframes nv-referrals-tw{0%,100%{opacity:0;transform:scale(.2) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.nav-item.active .nv-referrals .tw{}
+.nav-item.active .nv-referrals .u1{}
+.nav-item.active .nv-referrals .u2{}
+.nav-item.active .nv-referrals .pl{}
+
+
+
 
 .nv-profile{width:30px;height:30px;overflow:visible;filter:drop-shadow(0 0 2px rgba(255, 196, 0, .55))}
 .nv-profile *{transform-box:fill-box;transform-origin:center}
@@ -1124,12 +1111,12 @@ html,body{height:100%;
 .nv-profile .fp{fill:rgba(255, 196, 0, .18)}
 .nv-profile .sg{fill:url(#NG-profile);stroke:none}
 .nv-profile .tw{opacity:0}
-.nav-item.active .nv-profile .tw{animation:nv-profile-tw 2.6s ease-in-out infinite}
-.nav-item.active .nv-profile .rn{animation:nv-profile-spin 8s linear infinite}
-.nav-item.active .nv-profile .hd{animation:nv-profile-bob 2.4s ease-in-out infinite}
-@keyframes nv-profile-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
-@keyframes nv-profile-spin{to{transform:rotate(360deg)}}
-@keyframes nv-profile-tw{0%,100%{opacity:0;transform:scale(.2) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.nav-item.active .nv-profile .tw{}
+.nav-item.active .nv-profile .rn{}
+.nav-item.active .nv-profile .hd{}
+
+
+
 
 .nv-ranking{width:30px;height:30px;overflow:visible;filter:drop-shadow(0 0 2px rgba(255, 196, 0, .55))}
 .nv-ranking *{transform-box:fill-box;transform-origin:center}
@@ -1138,15 +1125,15 @@ html,body{height:100%;
 .nv-ranking .sg{fill:url(#NG-ranking);stroke:none}
 .nv-ranking .sw{fill:#FFFFFF;stroke:none;opacity:0}
 .nv-ranking .tw{opacity:0}
-.nav-item.active .nv-ranking .sw{opacity:.6;animation:nv-ranking-sw 5s ease-in-out infinite}
-.nav-item.active .nv-ranking .tw{animation:nv-ranking-tw 2.6s ease-in-out infinite}
+.nav-item.active .nv-ranking .sw{opacity:.6;}
+.nav-item.active .nv-ranking .tw{}
 .nv-ranking .tr{transform-origin:50% 100%}
-.nav-item.active .nv-ranking .tr{animation:nv-ranking-rtr 2.8s ease-in-out infinite}
-.nav-item.active .nv-ranking .st{animation:nv-ranking-spin 5s linear infinite}
-@keyframes nv-ranking-rtr{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
-@keyframes nv-ranking-spin{to{transform:rotate(360deg)}}
-@keyframes nv-ranking-sw{0%,45%{transform:translateX(-14px) skewX(-20deg)}70%,100%{transform:translateX(58px) skewX(-20deg)}}
-@keyframes nv-ranking-tw{0%,100%{opacity:0;transform:scale(.2) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.nav-item.active .nv-ranking .tr{}
+.nav-item.active .nv-ranking .st{}
+
+
+
+
 
 .nav-icon{display:flex;align-items:center;justify-content:center;height:30px}
 .nav-item .nav-icon svg{opacity:.72;transition:opacity .2s,transform .2s}
@@ -1201,12 +1188,12 @@ html,body{height:100%;
 .wg-overlay.show{display:flex;animation:wgFade .25s ease-out}
 @keyframes wgFade{from{opacity:0}to{opacity:1}}
 @keyframes wgPop{from{opacity:0;transform:translateY(18px) scale(.94)}to{opacity:1;transform:none}}
-@keyframes wgBorder{0%,100%{border-color:rgba(255, 221, 110, .35);box-shadow:0 0 28px rgba(255, 221, 110, .12),0 18px 50px rgba(0, 0, 0, .6)}50%{border-color:rgba(255, 221, 110, .75);box-shadow:0 0 42px rgba(255, 221, 110, .28),0 18px 50px rgba(0, 0, 0, .6)}}
-@keyframes wgFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-.wg-card{position:relative;overflow:hidden;width:100%;max-width:360px;max-height:100%;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:clamp(12px,2.6vh,24px) 18px clamp(10px,2vh,16px);border-radius:24px;text-align:center;background:linear-gradient(160deg,#0F1A36,#0C0D12 70%);border:1.5px solid rgba(255, 221, 110, .5);animation:wgPop .35s cubic-bezier(.2,.9,.3,1.1),wgBorder 4s ease-in-out infinite .35s}
+
+
+.wg-card{position:relative;overflow:hidden;width:100%;max-width:360px;max-height:100%;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:clamp(12px,2.6vh,24px) 18px clamp(10px,2vh,16px);border-radius:24px;text-align:center;background:linear-gradient(160deg,#0F1A36,#0C0D12 70%);border:1.5px solid rgba(255, 221, 110, .5);animation:wgPop .35s cubic-bezier(.2,.9,.3,1.1)}
 .wg-glow{position:absolute;top:-90px;left:50%;width:240px;height:240px;margin-left:-120px;border-radius:50%;background:radial-gradient(circle,rgba(255, 221, 110, .28),transparent 68%);pointer-events:none}
 .wg-card>*:not(.wg-glow){position:relative}
-.wg-shield{width:clamp(44px,8vh,66px);height:clamp(44px,8vh,66px);flex:none;margin:0 auto clamp(4px,1vh,8px);filter:drop-shadow(0 0 14px rgba(255, 221, 110, .55));animation:wgFloat 3.2s ease-in-out infinite}
+.wg-shield{width:clamp(44px,8vh,66px);height:clamp(44px,8vh,66px);flex:none;margin:0 auto clamp(4px,1vh,8px);filter:drop-shadow(0 0 14px rgba(255, 221, 110, .55));}
 .wg-shield svg{width:100%;height:100%}
 .wg-title{font-size:clamp(16px,2.7vh,20px);font-weight:900;color:#FFFFFF;letter-spacing:.2px;margin-bottom:clamp(4px,1vh,8px)}
 .wg-text{font-size:clamp(11px,1.65vh,12.5px);line-height:1.6;color:var(--text2);margin-bottom:clamp(6px,1.5vh,12px)}
@@ -1488,7 +1475,7 @@ html,body{
 .game-reward-chip img{width:16px;height:16px}
 .game-stage{flex:1;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .game-panel{padding:12px 16px calc(14px + env(safe-area-inset-bottom))}
-.game-card{background:rgba(255, 255, 255, .05);border:1px solid rgba(255, 255, 255, .1);border-radius:20px;padding:18px;text-align:center;backdrop-filter:blur(6px)}
+.game-card{background:rgba(255, 255, 255, .05);border:1px solid rgba(255, 255, 255, .1);border-radius:20px;padding:18px;text-align:center}
 .game-card h3{margin:0 0 6px;font-size:20px;font-weight:900}
 .game-card p{margin:0 0 14px;color:#A7B1C9;font-size:13px;line-height:1.6}
 .game-big-btn{width:100%;padding:15px;border:none;border-radius:16px;background:linear-gradient(135deg,#FFB020,#F79009);color:#231600;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 12px 24px -10px rgba(247, 144, 9, .65)}
@@ -2130,10 +2117,10 @@ body{
 .store-pack-card,.arc-card,.price-box,.pd-card{
   background:var(--glass-d) !important;background-image:none !important;
   border:1px solid var(--dk-line) !important;color:var(--dk-tx) !important;
-  box-shadow:var(--card-sh) !important;backdrop-filter:blur(14px);
+  box-shadow:var(--card-sh) !important;
 }
 .wheel-stage{background:radial-gradient(120% 120% at 50% 0%,#2A230A,#0C0C0E 70%) !important;border:1px solid rgba(255, 196, 0, .22) !important;color:#FFFFFF !important;box-shadow:var(--card-sh) !important}
-.profile-menu{background:var(--glass-d) !important;border:1px solid var(--dk-line) !important;box-shadow:var(--card-sh) !important;backdrop-filter:blur(14px)}
+.profile-menu{background:var(--glass-d) !important;border:1px solid var(--dk-line) !important;box-shadow:var(--card-sh) !important}
 .profile-menu-item{background:transparent !important;border-bottom:1px solid var(--dk-line) !important;color:#FFFFFF !important}
 .profile-menu-item:last-child{border-bottom:none !important}
 .empty-state{background:rgba(255, 255, 255, .04) !important;border:1.5px dashed #3A3A42 !important;color:var(--dk-tx2) !important}
@@ -2201,7 +2188,7 @@ body{
 .dogs-cta:active{transform:scale(.985)}
 .how-wrap{margin:18px 2px 0}
 .how-title{font-size:13px;font-weight:900;letter-spacing:1.6px;color:#FFFFFF;margin-bottom:10px}
-.how-step{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;background:var(--glass-d);border:1px solid var(--dk-line);border-radius:16px;margin-bottom:8px;backdrop-filter:blur(10px)}
+.how-step{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;background:var(--glass-d);border:1px solid var(--dk-line);border-radius:16px;margin-bottom:8px}
 .how-n{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--grad-cta);color:#FFFFFF;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 6px 14px -4px rgba(255, 196, 0, .6)}
 .how-t{color:#FFFFFF;font-weight:800;font-size:13.5px}
 .how-s{color:var(--dk-tx2);font-size:12.5px;margin-top:2px;line-height:1.5}
@@ -2347,20 +2334,22 @@ body{
 .page{padding-bottom:140px !important}
 
 
-/* ═══ LUX v7.1 — official AD VOLT logo + animated yellow-thunder cards ═══
-   Owner round (2026-11-06): the supplied logo (gold bolts + AdVOLT wordmark
-   on baked black) becomes the brand face; every card surface WITHOUT art
-   gets an animated YELLOW LIGHTNING background (blue thunder stays in the
-   art/pages character). Thunder = solid near-black base on the card +
-   a ::after layer of 3 gold bolt glyphs (SVG), slow drift + flicker.
-   Contrast contract: worst-case text pixel = base #121215 blended with
-   bolt gold #FFC400 at effective alpha .40 (layer peak opacity .5 x bolt
-   fill .8) — asserted >= 2:1 for the faintest card text in the suites. */
+/* ═══ LUX v7.2 — plain dark cards + light gold border (thunder REMOVED) ═══
+   Owner round (2026-11-06): the v7.1 animated yellow-thunder card layer
+   looked bad — it is gone completely (no bolt ::after layer, no drift /
+   pulse keyframes, no card animation at all). Every plain (no-art) card
+   surface is now a solid near-black card (#121215, lifted off the page
+   #070708) with a 1px light-yellow border. Logo plates unchanged (v7.1).
+   Perf: these surfaces are fully opaque + static, so no backdrop blur
+   and no infinite animation runs on them.
+   Owner additions (same round): the hero logo PLATE is removed —
+   the hero is back to the v7 text lockup (.dogs-hero-name + tag,
+   volt_hero.png stays as texture). The loader keeps the logo but
+   as advolt_logo_clear.png (luminance-derived alpha, NO plate). */
 /* — official logo plates: pure-black plate, so the baked black art
    background meets #000 and no seam can show — */
-.loading-logo{display:block;width:min(62vw,232px);height:auto;margin:0 auto;background:#000;border:1px solid rgba(255, 196, 0, .35);border-radius:24px;box-shadow:0 18px 44px -14px rgba(0, 0, 0, .85),0 0 34px -6px rgba(255, 196, 0, .45)}
-.dogs-hero-logo{display:block;width:min(56vw,204px);height:auto;background:#000;border:1px solid rgba(255, 196, 0, .35);border-radius:20px;box-shadow:0 14px 34px -12px rgba(0, 0, 0, .85),0 0 26px -6px rgba(255, 196, 0, .5)}
-/* — thunder card base: one solid near-black, lifted off the page #070708 — */
+.loading-logo{display:block;width:min(62vw,232px);height:auto;margin:0 auto;filter:drop-shadow(0 12px 30px rgba(255, 196, 0, .35))}
+/* — plain cards: solid #121215 + 1px soft-gold border, fully static — */
 .mine-ton-card,
 .bonus-card,
 .redeem-card,
@@ -2400,97 +2389,7 @@ body{
 .forcesub-item{
   position:relative !important;
   background-color:#121215 !important;background-image:none !important;
-}
-/* — thunder layer: 3 gold bolts, glow, drift + flicker (opacity/transform) — */
-.mine-ton-card::after,
-.bonus-card::after,
-.redeem-card::after,
-.wheel-card-btn::after,
-.quick-tile::after,
-.stat-card::after,
-.task-item::after,
-.add-task-btn::after,
-.price-box::after,
-.ref-link-box::after,
-.rr-tile::after,
-.rr-claim-card::after,
-.rr-box::after,
-.rr-card::after,
-.rr-stat-box::after,
-.how-step::after,
-.rf2-wrap::after,
-.arc-stat::after,
-.store-pack-card::after,
-.wallet-form-card::after,
-.wl-card::after,
-.convert-box::after,
-.dep-steps::after,
-.profile-menu::after,
-.profile-balance-tile::after,
-.lang-item::after,
-.tx-item::after,
-.wheel-info-banner::after,
-.combo-attempts-card::after,
-.combo-info-card::after,
-.modal::after,
-.ct-modal::after,
-.wg-card::after,
-.forcesub-card::after,
-.ban-card::after,
-.ban-item::after,
-.forcesub-item::after{
-  content:'' !important;position:absolute !important;inset:0 !important;
-  width:auto !important;height:auto !important;left:0 !important;top:0 !important;
-  border-radius:inherit;pointer-events:none !important;transform:none;
-  background-image:url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20120%27%3E%3Cpath%20d%3D%27M60%202%20L18%2068%20L42%2068%20L30%20118%20L84%2044%20L56%2044%20Z%27%20fill%3D%27%23FFC400%27%20fill-opacity%3D%270.8%27%2F%3E%3C%2Fsvg%3E"),url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20120%27%3E%3Cg%20transform%3D%22translate%28100%200%29%20scale%28-1%201%29%22%3E%3Cpath%20d%3D%27M60%202%20L18%2068%20L42%2068%20L30%20118%20L84%2044%20L56%2044%20Z%27%20fill%3D%27%23FFC400%27%20fill-opacity%3D%270.5%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20120%27%3E%3Cpath%20d%3D%27M60%202%20L18%2068%20L42%2068%20L30%20118%20L84%2044%20L56%2044%20Z%27%20fill%3D%27%23FFC400%27%20fill-opacity%3D%270.38%27%2F%3E%3C%2Fsvg%3E");
-  background-repeat:no-repeat;
-  background-size:58px auto,38px auto,24px auto;
-  background-position:88% 14%,5% 84%,20% 6%;
-  filter:drop-shadow(0 0 7px rgba(255, 196, 0, .55));
-  opacity:.4;animation:voltDrift 11s ease-in-out infinite alternate,voltPulse 7.5s linear infinite;
-}
-.quick-tile::after,.rr-tile::after,.tx-item::after{animation-delay:-2.5s,-3.5s}
-.modal::after,.wallet-form-card::after,.profile-menu::after{animation-delay:-5s,-1.5s}
-@keyframes voltDrift{from{transform:translate3d(-2px,1px,0)}to{transform:translate3d(2px,-1px,0)}}
-@keyframes voltPulse{0%,100%{opacity:.30}7%{opacity:.5}11%{opacity:.36}44%{opacity:.42}50%{opacity:.5}56%{opacity:.38}78%{opacity:.46}}
-@media (prefers-reduced-motion:reduce){
-  .mine-ton-card::after,
-.bonus-card::after,
-.redeem-card::after,
-.wheel-card-btn::after,
-.quick-tile::after,
-.stat-card::after,
-.task-item::after,
-.add-task-btn::after,
-.price-box::after,
-.ref-link-box::after,
-.rr-tile::after,
-.rr-claim-card::after,
-.rr-box::after,
-.rr-card::after,
-.rr-stat-box::after,
-.how-step::after,
-.rf2-wrap::after,
-.arc-stat::after,
-.store-pack-card::after,
-.wallet-form-card::after,
-.wl-card::after,
-.convert-box::after,
-.dep-steps::after,
-.profile-menu::after,
-.profile-balance-tile::after,
-.lang-item::after,
-.tx-item::after,
-.wheel-info-banner::after,
-.combo-attempts-card::after,
-.combo-info-card::after,
-.modal::after,
-.ct-modal::after,
-.wg-card::after,
-.forcesub-card::after,
-.ban-card::after,
-.ban-item::after,
-.forcesub-item::after{animation:none !important;opacity:.38}
+  border:1px solid rgba(255, 196, 0, .38) !important;
 }
 
 </style>
@@ -2502,7 +2401,7 @@ body{
 <!-- Loading -->
 <div class="loading-screen" id="loadingScreen">
   <div class="loading-panel">
-    <img class="loading-logo" src="assets/advolt_logo.png" alt="AD VOLT">
+    <img class="loading-logo" src="assets/advolt_logo_clear.png" alt="AD VOLT">
     <div class="loading-sub">FEEL THE THUNDER</div>
     <div class="loading-label">AD VOLT IS CHARGING<span class="ld-dot">.</span><span class="ld-dot">.</span><span class="ld-dot">.</span></div>
     <div class="ld-bar">
@@ -2591,7 +2490,7 @@ body{
       <img class="dogs-hero-img" src="assets/volt_hero.png" alt="" onerror="this.parentNode.classList.add('art-missing');this.remove()">
       <div class="dogs-hero-scrim"></div>
       <div class="dogs-hero-top">
-        <img class="dogs-hero-logo" src="assets/advolt_logo.png" alt="AD VOLT">
+        <div class="dogs-hero-name">AD VOLT</div>
         <div class="dogs-hero-tag">FEEL THE THUNDER · EARN THE CHARGE</div>
       </div>
       <div class="dogs-hero-balance">
@@ -2671,7 +2570,7 @@ body{
     <!-- TASKS -->
     <div class="page" id="page-tasks">
        <div class="tasks-header"><div class="page-title">Earn</div><div style="font-size:13px;color:var(--text3);margin-top:5px">Finish jobs. Stack the charge.</div></div>
-      <div class="dogs-banner"><img src="assets/volt_rank.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/volt_rank.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="tabs-section"><div class="tabs">
         <div class="tab active" onclick="switchTab(this,'ads')"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="12" rx="2.5"/><path d="M9.5 20.5h5M12 17v3.5"/><path d="M10.3 8.8v4.4l3.8-2.2z" fill="currentColor" stroke="none"/></svg><span>Ads</span></div>
         <div class="tab" onclick="switchTab(this,'channels')"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.8 1.7 1.7L8.8 5.4"/><path d="M12.5 7H20"/><path d="m4 13.3 1.7 1.7 3.1-3.1"/><path d="M12.5 13.5H20"/><path d="M12.5 19.5H20"/><path d="M4 19.5h3.5"/></svg><span>TASKS</span></div>
@@ -2693,7 +2592,7 @@ body{
         <div class="page-sub" data-i18n="referrals.subtitle">Invite friends and earn rewards</div>
       </div>
 
-      <div class="dogs-banner"><img src="assets/volt_crew.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/volt_crew.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
 
       <div class="ref-link-box">
         <div class="ref-link-label" data-i18n="referrals.yourLink">Your referral link</div>
@@ -2752,7 +2651,7 @@ body{
         <div class="arc-title">THE ARENA</div>
         <div class="arc-sub">Enter the arena · win AD VOLT</div>
       </div>
-      <div class="dogs-banner"><img src="assets/volt_games.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/volt_games.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="arc-stats">
         <div class="arc-stat">
           <img class="arc-stat-img" src="assets/volt_coin.png" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2247%22 fill=%22%23111316%22/><circle cx=%2250%22 cy=%2250%22 r=%2243%22 fill=%22none%22 stroke=%22%23FFC400%22 stroke-width=%222%22/><path d=%22M55 10 L26 57 L45 57 L38 90 L76 39 L55 39 Z%22 fill=%22%23FFC400%22/></svg>'" alt="">
@@ -2764,7 +2663,7 @@ body{
         </div>
       </div>
       <div class="arc-featured" onclick="openGame('space')">
-        <img class="arc-featured-img" src="assets/volt_cover_space.png" onerror="this.onerror=null;this.src='assets/volt_games.png'" alt="">
+        <img class="arc-featured-img" src="assets/volt_cover_space.png" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/volt_games.png'" alt="">
         <div class="arc-featured-badge">★ FEATURED GAME</div>
         <div class="arc-featured-shade"></div>
         <div class="arc-featured-body">
@@ -2809,7 +2708,7 @@ body{
         </div>
       </div>
 
-      <div class="dogs-banner"><img src="assets/volt_profile.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/volt_profile.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
 
             <div class="profile-menu">
         <div class="profile-menu-item" onclick="switchPage('deposit')">
@@ -2869,7 +2768,7 @@ body{
         <button class="back-btn" onclick="switchPage('profile')">←</button>
         <div class="page-title pg-title"><span class="pg-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="6" width="17" height="12.5" rx="3"/><path d="M3.5 10h17"/><path d="M16.8 14.8h.01"/></svg></span><span data-i18n="wallet.title">Link Wallet</span></div>
       </div>
-      <div class="dogs-banner"><img src="assets/volt_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/volt_vault.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="wl-card">
         <div class="wl-status-row"><span class="wl-dot" id="walletLinkDot"></span><span class="wl-status" id="walletLinkStatus" data-i18n="profile.disconnected">Wallet not connected</span></div>
         <div class="wl-addr" id="walletLinkAddr" style="display:none"></div>
@@ -2885,7 +2784,7 @@ body{
         <button class="back-btn" onclick="switchPage('profile')">←</button>
         <div class="page-title pg-title"><span class="pg-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v9.5"/><path d="m7.5 10 4.5 4.5L16.5 10"/><path d="M4 15.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"/></svg></span><span data-i18n="deposit.pageTitle">Deposit TON</span></div>
       </div>
-      <div class="dogs-banner"><img src="assets/volt_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/volt_vault.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="wallet-form-card">
         <div class="wallet-form-title"><span data-i18n="deposit.formTitle">Deposit TON</span></div>
         <div class="wallet-form-help" data-i18n="deposit.help">Connect your TON wallet and send TON to the AD VOLT deposit wallet. Your User ID is added as the transaction comment.</div>
@@ -2907,7 +2806,7 @@ body{
         <button class="back-btn" onclick="switchPage('profile')">←</button>
         <div class="page-title pg-title"><span class="pg-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13.5V4"/><path d="m7.5 7.5 4.5-4 4.5 4"/><path d="M4 15.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"/></svg></span><span data-i18n="withdraw.pageTitle">Withdraw TON</span></div>
       </div>
-      <div class="dogs-banner"><img src="assets/volt_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/volt_vault.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="wallet-form-card">
         <div class="wallet-form-title"><span data-i18n="withdraw.formTitle">Withdraw TON</span></div>
         <div class="limit-card wd" aria-label="Withdrawal requirements">
@@ -2933,7 +2832,7 @@ body{
         <button class="back-btn" onclick="switchPage('profile')">←</button>
         <div class="page-title pg-title"><span class="pg-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 8h11.5l-2.7-2.7M19.5 16H8l2.7 2.7"/></svg></span><span data-i18n="convert.pageTitle">Convert</span></div>
       </div>
-      <div class="dogs-banner"><img src="assets/volt_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/volt_vault.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="wallet-form-card">
         <div class="wallet-form-title"><span data-i18n="convert.formTitle">Convert TON to AD VOLT</span></div>
         <div class="convert-box">
@@ -3017,7 +2916,7 @@ body{
         <div class="page-title">Lucky Wheel</div>
       </div>
 
-      <div class="dogs-banner"><img src="assets/volt_wheel.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/volt_wheel.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
 
       <div class="wheel-info-banner">
         <svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.4"/><path d="M12 3.5v6.1M12 14.4v6.1M3.5 12h6.1M14.4 12h6.1M6 6l4.3 4.3M13.7 13.7 18 18M18 6l-4.3 4.3M10.3 13.7 6 18"/></svg>
@@ -3161,7 +3060,7 @@ body{
 <div class="modal-overlay" id="noSpinsModal" onclick="closeModalOutside(event,'noSpinsModal')">
   <div class="modal">
     <div class="modal-handle"></div>
-    <img class="wl-modal-img" src="assets/volt_nospins.png" alt="" onerror="this.remove()">
+    <img class="wl-modal-img" src="assets/volt_nospins.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
     <div class="modal-title">NO SPINS LEFT</div>
     <div class="wl-modal-line">Spins balance: <b id="noSpinsCount">0</b></div>
     <div class="modal-desc">Invite your friends first — grow your grid.</div>
@@ -5574,7 +5473,7 @@ function renderArcade(){
     if (_arcFilter !== 'all' && d.cat !== _arcFilter) return;
     var st = gameState(d.id);
     html += '<div class="arc-card' + (st.playsLeft<=0 ? ' done' : '') + '" onclick="openGame(\'' + d.id + '\')">' +
-      '<div class="arc-card-cover"><img src="' + d.cover + '" onerror="coverFallback(this,\'' + d.id + '\')" alt=""><span class="arc-card-play">▶</span></div>' +
+      '<div class="arc-card-cover"><img loading="lazy" decoding="async" src="' + d.cover + '" onerror="coverFallback(this,\'' + d.id + '\')" alt=""><span class="arc-card-play">▶</span></div>' +
       '<div class="arc-card-body"><div class="arc-card-cat ' + d.cat + '">' + d.catLabel + '</div>' +
       '<div class="arc-card-name">' + d.name + '</div>' +
       '<div class="arc-card-meta"><span class="amt"><img src="assets/volt_coin.png" onerror="this.onerror=null;this.src=\'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2247%22 fill=%22%23111316%22/><circle cx=%2250%22 cy=%2250%22 r=%2243%22 fill=%22none%22 stroke=%22%23FFC400%22 stroke-width=%222%22/><path d=%22M55 10 L26 57 L45 57 L38 90 L76 39 L55 39 Z%22 fill=%22%23FFC400%22/></svg>\'" alt=""> ' + d.cap + '</span><span class="arc-pips">' + arcPips(st) + '</span></div></div></div>';
@@ -5602,7 +5501,7 @@ function openGame(id){
   document.getElementById('gameRewardEst').textContent = '+0';
   var stage = document.getElementById('gameStage');
   var panel = document.getElementById('gamePanel');
-  stage.innerHTML = '<img src="' + d.cover + '" onerror="coverFallback(this,\'' + d.id + '\')" alt="" style="width:100%;height:100%;object-fit:cover">';
+  stage.innerHTML = '<img loading="lazy" decoding="async" src="' + d.cover + '" onerror="coverFallback(this,\'' + d.id + '\')" alt="" style="width:100%;height:100%;object-fit:cover">';
   var st = gameState(id);
   panel.innerHTML = '<div class="game-card"><h3>' + d.name + '</h3><p>' + d.how + '</p>' +
     '<p style="margin-bottom:12px">🪙 Up to <b style="color:#FFD166">' + d.cap + ' AD VOLT</b> · Plays left today: <b style="color:#FFFFFF">' + st.playsLeft + '/' + st.playsPerDay + '</b></p>' +
