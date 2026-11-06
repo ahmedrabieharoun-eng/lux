@@ -293,68 +293,9 @@ html,body{height:100%;
 .ref-user-badge.active{background:rgba(34,197,94,0.15);color:var(--green)}
 .ref-user-badge.new{background:rgba(255,49,49,0.12);color:var(--orange)}
 
-/* ══ WEEKLY CONTEST — redesigned ══ */
-@keyframes ctRise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-@keyframes ctShine{0%{transform:translateX(-120%) skewX(-20deg)}100%{transform:translateX(320%) skewX(-20deg)}}
-#page-record{background:radial-gradient(900px 380px at 50% -8%,rgba(255,49,49,.22),transparent 65%),var(--bg)}
-.ct-head{display:flex;align-items:center;justify-content:space-between;padding:18px 18px 4px}
-.ct-title{font-size:22px;font-weight:900;letter-spacing:.3px;background:linear-gradient(180deg,#fff,#bcd2ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.ct-sub{font-size:12px;color:#8ea2cf;margin-top:3px}
-.ct-help{width:40px;height:40px;border-radius:50%;flex-shrink:0;border:1.5px solid rgba(255,110,110,.55);background:rgba(255,110,110,.1);color:#FF8A8A;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 14px rgba(255,110,110,.18)}
-.ct-help:active{transform:scale(.92)}
-.ct-pool{position:relative;overflow:hidden;margin:12px 16px;padding:20px 18px;border-radius:22px;text-align:center;background:linear-gradient(160deg,#10224a,#0a1330 70%);border:1px solid rgba(255,49,49,.28);box-shadow:0 10px 30px rgba(0,0,0,.4);animation:ctRise .4s ease both}
-.ct-pool::after{content:'';position:absolute;top:0;left:0;width:28%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,110,110,.14),transparent);animation:ctShine 5s ease-in-out infinite;pointer-events:none}
-.ct-pool-lbl{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#FF8A8A;text-transform:uppercase}
-.ct-pool-val{display:flex;align-items:center;justify-content:center;gap:8px;margin:6px 0 14px;font-size:40px;font-weight:900;color:#fff;line-height:1}
-.ct-pool-val img{width:34px;height:34px}
-.ct-timer{display:inline-flex;align-items:center;gap:10px;padding:9px 18px;border-radius:14px;background:rgba(4,9,22,.7);border:1px solid rgba(255,110,110,.25)}
-.ct-timer-lbl{font-size:11px;color:#8ea2cf;font-weight:700;text-transform:uppercase}
-.ct-timer-val{font-size:18px;font-weight:900;color:#FF8A8A;font-variant-numeric:tabular-nums;letter-spacing:.5px}
-.ct-me{display:flex;align-items:center;gap:12px;margin:0 16px 14px;padding:14px;border-radius:18px;background:linear-gradient(145deg,#0c1428,#080e1e);border:1px solid rgba(255,110,110,.22);animation:ctRise .45s ease both}
-.ct-av{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,#1b2a52,#0e1733);border:1px solid rgba(255,49,49,.35);display:flex;align-items:center;justify-content:center;font-weight:800;color:#FF8A8A}
-.ct-av img{width:100%;height:100%;object-fit:cover}
-.ct-me-info{flex:1;min-width:0}
-.ct-me-name{font-size:14px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ct-me-sub{font-size:11.5px;color:#8ea2cf;margin-top:2px}
-.ct-me-rank{text-align:center;padding:6px 14px;border-radius:12px;background:rgba(255,110,110,.12);border:1px solid rgba(255,110,110,.3)}
-.ct-me-rank b{display:block;font-size:19px;font-weight:900;color:#FF8A8A;line-height:1.1}
-.ct-me-rank span{font-size:9px;font-weight:800;color:#8ea2cf;letter-spacing:1px}
-.ct-sec{margin:16px 18px 10px;font-size:13px;font-weight:800;color:#bcd2ff;letter-spacing:.6px;text-transform:uppercase}
-.ct-prizes{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:0 16px}
-.ct-prize{padding:9px 2px;border-radius:12px;text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,49,49,.16)}
-.ct-prize.top{background:linear-gradient(160deg,rgba(255,110,110,.2),rgba(255,110,110,.04));border-color:rgba(255,110,110,.5)}
-.ct-prize-rank{font-size:10px;font-weight:800;color:#8ea2cf}
-.ct-prize-val{font-size:13px;font-weight:900;color:#fff;margin-top:2px}
-.ct-prize.top .ct-prize-val{color:#FF8A8A}
-.ct-top3{display:flex;flex-direction:column;gap:9px;margin:0 16px}
-.ct-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:linear-gradient(145deg,#0c1428,#080e1e);border:1px solid rgba(255,49,49,.15);animation:ctRise .4s ease both}
-.ct-row.r1{border-color:rgba(255,110,110,.6);background:linear-gradient(145deg,rgba(255,110,110,.16),#0a1330 60%)}
-.ct-row.r2{border-color:rgba(203,213,225,.45)}
-.ct-row.r3{border-color:rgba(217,119,6,.5)}
-.ct-row.me{box-shadow:0 0 0 2px rgba(255,49,49,.55)}
-.ct-pos{width:34px;text-align:center;font-size:20px;font-weight:900;color:#8ea2cf;flex-shrink:0}
-.ct-row-info{flex:1;min-width:0}
-.ct-row-name{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ct-row-cnt{font-size:11.5px;color:#8ea2cf;margin-top:2px}
-.ct-row-prize{font-size:13px;font-weight:900;color:#FF8A8A;white-space:nowrap}
-.ct-you{font-size:9px;font-weight:900;color:#0b1020;background:#FF3131;padding:1px 6px;border-radius:8px;margin-left:6px;vertical-align:1px}
-.ct-list{display:flex;flex-direction:column;gap:8px;margin:0 16px 24px}
+
 .ct-modal{align-items:flex-end}
-.ct-sheet{width:100%;max-width:480px;margin:0 auto;max-height:86vh;overflow-y:auto;padding:22px 20px 20px;border-radius:26px 26px 0 0;background:radial-gradient(120% 60% at 50% 0%,rgba(255,49,49,.2),transparent 62%),linear-gradient(180deg,#0e1a36,#080e1f);border:1px solid rgba(255,49,49,.25);border-bottom:none}
-.ct-sheet h3{margin:0 0 4px;text-align:center;font-size:19px;font-weight:900;color:#fff}
-.ct-sheet-sub{text-align:center;font-size:12px;color:#8ea2cf;margin-bottom:16px}
-.ct-step{display:flex;gap:12px;padding:11px 12px;margin-bottom:8px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,49,49,.14)}
-.ct-step-n{width:26px;height:26px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#fde68a,#f59e0b);color:#1a1200;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center}
-.ct-step-t{font-size:12.5px;line-height:1.6;color:#d5def5}
-.ct-step-t b{color:#FF8A8A}
-.ct-close{width:100%;margin-top:8px;padding:14px;border-radius:14px;border:none;background:linear-gradient(135deg,#fde68a,#FF8A8A 45%,#f59e0b);color:#1a1200;font-size:15px;font-weight:900;cursor:pointer}
-/* ── Contest tabs (Referrals / Ads) ── */
-.ct-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:12px 16px 2px;padding:5px;border-radius:16px;background:rgba(4,9,22,.7);border:1px solid rgba(255,49,49,.2)}
-.ct-tab{padding:11px 6px;border-radius:12px;border:none;background:transparent;color:#8ea2cf;font-size:13px;font-weight:800;cursor:pointer;transition:all .2s}
-.ct-tab.active{background:linear-gradient(135deg,#fde68a,#FF8A8A 45%,#f59e0b);color:#1a1200;box-shadow:0 4px 14px rgba(255,110,110,.25)}
-.ct-pane{display:none}
-.ct-pane.active{display:block}
-.ct-cr-ico{width:15px;height:15px;object-fit:contain;vertical-align:-3px}
+
 /* ── My Referrals list ── */
 .rf-list-wrap{margin:0 16px 24px}
 .rf-list-head{display:flex;align-items:center;justify-content:space-between;margin:4px 2px 12px;font-size:16px;font-weight:800;color:var(--text)}
@@ -405,17 +346,7 @@ html,body{height:100%;
 .rr-table-row .rr-cell-sub{color:var(--text3);font-size:10.5px}
 .rr-table-row .rr-income{color:var(--orange);font-weight:800;display:flex;align-items:center;gap:4px}
 .rr-table-row .rr-income img{width:14px;height:14px;object-fit:contain}
-.record-header{padding:16px 20px 8px}
-.record-list-section{padding:0 16px 16px}
-.record-item{border-radius:18px;background:linear-gradient(145deg,rgba(52,38,30,.72),rgba(24,21,20,.92));border:1px solid rgba(255,255,255,.13);margin-bottom:10px;padding:14px;box-shadow:0 4px 14px rgba(0,0,0,.22)}
-.record-item-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.record-user{display:flex;align-items:center;gap:10px;min-width:0}
-.record-avatar{width:42px;height:42px;border-radius:50%;overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,#2d1f00,#1a1500);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--orange);border:1.5px solid rgba(255,49,49,0.25)}
-.record-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.record-name{font-size:14px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.record-amount{font-size:14px;font-weight:800;color:var(--green);white-space:nowrap;flex-shrink:0}
-.record-view-btn{width:100%;margin-top:10px;padding:9px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:var(--text2);font-size:12px;font-weight:700;cursor:pointer}
-.record-view-btn:active{background:rgba(255,255,255,.12)}
+
 
 
 
@@ -1095,86 +1026,7 @@ html,body{height:100%;
 .limit-val{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:12px;font-size:16px;font-weight:900;color:#fff;background:rgba(4,9,22,.75);border:1px solid rgba(255,49,49,.28);font-variant-numeric:tabular-nums}
 .limit-ton{width:18px;height:18px;object-fit:contain}
 
-/* ===== Weekly Contest v2 ===== */
-@keyframes ctGlow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.95;transform:scale(1.12)}}
-@keyframes ctFloat{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-6px) rotate(6deg)}}
-@keyframes ctTwinkle{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1.15)}}
-@keyframes ctPulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.6)}100%{box-shadow:0 0 0 8px rgba(74,222,128,0)}}
-.ct-head{padding:20px 18px 6px}
-.ct-title{font-size:24px;letter-spacing:.2px;background:linear-gradient(180deg,#fff 20%,#FF8A8A);-webkit-background-clip:text;background-clip:text;color:transparent}
-.ct-pool{margin:14px 16px;padding:26px 18px 20px;border-radius:26px;background:radial-gradient(120% 90% at 50% 0%,rgba(255,110,110,.2),transparent 60%),linear-gradient(160deg,#142a5c,#0a1330 72%);border:1px solid rgba(255,110,110,.38);box-shadow:0 16px 40px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.04) inset}
-.ct-pool-glow{position:absolute;top:-60px;left:50%;width:240px;height:240px;margin-left:-120px;border-radius:50%;background:radial-gradient(circle,rgba(255,110,110,.35),transparent 65%);animation:ctGlow 4s ease-in-out infinite;pointer-events:none}
-.ct-pool-trophy{position:relative;font-size:38px;line-height:1;margin-bottom:6px;display:inline-block;filter:drop-shadow(0 6px 14px rgba(255,110,110,.5));animation:ctFloat 3.6s ease-in-out infinite}
-.ct-spark{position:absolute;color:#FF8A8A;font-size:14px;animation:ctTwinkle 2.4s ease-in-out infinite;pointer-events:none}
-.ct-spark.s1{top:20px;left:22px}.ct-spark.s2{top:46px;right:26px;animation-delay:.8s;font-size:11px}.ct-spark.s3{bottom:62px;left:34px;animation-delay:1.5s;font-size:10px}
-.ct-pool-lbl{position:relative;font-size:11px;letter-spacing:2px;color:#fcd34d}
-.ct-pool-val{position:relative;margin:8px 0 16px;font-size:52px;letter-spacing:-1px;background:linear-gradient(180deg,#fff,#fde68a 80%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 14px rgba(255,110,110,.25))}
-.ct-pool-val img{width:38px;height:38px;filter:drop-shadow(0 3px 10px rgba(0,152,234,.5))}
-.ct-pool-val em{font-style:normal;font-size:18px;font-weight:800;letter-spacing:1px;color:#8ea2cf;-webkit-text-fill-color:#8ea2cf;align-self:flex-end;margin-bottom:8px}
-.ct-timer{position:relative;gap:9px;padding:10px 18px;border-radius:30px;background:rgba(4,9,22,.78);border:1px solid rgba(255,110,110,.32)}
-.ct-live{width:8px;height:8px;border-radius:50%;background:#4ade80;animation:ctPulse 1.6s ease-out infinite}
-.ct-timer-val{font-size:19px;color:#fde68a;text-shadow:0 0 12px rgba(255,110,110,.35)}
-.ct-me{margin:0 16px 6px;padding:14px 16px;border-radius:20px;background:linear-gradient(135deg,rgba(255,49,49,.16),rgba(89,120,245,.08) 50%,#080e1e);border:1px solid rgba(255,49,49,.4);box-shadow:0 8px 22px rgba(0,0,0,.35)}
-.ct-av{border:2px solid rgba(255,49,49,.6)}
-.ct-me-rank{padding:8px 16px;border-radius:14px;background:linear-gradient(160deg,rgba(255,110,110,.22),rgba(255,110,110,.06));border:1px solid rgba(255,110,110,.45)}
-.ct-me-rank b{font-size:22px}
-.ct-sec{display:flex;align-items:center;gap:10px;margin:22px 18px 12px;color:#e2e9ff;font-size:13px}
-.ct-sec::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,110,110,.4),transparent)}
-.ct-prizes{grid-template-columns:repeat(auto-fit,minmax(54px,1fr));gap:8px}
-.ct-prize{padding:11px 2px 10px;border-radius:14px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,49,49,.2)}
-.ct-prize-rank{font-size:17px;line-height:1.2}
-.ct-prize-val{font-size:14px;margin-top:4px}
-.ct-prize.top{box-shadow:0 6px 16px rgba(255,110,110,.12)}
-.ct-prize:nth-child(1){background:linear-gradient(160deg,rgba(255,110,110,.34),rgba(255,110,110,.06));border-color:rgba(255,110,110,.7)}
-.ct-prize:nth-child(2){background:linear-gradient(160deg,rgba(203,213,225,.26),rgba(203,213,225,.04));border-color:rgba(203,213,225,.55)}
-.ct-prize:nth-child(3){background:linear-gradient(160deg,rgba(217,119,6,.28),rgba(217,119,6,.04));border-color:rgba(217,119,6,.6)}
-.ct-prize:nth-child(2) .ct-prize-val{color:#e2e8f0}.ct-prize:nth-child(3) .ct-prize-val{color:#f59e0b}
-.ct-top3{display:block;margin:0 14px}
-.ct-podium{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:8px;align-items:end;padding-top:6px}
-.pd{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0;animation:ctRise .5s ease both}
-.pd.p1{animation-delay:.05s}.pd.p2{animation-delay:.15s}.pd.p3{animation-delay:.25s}
-.pd-crown{font-size:24px;line-height:1;margin-bottom:-4px;filter:drop-shadow(0 4px 8px rgba(255,110,110,.6));animation:ctFloat 3s ease-in-out infinite}
-.pd-av{width:58px;height:58px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#FF8A8A;background:linear-gradient(135deg,#1b2a52,#0e1733);border:3px solid #cbd5e1;box-shadow:0 6px 16px rgba(0,0,0,.45)}
-.pd-av img{width:100%;height:100%;object-fit:cover}
-.pd.p1 .pd-av{width:72px;height:72px;border-color:#FF8A8A;box-shadow:0 0 0 4px rgba(255,110,110,.18),0 10px 24px rgba(255,110,110,.3)}
-.pd.p3 .pd-av{border-color:#7c3aed}
-.pd-name{max-width:100%;margin-top:8px;font-size:12px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pd-cnt{font-size:11px;color:#8ea2cf;margin-top:2px}
-.pd-prize{margin-top:6px;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:900;color:#FF8A8A;background:rgba(255,110,110,.12);border:1px solid rgba(255,110,110,.35);white-space:nowrap}
-.pd-base{width:100%;margin-top:10px;border-radius:14px 14px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:8px;font-size:22px;font-weight:900;border:1px solid rgba(255,255,255,.1);border-bottom:none}
-.pd.p1 .pd-base{height:84px;color:#3a2600;background:linear-gradient(180deg,#fde68a,#f59e0b);box-shadow:0 -6px 22px rgba(255,110,110,.25)}
-.pd.p2 .pd-base{height:62px;color:#1e293b;background:linear-gradient(180deg,#e2e8f0,#94a3b8)}
-.pd.p3 .pd-base{height:48px;color:#2b1700;background:linear-gradient(180deg,#f5b25a,#b45309)}
-.pd.empty{opacity:.45}.pd.empty .pd-base{background:rgba(255,255,255,.06);color:#7d8fb8}
-.pd.me .pd-av{box-shadow:0 0 0 3px rgba(255,49,49,.7),0 6px 16px rgba(0,0,0,.45)}
-.ct-list{margin:0 16px 24px;gap:9px}
-.ct-row{padding:12px 14px;border-radius:16px}
-.ct-pos{font-size:15px;width:30px;color:#7d8fb8}
 
-/* Contest v3 polish */
-.ct-prizes{display:block}
-.ctp-top{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.ctp-big{position:relative;padding:14px 6px 12px;border-radius:18px;text-align:center;border:1px solid rgba(255,255,255,.12);overflow:hidden}
-.ctp-big::before{content:'';position:absolute;inset:0;background:radial-gradient(90% 60% at 50% 0%,rgba(255,255,255,.16),transparent 70%);pointer-events:none}
-.ctp-big.g1{background:linear-gradient(165deg,rgba(255,110,110,.38),rgba(255,110,110,.05));border-color:rgba(255,110,110,.7);box-shadow:0 8px 22px rgba(255,110,110,.14)}
-.ctp-big.g2{background:linear-gradient(165deg,rgba(203,213,225,.3),rgba(203,213,225,.04));border-color:rgba(203,213,225,.55)}
-.ctp-big.g3{background:linear-gradient(165deg,rgba(217,119,6,.34),rgba(217,119,6,.04));border-color:rgba(217,119,6,.6)}
-.ctp-medal{font-size:26px;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
-.ctp-amt{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:8px;font-size:18px;font-weight:900;color:#fff}
-.ctp-amt img{width:15px;height:15px}
-.ctp-big.g1 .ctp-amt{color:#fde68a}
-.ctp-lbl{margin-top:3px;font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#a9b8dc}
-.ctp-rest{display:grid;grid-template-columns:repeat(auto-fit,minmax(58px,1fr));gap:7px;margin-top:9px}
-.ctp-chip{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,49,49,.16);font-size:11px}
-.ctp-chip span{color:#7d8fb8;font-weight:800}.ctp-chip b{color:#fff;font-weight:900}
-.ct-gap{display:inline-block;margin-top:6px;padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:800;color:#FF8A8A;background:rgba(255,110,110,.1);border:1px solid rgba(255,110,110,.3)}
-.ct-gap.lead{color:#4ade80;background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.35)}
-.ct-bar{height:5px;margin-top:7px;border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden}
-.ct-bar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,#FF3131,#FF3131)}
-.ct-row.me .ct-bar i{background:linear-gradient(90deg,#f59e0b,#fde68a)}
-.ct-row-prize{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:20px;background:rgba(255,110,110,.1);border:1px solid rgba(255,110,110,.3)}
-.ct-row-prize.none{color:#4b5a82;background:transparent;border-color:transparent}
-.ct-row.me{background:linear-gradient(145deg,rgba(255,49,49,.14),#080e1e 70%)}
 /* ===== Animated bottom-nav icons ===== */
 .nv-home{width:30px;height:30px;overflow:visible;filter:drop-shadow(0 0 2px rgba(255,49,49,.55))}
 .nv-home *{transform-box:fill-box;transform-origin:center}
@@ -1761,20 +1613,7 @@ html,body{
 .lux-hero .balance-sub{color:rgba(255,255,255,.85) !important;font-size:12.5px !important}
 .lux-hero .home-actions{margin-top:14px !important;gap:10px !important}
 .lux-hero .home-action{border-radius:14px !important;padding:12px 0 !important;font-weight:800 !important}
-/* ── Contest — redesigned ── */
-.ct-pool{border-radius:26px !important;overflow:hidden !important;border:1px solid rgba(255,255,255,.35) !important;
-  background-image:linear-gradient(120deg,rgba(255,49,49,.88),rgba(255,49,49,.82)),url('assets/dogs_hero.png') !important;
-  background-size:cover !important;background-position:center !important;
-  box-shadow:0 22px 40px -16px rgba(76,52,190,.5) !important;color:#fff !important}
-.ct-pool-lbl{color:#FFE9A8 !important}
-.ct-pool-val,.ct-pool .ct-countdown{color:#fff !important}
-.ct-row{background:#fff !important;border:1px solid #E4E8F2 !important;border-radius:16px !important;color:#0C1330 !important;
-  box-shadow:0 6px 16px -10px rgba(16,24,64,.12) !important}
-.ct-row .ct-name{color:#0C1330 !important}
-.ct-row .ct-score{color:#C8102E !important}
-.ct-me{background:linear-gradient(120deg,rgba(255,49,49,.14),rgba(56,182,255,.14)) !important;
-  border:1.5px solid #FF3131 !important;color:#0C1330 !important}
-.ct-me .ct-name{color:#0C1330 !important}
+
 /* ── Wallet pages — redesigned ── */
 .wallet-form-card{border-radius:24px !important;padding:20px 18px !important;
   box-shadow:0 14px 30px -14px rgba(16,24,64,.18) !important}
@@ -2136,75 +1975,7 @@ html,body{
 .store-pack-card{background:#fff !important}
 .store-pack-card.required{border-color:var(--vio) !important;box-shadow:0 0 0 1px var(--vio),0 12px 24px -12px rgba(255,49,49,.45) !important}
 
-/* ── Ranking / Weekly Contest ── */
-#page-record{background:transparent !important}
-.ct-head{padding:20px 18px 4px !important}
-.ct-title{background:none !important;-webkit-background-clip:initial !important;background-clip:initial !important;-webkit-text-fill-color:var(--ink) !important;color:var(--ink) !important;font-size:25px !important}
-.ct-sub{color:var(--mut) !important}
-.ct-help{background:#fff !important;border:1px solid var(--line) !important;color:var(--vio) !important;box-shadow:var(--card-sh)}
-.ct-tabs{border-radius:16px !important}
-.ct-tab{display:flex !important;align-items:center;justify-content:center;gap:8px}
-.ct-pool{background:var(--grad-brand) !important;border:none !important;border-radius:26px !important;box-shadow:var(--pop-sh) !important}
-.ct-pool-lbl{color:#FFD9A0 !important}
-.ct-pool-val{background:none !important;-webkit-text-fill-color:#fff !important;color:#fff !important;filter:none !important;font-size:46px !important}
-.ct-pool-val em{color:#CFC9FF !important;-webkit-text-fill-color:#CFC9FF !important}
-.ct-timer{background:rgba(10,10,35,.38) !important;border:1px solid rgba(255,255,255,.25) !important;border-radius:16px !important}
-.ct-timer-lbl{color:#CFC9FF !important}
-.ct-timer-val{color:#fff !important;text-shadow:none !important}
-.ct-sec{color:var(--ink) !important}
-.ct-sec::after{background:linear-gradient(90deg,var(--line2),transparent) !important}
-.ct-me{background:#fff !important;border:1.5px solid var(--vio) !important;border-radius:20px !important;box-shadow:var(--card-sh)}
-.ct-me-name{color:var(--ink) !important}
-.ct-me-sub{color:var(--mut) !important}
-.ct-me-rank{background:var(--vio-t) !important;border:none !important}
-.ct-me-rank b{color:var(--vio) !important}
-.ct-me-rank span{color:var(--faint) !important}
-.ct-av{background:var(--vio-t) !important;color:var(--vio);border:2px solid #fff !important;box-shadow:0 0 0 1px var(--line)}
-.ct-gap{color:var(--vio) !important;background:var(--vio-t) !important;border:none !important}
-.ct-gap.lead{color:var(--grn) !important;background:var(--grn-t) !important}
-.ctp-big{background:#fff !important;border:1px solid var(--line) !important;border-radius:18px !important;box-shadow:var(--card-sh)}
-.ctp-big::before{display:none !important}
-.ctp-big.g1{background:linear-gradient(165deg,#FFF6DC,#fff) !important;border-color:#F0D488 !important}
-.ctp-big.g2{background:linear-gradient(165deg,#F0F3F9,#fff) !important;border-color:#CBD5E4 !important}
-.ctp-big.g3{background:linear-gradient(165deg,#FCEEE0,#fff) !important;border-color:#EBC49A !important}
-.ctp-amt{color:var(--ink) !important}
-.ctp-big.g1 .ctp-amt{color:var(--amb-d) !important}
-.ctp-lbl{color:var(--faint) !important}
-.ctp-chip{background:#fff !important;border:1px solid var(--line) !important}
-.ctp-chip span{color:var(--faint) !important}
-.ctp-chip b{color:var(--ink) !important}
-#ctPrizes:empty::after,#adPrizes:empty::after{
-  content:'Prizes load together with this round’s leaderboard';
-  display:block;text-align:center;padding:18px 14px;border:1.5px dashed var(--line2);
-  border-radius:16px;color:var(--faint);font-size:12.5px;font-weight:700;background:#fff;
-}
-.pd-name{color:var(--ink) !important}
-.pd-cnt{color:var(--mut) !important}
-.pd-av{background:var(--vio-t) !important;color:var(--vio);border-color:#B9C2D4 !important;box-shadow:0 8px 18px -8px rgba(20,20,60,.3) !important}
-.pd.p1 .pd-av{border-color:#E9B949 !important;box-shadow:0 0 0 4px rgba(233,185,73,.18),0 10px 22px -8px rgba(20,20,60,.3) !important}
-.pd.p3 .pd-av{border-color:#D89A5B !important}
-.pd-prize{color:var(--vio) !important;background:var(--vio-t) !important;border:none !important}
-.pd.me .pd-av{box-shadow:0 0 0 3px rgba(255,49,49,.65),0 8px 18px -8px rgba(20,20,60,.3) !important}
-.ct-row{background:#fff !important;border:1px solid var(--line) !important;border-radius:16px !important;color:var(--ink) !important;box-shadow:var(--card-sh)}
-.ct-row.r1{border-color:#E9CF8A !important;background:linear-gradient(145deg,#FFF9E8,#fff) !important}
-.ct-row.me{box-shadow:0 0 0 2px rgba(255,49,49,.55),var(--card-sh) !important}
-.ct-row-name{color:var(--ink) !important}
-.ct-row-cnt{color:var(--mut) !important}
-.ct-pos{color:var(--faint) !important}
-.ct-bar{background:#EDF0F7 !important}
-.ct-bar i{background:linear-gradient(90deg,var(--vio),#38B6FF) !important}
-.ct-row.me .ct-bar i{background:linear-gradient(90deg,var(--amb),#FFB020) !important}
-.ct-row-prize{color:var(--vio) !important;background:var(--vio-t) !important;border:none !important}
-.ct-row-prize.none{background:transparent !important;color:#B7BECE !important}
-.ct-you{background:var(--vio) !important;color:#fff !important}
-.ct-sheet{background:#fff !important;color:var(--ink) !important;border:none !important}
-.ct-sheet h3{color:var(--ink) !important}
-.ct-sheet-sub{color:var(--mut) !important}
-.ct-step{background:#F6F7FC !important;border:1px solid var(--line) !important}
-.ct-step-t{color:var(--ink2) !important}
-.ct-step-t b{color:var(--vio) !important}
-.ct-step-n{background:var(--grad-amber) !important;color:#231600 !important}
-.ct-close{background:var(--grad-cta) !important;color:#fff !important}
+
 
 /* ── Lucky Wheel page ── */
 .wheel-info-banner{margin:12px 16px 0 !important;background:#fff !important;border:1px solid var(--line) !important;border-radius:20px !important;padding:14px 16px !important;display:flex;gap:12px;align-items:center;box-shadow:var(--card-sh)}
@@ -2303,8 +2074,8 @@ canvas.game-canvas{max-width:100%;max-height:100%}
    Style borrowed generically from the reference: dark smoke mood, neon
    accent, glassy cards, display type scale, sparse pages. Accent is now
    NEON RED + BLACK + WHITE (+ gold for money). ALL artwork is original
-   (assets/dogs_*.png). Signature graphics drawn here: IRON CHAIN strips
-   (--chain-img / --chain-v SVG patterns), paw motifs, dog-tag chips.
+   (assets/dogs_*.png). Signature graphics drawn here: paw motifs, dog-tag chips.
+   (v6.3: ALL chain graphics removed by owner order — clean glass edges.)
    DENSITY PASS (owner order): one hero + one primary block per page,
    consolidated stat strips, slimmer rows, more air. Nothing removed.
    ════════════════════════════════════════════════════════════════════ */
@@ -2316,8 +2087,6 @@ canvas.game-canvas{max-width:100%;max-height:100%}
   --dk-line:rgba(255,255,255,.10);--dk-line2:rgba(255,255,255,.20);
   --dk-tx:#FFFFFF;--dk-tx2:#C9C9CF;--dk-tx3:#9A9AA2;
   --glass-d:rgba(255,255,255,.055);
-  --chain-img:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='12' viewBox='0 0 34 12'%3E%3Cg fill='none' stroke='%23C7CBD4' stroke-width='2.4'%3E%3Crect x='1.4' y='2.2' width='16' height='7.6' rx='3.8'/%3E%3Crect x='16.6' y='2.2' width='16' height='7.6' rx='3.8'/%3E%3C/g%3E%3C/svg%3E");
-  --chain-v:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='34' viewBox='0 0 12 34'%3E%3Cg fill='none' stroke='%23C7CBD4' stroke-width='2.4'%3E%3Crect x='2.2' y='1.4' width='7.6' height='16' rx='3.8'/%3E%3Crect x='2.2' y='16.6' width='7.6' height='16' rx='3.8'/%3E%3C/g%3E%3C/svg%3E");
   --grad-cta:linear-gradient(135deg,#E02323,#8F0F1D);
   --grad-brand:linear-gradient(150deg,#160408 0%,#38060D 55%,#6E0A18 130%);
   --grad-amber:linear-gradient(135deg,#FFD34D,#E79A00);
@@ -2416,7 +2185,6 @@ body{
 .home-action.earn .home-action-sub{color:rgba(255,255,255,.88) !important}
 /* — 3 DOGS art components — */
 .dogs-hero{position:relative;margin:12px 2px 0;border-radius:26px;overflow:hidden;border:1px solid rgba(255,49,49,.32);box-shadow:0 22px 44px -18px rgba(255,49,49,.38),var(--card-sh);background:linear-gradient(160deg,#2A0A10,#0B0B0C)}
-.dogs-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:12px;background-image:var(--chain-img);background-repeat:repeat-x;background-size:34px 12px;z-index:3;opacity:.92}
 .dogs-hero-img{display:block;width:100%;height:300px;object-fit:cover;object-position:center 20%}
 .dogs-hero-cap{position:absolute;left:0;right:0;bottom:0;padding:34px 18px 14px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.85));display:flex;flex-direction:column;gap:2px;z-index:2}
 .dogs-hero-name{font-size:31px;color:#fff;text-shadow:0 2px 16px rgba(255,49,49,.5);line-height:1}
@@ -2426,10 +2194,8 @@ body{
 .dogs-banner img{display:block;width:100%;height:146px;object-fit:cover}
 .dogs-banner.tall img{height:196px}
 .dogs-banner.art-missing{display:none}
-.chain-divider{height:12px;margin:16px 30px 2px;background-image:var(--chain-img);background-repeat:repeat-x;background-size:34px 12px;opacity:.5}
-/* hanging-chain coin (home balance) */
+/* floating coin (home balance) */
 .hero-coin-hang{display:flex;flex-direction:column;align-items:center;flex:0 0 auto}
-.hero-chain{width:12px;height:30px;background-image:var(--chain-v);background-repeat:repeat-y;background-size:12px 34px;opacity:.9;margin-bottom:-4px;z-index:1}
 .lux-hero-coin{border-radius:50% !important;object-fit:cover !important;border:2px solid rgba(245,201,75,.65);box-shadow:0 10px 24px -8px rgba(0,0,0,.8),0 0 22px -4px rgba(255,49,49,.5)}
 /* referrals: big red invite CTA + how-it-works steps */
 .dogs-cta{display:block;width:100%;margin:14px 0 0;padding:15px;border:none;border-radius:18px;background:var(--grad-cta);color:#fff;font-size:16px;font-weight:900;letter-spacing:.8px;box-shadow:0 14px 28px -10px rgba(255,49,49,.55);cursor:pointer;font-family:inherit}
@@ -2444,11 +2210,6 @@ body{
 /* profile cover: red smoke instead of blue */
 .pf-cover{background:radial-gradient(90% 130% at 85% -10%,rgba(255,49,49,.5),transparent 55%),radial-gradient(70% 110% at 8% 0%,rgba(245,201,75,.28),transparent 50%) !important}
 .pf-avatar-wrap .profile-avatar{box-shadow:0 0 0 3px #0B0B0C,0 0 0 5px rgba(245,201,75,.8) !important}
-/* contest */
-.ct-bar i{background:linear-gradient(90deg,#FF3131,#F5C94B) !important}
-.ctp-big.g1{background:linear-gradient(160deg,#3A2A05,#171205) !important;border:1px solid rgba(245,201,75,.45) !important}
-.ctp-big.g2{background:linear-gradient(160deg,#26262B,#101013) !important;border:1px solid rgba(255,255,255,.3) !important}
-.ctp-big.g3{background:linear-gradient(160deg,#33200F,#140C05) !important;border:1px solid rgba(217,119,43,.45) !important}
 /* wheel */
 .wheel-hub{background:radial-gradient(circle at 35% 30%,#3A3A40,#141416 72%) !important;border:2px solid rgba(255,49,49,.55) !important;color:#fff !important;box-shadow:0 10px 24px -8px rgba(0,0,0,.8),0 0 18px -4px rgba(255,49,49,.5) !important}
 .wheel-info-banner{font-size:12.5px}
@@ -2468,10 +2229,9 @@ body{
 .toast{background:#17171A !important;border:1px solid rgba(255,49,49,.4) !important;color:#fff !important}
 /* game overlay chrome → black/red yard */
 .game-overlay{background:radial-gradient(130% 90% at 50% -10%,#3D0A12 0%,#0A0A0B 55%) !important}
-.game-overlay::before{content:'';position:absolute;top:0;left:0;right:0;height:12px;background-image:var(--chain-img);background-repeat:repeat-x;background-size:34px 12px;opacity:.8;z-index:5;pointer-events:none}
 .game-big-btn.violet{background:var(--grad-cta) !important;box-shadow:0 14px 28px -10px rgba(255,49,49,.6) !important}
 .math-timer-fill{background:linear-gradient(90deg,#FF3131,#F5C94B) !important}
-/* loader: black + red smoke + coin & chain */
+/* loader: black + red smoke + coin */
 .loading-screen{background-color:#050505 !important;background-image:radial-gradient(95% 55% at 50% -5%,rgba(255,49,49,.24),transparent 62%),url('assets/dogs_smoke_bg.png') !important;background-size:auto,cover !important;background-position:center top,center !important}
 .loading-coin{border-radius:50%;object-fit:cover;filter:drop-shadow(0 12px 28px rgba(255,49,49,.5))}
 .loading-word{color:#fff !important;text-shadow:0 0 28px rgba(255,49,49,.6);letter-spacing:2.5px}
@@ -2502,7 +2262,7 @@ body{
 .wheel-card-badge{background:var(--grad-cta) !important;color:#fff !important;box-shadow:0 0 0 3px rgba(255,49,49,.25) !important}
 .modal-close{background:rgba(255,255,255,.06) !important;color:#fff !important;border:1px solid var(--dk-line2) !important}
 
-/* ═══ LUX v6.2 — scroll fix, referrals rebuild, wallet page, hero balance, chain frames ═══ */
+/* ═══ LUX v6.2 — scroll fix, referrals rebuild, wallet page, hero balance, chain frames (removed in v6.3) ═══ */
 /* order 2 (URGENT): Home was a fit-to-one-screen flex column with overflow:hidden;
    v6 art made its content taller than the viewport, clipping everything below the
    fold. Restore self-scrolling on the home page container only. */
@@ -2551,7 +2311,7 @@ body{
 .wl-connect:active{transform:scale(.98)}
 .wl-disconnect{margin:12px 16px 0;width:calc(100% - 32px);background:var(--glass-d);color:#FF6B6B;border:1px solid var(--dk-line);border-radius:16px;padding:14px;font-size:14px;font-weight:800;cursor:pointer}
 .wl-note{margin:14px 22px 0;font-size:12px;line-height:1.6;color:var(--dk-tx2);text-align:center}
-/* order 6: hero becomes the balance card; animated hanging coin */
+/* order 6: hero becomes the balance card; animated coin (v6.3: hanger removed — the coin floats and sways in place) */
 .dogs-hero{min-height:342px;display:flex;flex-direction:column}
 .dogs-hero .dogs-hero-img{position:absolute;inset:0;height:100%}
 .dogs-hero.art-missing{display:block}
@@ -2561,7 +2321,6 @@ body{
 .dogs-hero-balance .balance-label{color:#FFD9A0;text-shadow:0 1px 6px rgba(0,0,0,.85)}
 .dogs-hero-balance .balance-amount{display:flex;align-items:center;gap:12px}
 .hero-coin-hang{display:flex;flex-direction:column;align-items:center;transform-origin:50% 0;animation:coinSwing 5.2s ease-in-out infinite}
-.hero-chain{width:16px;height:30px;background:url('assets/chain_strip_v.png') center top / 16px auto no-repeat,var(--chain-v) center top / 12px 34px repeat-y;margin-bottom:-8px;position:relative;z-index:1}
 .dogs-hero-balance .lux-hero-coin{width:58px;height:58px;animation:coinSway 6.5s ease-in-out infinite}
 .dogs-hero-balance .balance-num{font-size:47px;color:#fff;text-shadow:0 3px 16px rgba(0,0,0,.9),0 0 26px rgba(255,49,49,.35)}
 .dogs-hero-balance .lux-hero-unit{color:#FF5A5A;text-shadow:0 2px 8px rgba(0,0,0,.85)}
@@ -2570,14 +2329,23 @@ body{
 @keyframes coinSway{0%,100%{transform:rotateY(-24deg)}50%{transform:rotateY(24deg)}}
 @media (prefers-reduced-motion:reduce){.hero-coin-hang,.dogs-hero-balance .lux-hero-coin{animation:none}}
 .home-actions-slim{margin:12px 16px 0}
-/* order 7: photographic chain frames (photo layers over the drawn-chain fallback) */
-.chain-frame{position:relative}
-.chain-frame::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:6;background:url('assets/chain_corner_tl.png') left top / 34px 34px no-repeat,url('assets/chain_corner_tr.png') right top / 34px 34px no-repeat,url('assets/chain_corner_bl.png') left bottom / 34px 34px no-repeat,url('assets/chain_corner.png') right bottom / 34px 34px no-repeat,url('assets/chain_strip.png') left top / auto 15px repeat-x,url('assets/chain_strip.png') left bottom / auto 15px repeat-x,url('assets/chain_strip_v.png') left top / 15px auto repeat-y,url('assets/chain_strip_v.png') right top / 15px auto repeat-y,var(--chain-img) left top / 34px 12px repeat-x,var(--chain-img) left bottom / 34px 12px repeat-x,var(--chain-v) left top / 12px 34px repeat-y,var(--chain-v) right top / 12px 34px repeat-y}
-.dogs-hero.chain-frame::before{height:auto;top:0;bottom:0}
+
 /* order 8D: no-spins modal */
 .wl-modal-img{width:100%;height:150px;object-fit:cover;border-radius:14px;margin-bottom:12px;display:block}
 .wl-modal-line{font-size:13px;color:var(--dk-tx2);text-align:center;margin-bottom:6px}
 .wl-modal-line b{color:#fff;font-size:15px}
+
+/* ═══ LUX v6.3 — chains removed, contest page deleted, referrals fixes ═══ */
+/* CTA icon: the plane glyph is a 20px inline icon; icon + label centred in a row */
+.dogs-cta{display:flex;align-items:center;justify-content:center;gap:9px}
+.dogs-cta-ico{display:inline-flex;flex:none;line-height:0}
+.dogs-cta-ico svg{width:20px;height:20px;flex:none}
+/* referral link row: the URL truncates (min-width:0), the Copy button never squeezes */
+.ref-link-row{display:flex;align-items:center;gap:10px}
+.ref-link-url{min-width:0}
+.ref-copy-btn{flex:none;white-space:nowrap}
+/* every page clears the fixed bottom nav (72px + float offset + safe margin) */
+.page{padding-bottom:140px !important}
 
 
 </style>
@@ -2675,7 +2443,7 @@ body{
         </div>
       </div>
 
-      <div class="dogs-hero chain-frame">
+      <div class="dogs-hero">
       <img class="dogs-hero-img" src="assets/dogs_hero.png" alt="" onerror="this.parentNode.classList.add('art-missing');this.remove()">
       <div class="dogs-hero-scrim"></div>
       <div class="dogs-hero-top">
@@ -2685,7 +2453,7 @@ body{
       <div class="dogs-hero-balance">
         <div class="balance-label" data-i18n="home.balanceLabel">YOUR STASH</div>
         <div class="balance-amount">
-          <span class="hero-coin-hang"><span class="hero-chain"></span><img class="lux-hero-coin" src="assets/dogs_coin.png" onerror="this.onerror=null;this.src='assets/coin.png'" alt=""></span>
+          <span class="hero-coin-hang"><img class="lux-hero-coin" src="assets/dogs_coin.png" onerror="this.onerror=null;this.src='assets/coin.png'" alt=""></span>
           <span class="balance-num" id="homeTon">0</span>
           <span class="lux-hero-unit">3DOGS</span>
         </div>
@@ -2699,7 +2467,6 @@ body{
       <button class="home-action wd withdraw" onclick="switchPage('withdraw')"><span data-i18n="home.withdraw"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13.5V4"/><path d="m7.5 7.5 4.5-4 4.5 4"/><path d="M4 15.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"/></svg>Withdraw</span></button>
     </div>
 
-    <div class="chain-divider"></div>
 
       <div class="mine-ton-card" id="mineTonCard">
         <div class="mine-ton-ico"><img src="https://cdn.simpleicons.org/ton/0098EA" alt="TON"></div>
@@ -2760,7 +2527,7 @@ body{
     <!-- TASKS -->
     <div class="page" id="page-tasks">
        <div class="tasks-header"><div class="page-title">Earn</div><div style="font-size:13px;color:var(--text3);margin-top:5px">Finish jobs. Stack 3DOGS.</div></div>
-      <div class="dogs-banner chain-frame"><img src="assets/dogs_guard.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/dogs_guard.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="tabs-section"><div class="tabs">
         <div class="tab active" onclick="switchTab(this,'ads')"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="12" rx="2.5"/><path d="M9.5 20.5h5M12 17v3.5"/><path d="M10.3 8.8v4.4l3.8-2.2z" fill="currentColor" stroke="none"/></svg><span>Ads</span></div>
         <div class="tab" onclick="switchTab(this,'channels')"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.8 1.7 1.7L8.8 5.4"/><path d="M12.5 7H20"/><path d="m4 13.3 1.7 1.7 3.1-3.1"/><path d="M12.5 13.5H20"/><path d="M12.5 19.5H20"/><path d="M4 19.5h3.5"/></svg><span>TASKS</span></div>
@@ -2782,7 +2549,7 @@ body{
         <div class="page-sub" data-i18n="referrals.subtitle">Invite friends and earn rewards</div>
       </div>
 
-      <div class="dogs-banner chain-frame"><img src="assets/dogs_crew.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/dogs_crew.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
 
       <div class="ref-link-box">
         <div class="ref-link-label" data-i18n="referrals.yourLink">Your referral link</div>
@@ -2801,7 +2568,7 @@ body{
       </div>
 
       <div class="rr-row rr-claim-row">
-        <div class="rr-claim-card chain-frame">
+        <div class="rr-claim-card">
           <div class="rr-claim-head">
             <div class="rr-claim-title">TO CLAIM</div>
           </div>
@@ -2841,7 +2608,7 @@ body{
         <div class="arc-title">THE ARENA</div>
         <div class="arc-sub">Pick your fight · win 3DOGS</div>
       </div>
-      <div class="dogs-banner chain-frame"><img src="assets/dogs_games.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/dogs_games.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="arc-stats">
         <div class="arc-stat">
           <img class="arc-stat-img" src="assets/dogs_coin.png" onerror="this.onerror=null;this.src='assets/coin.png'" alt="">
@@ -2881,7 +2648,7 @@ body{
     </div>
 
     <div class="page" id="page-profile">
-      <div class="pf-hero chain-frame">
+      <div class="pf-hero">
         <div class="pf-cover"></div>
         <div class="pf-avatar-wrap"><div class="profile-avatar" id="profileAvatar">👤</div></div>
         <div class="profile-name" id="profileName">Player</div>
@@ -2898,7 +2665,7 @@ body{
         </div>
       </div>
 
-      <div class="dogs-banner chain-frame"><img src="assets/dogs_boss.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/dogs_boss.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
 
             <div class="profile-menu">
         <div class="profile-menu-item" onclick="switchPage('deposit')">
@@ -2958,7 +2725,7 @@ body{
         <button class="back-btn" onclick="switchPage('profile')">←</button>
         <div class="page-title pg-title"><span class="pg-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="6" width="17" height="12.5" rx="3"/><path d="M3.5 10h17"/><path d="M16.8 14.8h.01"/></svg></span><span data-i18n="wallet.title">Link Wallet</span></div>
       </div>
-      <div class="dogs-banner chain-frame"><img src="assets/dogs_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/dogs_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="wl-card">
         <div class="wl-status-row"><span class="wl-dot" id="walletLinkDot"></span><span class="wl-status" id="walletLinkStatus" data-i18n="profile.disconnected">Wallet not connected</span></div>
         <div class="wl-addr" id="walletLinkAddr" style="display:none"></div>
@@ -2974,7 +2741,7 @@ body{
         <button class="back-btn" onclick="switchPage('profile')">←</button>
         <div class="page-title pg-title"><span class="pg-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v9.5"/><path d="m7.5 10 4.5 4.5L16.5 10"/><path d="M4 15.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"/></svg></span><span data-i18n="deposit.pageTitle">Deposit TON</span></div>
       </div>
-      <div class="dogs-banner chain-frame"><img src="assets/dogs_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/dogs_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="wallet-form-card">
         <div class="wallet-form-title"><span data-i18n="deposit.formTitle">Deposit TON</span></div>
         <div class="wallet-form-help" data-i18n="deposit.help">Connect your TON wallet and send TON to the 3DOGS deposit wallet. Your User ID is added as the transaction comment.</div>
@@ -2996,7 +2763,7 @@ body{
         <button class="back-btn" onclick="switchPage('profile')">←</button>
         <div class="page-title pg-title"><span class="pg-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13.5V4"/><path d="m7.5 7.5 4.5-4 4.5 4"/><path d="M4 15.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"/></svg></span><span data-i18n="withdraw.pageTitle">Withdraw TON</span></div>
       </div>
-      <div class="dogs-banner chain-frame"><img src="assets/dogs_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/dogs_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="wallet-form-card">
         <div class="wallet-form-title"><span data-i18n="withdraw.formTitle">Withdraw TON</span></div>
         <div class="limit-card wd" aria-label="Withdrawal requirements">
@@ -3022,7 +2789,7 @@ body{
         <button class="back-btn" onclick="switchPage('profile')">←</button>
         <div class="page-title pg-title"><span class="pg-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 8h11.5l-2.7-2.7M19.5 16H8l2.7 2.7"/></svg></span><span data-i18n="convert.pageTitle">Convert</span></div>
       </div>
-      <div class="dogs-banner chain-frame"><img src="assets/dogs_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/dogs_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="wallet-form-card">
         <div class="wallet-form-title"><span data-i18n="convert.formTitle">Convert TON to 3DOGS</span></div>
         <div class="convert-box">
@@ -3099,54 +2866,6 @@ body{
       </div>
     </div>
 
-    <!-- WEEKLY CONTEST -->
-    <div class="page" id="page-record">
-      <div class="ct-head">
-        <div><div class="ct-title">🏆 TOP DOGS</div><div class="ct-sub" id="ctSub">Invite friends · climb the ranks · win TON</div></div>
-        <button class="ct-help" onclick="openContestHelp()" aria-label="How the contest works">?</button>
-      </div>
-      <div class="dogs-banner chain-frame"><img src="assets/dogs_rank.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
-
-      <div class="ct-tabs">
-        <button class="ct-tab active" id="ctTabRef" onclick="switchContestTab('ref')"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.5"/><path d="M3.5 19.5c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5"/><path d="M15.5 5.6a3.5 3.5 0 0 1 0 5.9M17.8 15.3c1.5.7 2.4 2 2.7 4.2"/></svg> Referrals Contest</button>
-        <button class="ct-tab" id="ctTabAds" onclick="switchContestTab('ads')"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="12" rx="2.5"/><path d="M9.5 20.5h5M12 17v3.5"/><path d="M10.3 8.8v4.4l3.8-2.2z" fill="currentColor" stroke="none"/></svg> Ads Contest</button>
-      </div>
-      <div class="ct-pane active" id="ctPaneRef">
-      <div class="ct-pool">
-        <div class="ct-pool-glow"></div>
-        <div class="ct-pool-trophy">🏆</div>
-        <div class="ct-spark s1">✦</div><div class="ct-spark s2">✦</div><div class="ct-spark s3">✦</div>
-        <div class="ct-pool-lbl">Total prize pool</div>
-        <div class="ct-pool-val"><img src="https://cdn.simpleicons.org/ton/0098EA" alt=""><span id="ctPool">3</span><em>TON</em></div>
-        <div class="ct-timer"><span class="ct-live"></span><span class="ct-timer-lbl">Ends in</span><span class="ct-timer-val" id="lbTimer">--:--:--</span></div>
-      </div>
-      <div id="ctMe"></div>
-      <div class="ct-sec">Prizes</div>
-      <div class="ct-prizes" id="ctPrizes"></div>
-      <div class="ct-sec" id="ctTopLabel">Leaderboard</div>
-      <div class="ct-top3" id="ctTop3"><div class="empty-state">Loading…</div></div>
-      <div class="ct-sec" id="ctListLabel" style="display:none">Rank 4+</div>
-      <div class="ct-list" id="ctList"></div>
-      </div>
-      <div class="ct-pane" id="ctPaneAds">
-      <div class="ct-pool">
-        <div class="ct-pool-glow"></div>
-        <div class="ct-pool-trophy">🏆</div>
-        <div class="ct-spark s1">✦</div><div class="ct-spark s2">✦</div><div class="ct-spark s3">✦</div>
-        <div class="ct-pool-lbl">Total prize pool</div>
-        <div class="ct-pool-val"><img src="assets/dogs_coin.png" onerror="this.onerror=null;this.src='assets/coin.png'" alt="3DOGS"><span id="adPool">3,000</span><em>3DOGS</em></div>
-        <div class="ct-timer"><span class="ct-live"></span><span class="ct-timer-lbl">Ends in</span><span class="ct-timer-val" id="adTimer">--:--:--</span></div>
-      </div>
-      <div id="adMe"></div>
-      <div class="ct-sec">Prizes</div>
-      <div class="ct-prizes" id="adPrizes"></div>
-      <div class="ct-sec" id="adTopLabel">Leaderboard</div>
-      <div class="ct-top3" id="adTop3"><div class="empty-state">Loading…</div></div>
-      <div class="ct-sec" id="adListLabel" style="display:none">Rank 4+</div>
-      <div class="ct-list" id="adList"></div>
-      </div>
-    </div>
-
     <!-- LUCKY WHEEL -->
     <div class="page" id="page-wheel">
       <div class="wheel-page-header">
@@ -3154,7 +2873,7 @@ body{
         <div class="page-title">Lucky Wheel</div>
       </div>
 
-      <div class="dogs-banner chain-frame"><img src="assets/dogs_wheel.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <div class="dogs-banner"><img src="assets/dogs_wheel.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
 
       <div class="wheel-info-banner">
         <svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.4"/><path d="M12 3.5v6.1M12 14.4v6.1M3.5 12h6.1M14.4 12h6.1M6 6l4.3 4.3M13.7 13.7 18 18M18 6l-4.3 4.3M10.3 13.7 6 18"/></svg>
@@ -3208,38 +2927,10 @@ body{
     <div class="nav-item" onclick="switchPage('profile')" id="nav-profile">
       <div class="nav-icon"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg></div><div class="nav-label" data-i18n="nav.profile">Profile</div>
     </div>
-    <div class="nav-item" onclick="switchPage('record')" id="nav-record">
-      <div class="nav-icon"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 5.5H5.2A3.2 3.2 0 0 0 8.2 9M16 5.5h2.8A3.2 3.2 0 0 1 15.8 9"/><path d="M12 13v3"/><path d="m12 16-1.4 4h2.8z"/><path d="M9 20h6"/></svg></div><div class="nav-label" data-i18n="nav.record">Ranking</div>
-    </div>
   </div>
 </div>
 
 <!-- Add Task Modal -->
-<div class="modal-overlay ct-modal" id="contestHelpModal" onclick="closeModalOutside(event,'contestHelpModal')">
-  <div class="ct-sheet">
-    <h3>How the contest works</h3>
-    <div class="ct-sheet-sub">Everything you need to know</div>
-    <div class="ct-step"><div class="ct-step-n">1</div><div class="ct-step-t" data-tr-html="contest1"><b>Invite friends</b> with your personal link from the Referrals page. Each round lasts <b>7 days</b>.</div></div>
-    <div class="ct-step"><div class="ct-step-n">2</div><div class="ct-step-t" data-tr-html="contest2">Only <b>active</b> referrals who joined <b>during the current round</b> count. Pending, flagged or older invites are not counted.</div></div>
-    <div class="ct-step"><div class="ct-step-n">3</div><div class="ct-step-t" data-tr-html="contest3">Ranking is by number of active referrals. On a tie, whoever reached the count <b>first</b> ranks higher.</div></div>
-    <div class="ct-step"><div class="ct-step-n">4</div><div class="ct-step-t" data-tr-html="contest4">The <b>top 10</b> win TON prizes. The prize pool is <b id="ctHelpPool">3</b> TON in total, with the biggest prize for #1.</div></div>
-    <div class="ct-step"><div class="ct-step-n">5</div><div class="ct-step-t" data-tr-html="contest5">When the timer ends, prizes are <b>added to your TON balance automatically</b> and you get a Telegram message. A new round starts right away.</div></div>
-    <button class="ct-close" onclick="closeModal('contestHelpModal')">Got it</button>
-  </div>
-</div>
-<div class="modal-overlay ct-modal" id="adsContestHelpModal" onclick="closeModalOutside(event,'adsContestHelpModal')">
-  <div class="ct-sheet">
-    <h3>How the Ads Contest works</h3>
-    <div class="ct-sheet-sub">Watch ads · climb the ranks · win 3DOGS</div>
-    <div class="ct-step"><div class="ct-step-n">1</div><div class="ct-step-t"><b>Watch ads</b> from the Home page. Each round lasts <b>7 days</b>.</div></div>
-    <div class="ct-step"><div class="ct-step-n">2</div><div class="ct-step-t">Only ads you <b>watched completely and got rewarded for</b> during the current round count.</div></div>
-    <div class="ct-step"><div class="ct-step-n">3</div><div class="ct-step-t">Ranking is by number of ads watched. On a tie, whoever reached the count <b>first</b> ranks higher.</div></div>
-    <div class="ct-step"><div class="ct-step-n">4</div><div class="ct-step-t">The <b>top 10</b> win 3DOGS prizes. The prize pool is <b id="adHelpPool">3,000</b> 3DOGS in total, with the biggest prize for #1.</div></div>
-    <div class="ct-step"><div class="ct-step-n">5</div><div class="ct-step-t">When the timer ends, prizes are <b>added to your 3DOGS balance automatically</b> and you get a Telegram message. A new round starts right away.</div></div>
-    <button class="ct-close" onclick="closeModal('adsContestHelpModal')">Got it</button>
-  </div>
-</div>
-
 <div class="modal-overlay" id="addTaskModal" onclick="closeModalOutside(event,'addTaskModal')">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -3324,7 +3015,7 @@ body{
 
 <!-- No Spins Modal (v6.2) -->
 <div class="modal-overlay" id="noSpinsModal" onclick="closeModalOutside(event,'noSpinsModal')">
-  <div class="modal chain-frame">
+  <div class="modal">
     <div class="modal-handle"></div>
     <img class="wl-modal-img" src="assets/dogs_nospins.png" alt="" onerror="this.remove()">
     <div class="modal-title">NO SPINS LEFT</div>
@@ -3392,7 +3083,7 @@ var API_URL  = 'https://silent-block-bedf.ahmedrabieharoun.workers.dev'; // ← 
 var LANG = {
   en: {
     'nav.home':'Home','nav.store':'Store','nav.tasks':'Tasks','nav.combo':'Combo',
-    'nav.refs':'Referrals','nav.profile':'Profile','nav.record':'Ranking',
+    'nav.refs':'Referrals','nav.profile':'Profile',
     'home.earn':'⚡ Earn','home.withdraw':'▣ Withdraw',
     'profile.tapConnect':'Tap to connect wallet','profile.disconnectAsk':'Disconnect your wallet?','mine.tonBalance':'TON Balance','profile.idLabel':'ID','profile.connected':'Connected','profile.disconnected':'Disconnected',
     'profile.deposit.title':'Deposit','profile.deposit.sub':'Deposit TON to your balance',
@@ -3416,11 +3107,13 @@ var LANG = {
     'withdraw.submit':'Submit TON Withdrawal','wd.balance':'TON Balance','wd.note':'Your full TON balance is available to withdraw, or to spend on 3DOGS packages and conversions.','store.note':'Purchases are paid from your TON balance.','store.needDeposit':'Insufficient TON balance — deposit TON first','gate.title':'Account Verification Required','gate.text':"To confirm that your account is real and active, withdrawals require purchasing a package from the Store. This prevents multiple accounts and abuse of the system, protects the project's funds, and keeps the bot running for everyone.",'gate.required':'MINIMUM PACKAGE','gate.keep':'Your 3DOGS stays in your balance — convert it or withdraw it anytime.','gate.cta':'Go to Store','gate.ctaDeposit':'Deposit TON','gate.later':'Not now','gate.badge':'Minimum to withdraw','gate.badgeHigher':'Also unlocks withdrawal','gate.orHigher':'Buy this package or any higher package to unlock withdrawals.','gate.needTon':'Your TON balance is {bal}. Deposit TON first to buy this package.',
     'convert.pageTitle':'Convert','convert.formTitle':'Convert TON to 3DOGS',
     'convert.balance':'Balance:','convert.submit':'⚡ Exchange Now',
-    'language.pageTitle':'Language'
+    'language.pageTitle':'Language',
+    'home.balanceLabel':'YOUR STASH','referrals.title':'Referrals','referrals.subtitle':'Invite friends and earn rewards',
+    'referrals.yourLink':'Your referral link','referrals.copy':'Copy','withdraw.receive':'You receive'
   },
   ar: {
     'nav.home':'الرئيسية','nav.store':'المتجر','nav.tasks':'المهام','nav.combo':'الكومبو',
-    'nav.refs':'الإحالات','nav.profile':'الملف الشخصي','nav.record':'الترتيب',
+    'nav.refs':'الإحالات','nav.profile':'الملف الشخصي',
     'home.earn':'⚡ اربح','home.withdraw':'▣ سحب',
     'profile.tapConnect':'اضغط لربط المحفظة','profile.disconnectAsk':'هل تريد فصل المحفظة؟','mine.tonBalance':'رصيد TON','profile.idLabel':'المعرف','profile.connected':'متصل','profile.disconnected':'غير متصل',
     'profile.deposit.title':'إيداع','profile.deposit.sub':'إيداع TON إلى رصيدك',
@@ -3444,11 +3137,13 @@ var LANG = {
     'withdraw.submit':'إرسال طلب سحب TON','wd.balance':'رصيد TON','wd.note':'رصيد TON بالكامل متاح للسحب أو للشراء من المتجر.','store.note':'الشراء يتم من رصيد TON الخاص بك.','store.needDeposit':'رصيد TON غير كافٍ — أودع TON أولاً','gate.title':'مطلوب التحقق من نشاط الحساب','gate.text':"للتأكد من أن حسابك حقيقي ونشط، يتطلب السحب شراء باقة من المتجر. هذا الإجراء يمنع الحسابات المتعددة والتحايل على النظام وسرقة أموال المشروع، ويحافظ على استمرار البوت للجميع.",'gate.required':'الحد الأدنى للباقة','gate.keep':'يبقى رصيد 3DOGS في حسابك — حوّله أو اسحبه في أي وقت.','gate.cta':'اذهب إلى المتجر','gate.ctaDeposit':'إيداع TON','gate.later':'ليس الآن','gate.badge':'الحد الأدنى للسحب','gate.badgeHigher':'تفتح السحب أيضًا','gate.orHigher':'اشترِ هذه الباقة أو أي باقة أعلى منها لفتح السحب.','gate.needTon':'رصيد TON لديك {bal}. قم بإيداع TON أولاً لشراء هذه الباقة.',
     'convert.pageTitle':'تحويل','convert.formTitle':'تحويل TON إلى 3DOGS',
     'convert.balance':'الرصيد:','convert.submit':'⚡ تنفيذ التحويل',
-    'language.pageTitle':'اللغة'
+    'language.pageTitle':'اللغة',
+    'home.balanceLabel':'كنزك','referrals.title':'الإحالات','referrals.subtitle':'ادعُ أصدقاءك واربح المكافآت',
+    'referrals.yourLink':'رابط الإحالة الخاص بك','referrals.copy':'نسخ','withdraw.receive':'ستستلم'
   },
   fr: {
     'nav.home':'Accueil','nav.store':'Boutique','nav.tasks':'Tâches','nav.combo':'Combo',
-    'nav.refs':'Parrainage','nav.profile':'Profil','nav.record':'Classement',
+    'nav.refs':'Parrainage','nav.profile':'Profil',
     'home.earn':'⚡ Gagner','home.withdraw':'▣ Retirer',
     'profile.tapConnect':'Touchez pour connecter','profile.disconnectAsk':'Déconnecter votre portefeuille ?','mine.tonBalance':'Solde TON','profile.idLabel':'ID','profile.connected':'Connecté','profile.disconnected':'Déconnecté',
     'profile.deposit.title':'Dépôt','profile.deposit.sub':'Déposer du TON sur votre solde',
@@ -3472,7 +3167,9 @@ var LANG = {
     'withdraw.submit':'Envoyer la demande de retrait','wd.balance':'Solde TON','wd.note':'Votre solde TON complet est disponible pour le retrait ou pour la Boutique.','store.note':'Les achats sont payés depuis votre solde TON.','store.needDeposit':'Solde TON insuffisant — déposez des TON','gate.title':'Vérification du compte requise','gate.text':"Pour confirmer que votre compte est réel et actif, le retrait nécessite l'achat d'un pack dans la Boutique. Cela empêche les comptes multiples et les abus, protège les fonds du projet et assure la continuité du bot pour tous.",'gate.required':'PACK MINIMUM','gate.keep':'Vos 3DOGS restent sur votre solde — convertissez-les ou retirez-les à tout moment.','gate.cta':'Aller à la boutique','gate.ctaDeposit':'Déposer des TON','gate.later':'Pas maintenant','gate.badge':'Minimum pour retirer','gate.badgeHigher':'Débloque aussi le retrait','gate.orHigher':"Achetez ce pack ou n'importe quel pack supérieur pour débloquer les retraits.",'gate.needTon':'Votre solde TON est de {bal}. Déposez d\'abord des TON pour acheter ce pack.',
     'convert.pageTitle':'Convertir','convert.formTitle':'Convertir TON en 3DOGS',
     'convert.balance':'Solde :','convert.submit':'⚡ Échanger maintenant',
-    'language.pageTitle':'Langue'
+    'language.pageTitle':'Langue',
+    'home.balanceLabel':'TON BUTIN','referrals.title':'Parrainage','referrals.subtitle':'Invite tes amis et gagne des récompenses',
+    'referrals.yourLink':'Ton lien de parrainage','referrals.copy':'Copier','withdraw.receive':'Vous recevez'
   },
   ru: {}, fa: {}, hi: {}
 };
@@ -3489,10 +3186,17 @@ function applyLanguage(lang){
   document.documentElement.setAttribute('lang', currentLang);
   document.documentElement.setAttribute('dir', (currentLang === 'ar' || currentLang === 'fa') ? 'rtl' : 'ltr');
   document.querySelectorAll('[data-i18n]').forEach(function(el){
-    el.textContent = t(el.getAttribute('data-i18n'));
+    var k = el.getAttribute('data-i18n');
+    var v = (LANG[currentLang] && LANG[currentLang][k]) || LANG.en[k];
+    // v6.3 hardening: a missing key must NEVER print the raw key — use the
+    // EN string, and if that is missing too, keep the element's own
+    // (static) text untouched.
+    if (v != null) el.textContent = v;
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
-    el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
+    var k2 = el.getAttribute('data-i18n-placeholder');
+    var v2 = (LANG[currentLang] && LANG[currentLang][k2]) || LANG.en[k2];
+    if (v2 != null) el.setAttribute('placeholder', v2);
   });
   document.querySelectorAll('.lang-item').forEach(function(el){
     el.classList.toggle('active', el.id === 'langItem-' + currentLang);
@@ -3506,8 +3210,6 @@ applyLanguage = function(lang){
 function rerenderAfterLang(){
   if (!S || !S.user || !S.data) return;
   try { render(); } catch(_){}
-  try { if (S.lb) renderLeaderboard(); } catch(_){}
-  try { if (S.adLb) renderAdsLeaderboard(); } catch(_){}
   try { var fs = S.data.forceSub; if (fs && fs.required && !fs.passed) renderForceSub(fs); } catch(_){}
   try { renderWithdrawBalances(); } catch(_){}
   if (window.I18N) I18N.apply();
@@ -3633,7 +3335,7 @@ var WHEEL_DEFAULT_SEGMENTS = [100,500,0,1000,250,2000,5000,10000];
 var wheelRotation = 0;
 var wheelSpinning = false;
 
-var S = { initData:'', startParam:'', inTelegram:false, user:null, data:null, refs:[], refPage:0, lb:null, lbLoaded:false, adLb:null, adLbLoaded:false, ctTab:'ref' };
+var S = { initData:'', startParam:'', inTelegram:false, user:null, data:null, refs:[], refPage:0 };
 
 // Device fingerprint (anti multi-account). Computed once by generateDeviceFingerprint()
 // from anti-fraud-frontend.js and reused for the whole session; it starts as soon as
@@ -4529,300 +4231,6 @@ function renderWalletHistory(logs){
     var g = {in:'↓',out:'↑',rw:'★'}[r.kind] || '•';
     return '<div class="tx-item"><span class="tx-ico '+(r.kind||'')+'">'+g+'</span><span class="tx-label">'+r.label+'</span><span class="tx-badge '+r.cls+'">'+r.txt+'</span></div>';
   }).join('');
-}
-
-// ── Weekly Referral Leaderboard page ──────────────────────────────────
-var LB_MEDALS = ['🥇','🥈','🥉'];
-var lbTimerInterval = null;
-
-function loadRecordPage(){
-  if (S.ctTab === 'ads') return loadAdsContest();
-  var el = document.getElementById('ctTop3');
-  if (!el) return;
-  if (!S.lbLoaded) el.innerHTML = '<div class="empty-state">Loading…</div>';
-  api('getWeeklyLeaderboard', {}).then(function(res){
-    if (!res || !res.success){
-      if (!S.lbLoaded) el.innerHTML = '<div class="empty-state">Unable to load the leaderboard right now</div>';
-      return;
-    }
-    S.lb = res.data;
-    S.lbLoaded = true;
-    renderLeaderboard();
-    startLbTimer();
-  }).catch(function(){
-    if (!S.lbLoaded) el.innerHTML = '<div class="empty-state">Unable to load the leaderboard right now</div>';
-  });
-}
-
-function renderLeaderboard(){
-  var data = S.lb;
-  if (!data) return;
-  var list = data.leaderboard || [];
-  var prizes = data.prizesTon || [];
-  var tonImg = '<img src="https://cdn.simpleicons.org/ton/0098EA" alt="" style="width:13px;height:13px;vertical-align:-2px">';
-  var esc2 = esc;
-
-  var poolEl = document.getElementById('ctPool');
-  var pool = data.totalPrizePoolTon != null ? data.totalPrizePoolTon : prizes.reduce(function(a,b){return a+b;},0);
-  if (poolEl) poolEl.textContent = pool;
-  if (window.I18N) I18N.setParams({pool: pool}); var hp = document.getElementById('ctHelpPool'); if (hp) hp.textContent = pool;
-
-  var u = S.user || {};
-  var myName = u.firstName || (u.username ? '@'+u.username : '') || 'You';
-  var myAv = u.photoUrl ? '<img src="'+esc2(u.photoUrl)+'" alt="">' : esc2(myName.charAt(0).toUpperCase());
-  var myCount = data.myActiveReferrals || data.myReferralsThisWeek || 0;
-  var gapHint = '';
-  (function(){
-    var rk = Number(data.myRank || 0);
-    if (rk > 1){
-      var above = list.filter(function(r){ return r.rank === rk-1; })[0];
-      var cOf = function(r){ return r.activeReferrals != null ? r.activeReferrals : (r.referralsThisWeek || 0); };
-      if (above){
-        var gap = Math.max(1, cOf(above) - myCount + 1);
-        gapHint = '<div class="ct-gap">⚡ '+gap+' more to reach #'+(rk-1)+'</div>';
-      }
-    } else if (rk === 1){
-      gapHint = '<div class="ct-gap lead">👑 You\'re leading!</div>';
-    }
-  })();
-  var meEl = document.getElementById('ctMe');
-  if (meEl) meEl.innerHTML = '<div class="ct-me"><div class="ct-av">'+myAv+'</div>'+
-    '<div class="ct-me-info"><div class="ct-me-name">'+esc2(myName)+'</div><div class="ct-me-sub">'+myCount+' active referral'+(myCount===1?'':'s')+' this round</div>'+gapHint+'</div>'+
-    '<div class="ct-me-rank"><b>'+(data.myRank ? '#'+data.myRank : '—')+'</b><span>YOUR RANK</span></div></div>';
-
-  var pz = document.getElementById('ctPrizes');
-  var tonS = '<img src="https://cdn.simpleicons.org/ton/0098EA" alt="">';
-  if (pz) pz.innerHTML =
-    '<div class="ctp-top">'+prizes.slice(0,3).map(function(p,i){
-      return '<div class="ctp-big g'+(i+1)+'"><div class="ctp-medal">'+LB_MEDALS[i]+'</div><div class="ctp-amt">'+p+' '+tonS+'</div><div class="ctp-lbl">'+['1st','2nd','3rd'][i]+' place</div></div>';
-    }).join('')+'</div>'+
-    (prizes.length>3 ? '<div class="ctp-rest">'+prizes.slice(3).map(function(p,i){
-      return '<div class="ctp-chip"><span>#'+(i+4)+'</span><b>'+p+'</b></div>';
-    }).join('')+'</div>' : '');
-
-  var top3El = document.getElementById('ctTop3');
-  var listEl = document.getElementById('ctList');
-  var listLabel = document.getElementById('ctListLabel');
-  if (!top3El || !listEl) return;
-  if (!list.length){
-    top3El.innerHTML = '<div class="empty-state">No active referrals yet this round — invite a friend to claim #1! 🚀</div>';
-    listEl.innerHTML = ''; if (listLabel) listLabel.style.display = 'none';
-    return;
-  }
-  var isMe = function(r){ return S.user && String(r.telegramId) === String(S.user.telegramId); };
-  var nameOf = function(r){ return r.firstName || (r.username ? '@'+r.username : '') || 'User'; };
-  var avOf = function(r){ var n = nameOf(r); return r.photoUrl ? '<img src="'+esc2(r.photoUrl)+'" alt="">' : esc2(n.charAt(0).toUpperCase()); };
-  var cntOf = function(r){ return r.activeReferrals != null ? r.activeReferrals : (r.referralsThisWeek || 0); };
-  var maxCnt = Math.max(1, cntOf(list[0]));
-  var rowHtml = function(r, i){
-    var cls = r.rank<=3 ? ' r'+r.rank : '';
-    var pct = Math.max(4, Math.round(cntOf(r) / maxCnt * 100));
-    return '<div class="ct-row'+cls+(isMe(r)?' me':'')+'" style="animation-delay:'+Math.min(i*0.04,0.4)+'s">'+
-      '<div class="ct-pos">'+(LB_MEDALS[r.rank-1]||('#'+r.rank))+'</div>'+
-      '<div class="ct-av">'+avOf(r)+'</div>'+
-      '<div class="ct-row-info"><div class="ct-row-name">'+esc2(nameOf(r))+(isMe(r)?'<span class="ct-you">YOU</span>':'')+'</div>'+
-        '<div class="ct-row-cnt">👥 '+cntOf(r)+' referral'+(cntOf(r)===1?'':'s')+'</div>'+
-        '<div class="ct-bar"><i style="width:'+pct+'%"></i></div></div>'+
-      (r.prizeTon ? '<div class="ct-row-prize">+'+r.prizeTon+' '+tonImg+'</div>' : '<div class="ct-row-prize none">—</div>')+
-    '</div>';
-  };
-  var pod = function(r, place){
-    if (!r) return '<div class="pd p'+place+' empty"><div class="pd-av">?</div><div class="pd-name">—</div><div class="pd-base"><span>'+place+'</span></div></div>';
-    var crown = place===1 ? '<div class="pd-crown">👑</div>' : '';
-    return '<div class="pd p'+place+(isMe(r)?' me':'')+'">'+crown+
-      '<div class="pd-av">'+avOf(r)+'</div>'+
-      '<div class="pd-name">'+esc2(nameOf(r))+(isMe(r)?'<span class="ct-you">YOU</span>':'')+'</div>'+
-      '<div class="pd-cnt">👥 '+cntOf(r)+'</div>'+
-      (r.prizeTon ? '<div class="pd-prize">+'+r.prizeTon+' '+tonImg+'</div>' : '')+
-      '<div class="pd-base"><span>'+place+'</span></div>'+
-    '</div>';
-  };
-  top3El.innerHTML = '<div class="ct-podium">'+pod(list[1],2)+pod(list[0],1)+pod(list[2],3)+'</div>';
-  var rest = list.slice(3);
-  listEl.innerHTML = rest.map(function(r,i){ return rowHtml(r,i); }).join('');
-  if (listLabel) listLabel.style.display = rest.length ? '' : 'none';
-}
-
-function startLbTimer(){
-  if (lbTimerInterval) clearInterval(lbTimerInterval);
-  updateLbTimer();
-  lbTimerInterval = setInterval(updateLbTimer, 1000);
-}
-
-function updateLbTimer(){
-  var data = S.lb;
-  var elT = document.getElementById('lbTimer');
-  if (!data || !elT) return;
-  // We use S.clockOffsetMs (the difference between server time and
-  // device time) so the countdown stays accurate even if the user's
-  // clock is wrong.
-  var now = Date.now() + (S.clockOffsetMs || 0);
-  var remain = Math.max(0, (data.weekEndTs || 0) - now);
-  if (remain <= 0){
-    elT.textContent = 'Distributing prizes…';
-    clearInterval(lbTimerInterval);
-    // We reload the leaderboard shortly after to catch the start of
-    // the new week as soon as the server finishes the automatic
-    // distribution.
-    setTimeout(loadRecordPage, 5000);
-    return;
-  }
-  var totalSec = Math.floor(remain / 1000);
-  var d = Math.floor(totalSec / 86400);
-  var h = Math.floor((totalSec % 86400) / 3600);
-  var m = Math.floor((totalSec % 3600) / 60);
-  var s = totalSec % 60;
-  var pad = function(n){ return String(n).padStart(2,'0'); };
-  elT.textContent = (d > 0 ? d + 'd ' : '') + pad(h) + ':' + pad(m) + ':' + pad(s);
-}
-
-
-// ── Contest tabs + Weekly Ads Contest ─────────────────────────────────
-function switchContestTab(tab){
-  S.ctTab = (tab === 'ads') ? 'ads' : 'ref';
-  var isAds = S.ctTab === 'ads';
-  document.getElementById('ctTabRef').classList.toggle('active', !isAds);
-  document.getElementById('ctTabAds').classList.toggle('active', isAds);
-  document.getElementById('ctPaneRef').classList.toggle('active', !isAds);
-  document.getElementById('ctPaneAds').classList.toggle('active', isAds);
-  var sub = document.getElementById('ctSub');
-  if (sub) sub.textContent = isAds ? 'Watch ads · climb the ranks · win 3DOGS' : 'Invite friends · climb the ranks · win TON';
-  loadRecordPage();
-}
-function openContestHelp(){ openModal(S.ctTab === 'ads' ? 'adsContestHelpModal' : 'contestHelpModal'); }
-
-var adTimerInterval = null;
-var CR_IMG = '<img class="ct-cr-ico" src="assets/dogs_coin.png" onerror="this.onerror=null;this.src=\'assets/coin.png\'" alt="3DOGS">';
-function fmtCr(n){ return Number(n || 0).toLocaleString('en-US'); }
-
-function loadAdsContest(){
-  var el = document.getElementById('adTop3');
-  if (!el) return;
-  if (!S.adLbLoaded) el.innerHTML = '<div class="empty-state">Loading…</div>';
-  api('getAdsLeaderboard', {}).then(function(res){
-    if (!res || !res.success){
-      if (!S.adLbLoaded) el.innerHTML = '<div class="empty-state">Unable to load the leaderboard right now</div>';
-      return;
-    }
-    S.adLb = res.data;
-    S.adLbLoaded = true;
-    renderAdsLeaderboard();
-    startAdsTimer();
-  }).catch(function(){
-    if (!S.adLbLoaded) el.innerHTML = '<div class="empty-state">Unable to load the leaderboard right now</div>';
-  });
-}
-
-function renderAdsLeaderboard(){
-  var data = S.adLb;
-  if (!data) return;
-  var list = data.leaderboard || [];
-  var prizes = data.prizesCrystal || [];
-  var esc2 = esc;
-
-  var pool = data.totalPrizePoolCrystal != null ? data.totalPrizePoolCrystal : prizes.reduce(function(a,b){return a+b;},0);
-  var poolEl = document.getElementById('adPool'); if (poolEl) poolEl.textContent = fmtCr(pool);
-  var hp = document.getElementById('adHelpPool'); if (hp) hp.textContent = fmtCr(pool);
-
-  var u = S.user || {};
-  var myName = u.firstName || (u.username ? '@'+u.username : '') || 'You';
-  var myAv = u.photoUrl ? '<img src="'+esc2(u.photoUrl)+'" alt="">' : esc2(myName.charAt(0).toUpperCase());
-  var myCount = data.myAdsThisWeek || 0;
-  var gapHint = '';
-  (function(){
-    var rk = Number(data.myRank || 0);
-    if (rk > 1){
-      var above = list.filter(function(r){ return r.rank === rk-1; })[0];
-      if (above){
-        var gap = Math.max(1, (above.adsThisWeek || 0) - myCount + 1);
-        gapHint = '<div class="ct-gap">⚡ '+gap+' more to reach #'+(rk-1)+'</div>';
-      }
-    } else if (rk === 1){
-      gapHint = '<div class="ct-gap lead">👑 You\'re leading!</div>';
-    }
-  })();
-  var meEl = document.getElementById('adMe');
-  if (meEl) meEl.innerHTML = '<div class="ct-me"><div class="ct-av">'+myAv+'</div>'+
-    '<div class="ct-me-info"><div class="ct-me-name">'+esc2(myName)+'</div><div class="ct-me-sub">'+myCount+' ad'+(myCount===1?'':'s')+' watched this round</div>'+gapHint+'</div>'+
-    '<div class="ct-me-rank"><b>'+(data.myRank ? '#'+data.myRank : '—')+'</b><span>YOUR RANK</span></div></div>';
-
-  var pz = document.getElementById('adPrizes');
-  if (pz) pz.innerHTML =
-    '<div class="ctp-top">'+prizes.slice(0,3).map(function(p,i){
-      return '<div class="ctp-big g'+(i+1)+'"><div class="ctp-medal">'+LB_MEDALS[i]+'</div><div class="ctp-amt">'+fmtCr(p)+' '+CR_IMG+'</div><div class="ctp-lbl">'+['1st','2nd','3rd'][i]+' place</div></div>';
-    }).join('')+'</div>'+
-    (prizes.length>3 ? '<div class="ctp-rest">'+prizes.slice(3).map(function(p,i){
-      return '<div class="ctp-chip"><span>#'+(i+4)+'</span><b>'+fmtCr(p)+'</b></div>';
-    }).join('')+'</div>' : '');
-
-  var top3El = document.getElementById('adTop3');
-  var listEl = document.getElementById('adList');
-  var listLabel = document.getElementById('adListLabel');
-  if (!top3El || !listEl) return;
-  if (!list.length){
-    top3El.innerHTML = '<div class="empty-state">No ads watched yet this round — watch an ad to claim #1! 🚀</div>';
-    listEl.innerHTML = ''; if (listLabel) listLabel.style.display = 'none';
-    return;
-  }
-  var isMe = function(r){ return S.user && String(r.telegramId) === String(S.user.telegramId); };
-  var nameOf = function(r){ return r.firstName || (r.username ? '@'+r.username : '') || 'User'; };
-  var avOf = function(r){ var n = nameOf(r); return r.photoUrl ? '<img src="'+esc2(r.photoUrl)+'" alt="">' : esc2(n.charAt(0).toUpperCase()); };
-  var cntOf = function(r){ return r.adsThisWeek || 0; };
-  var maxCnt = Math.max(1, cntOf(list[0]));
-  var rowHtml = function(r, i){
-    var cls = r.rank<=3 ? ' r'+r.rank : '';
-    var pct = Math.max(4, Math.round(cntOf(r) / maxCnt * 100));
-    return '<div class="ct-row'+cls+(isMe(r)?' me':'')+'" style="animation-delay:'+Math.min(i*0.04,0.4)+'s">'+
-      '<div class="ct-pos">'+(LB_MEDALS[r.rank-1]||('#'+r.rank))+'</div>'+
-      '<div class="ct-av">'+avOf(r)+'</div>'+
-      '<div class="ct-row-info"><div class="ct-row-name">'+esc2(nameOf(r))+(isMe(r)?'<span class="ct-you">YOU</span>':'')+'</div>'+
-        '<div class="ct-row-cnt">📢 '+cntOf(r)+' ad'+(cntOf(r)===1?'':'s')+'</div>'+
-        '<div class="ct-bar"><i style="width:'+pct+'%"></i></div></div>'+
-      (r.prizeCrystal ? '<div class="ct-row-prize">+'+fmtCr(r.prizeCrystal)+' '+CR_IMG+'</div>' : '<div class="ct-row-prize none">—</div>')+
-    '</div>';
-  };
-  var pod = function(r, place){
-    if (!r) return '<div class="pd p'+place+' empty"><div class="pd-av">?</div><div class="pd-name">—</div><div class="pd-base"><span>'+place+'</span></div></div>';
-    var crown = place===1 ? '<div class="pd-crown">👑</div>' : '';
-    return '<div class="pd p'+place+(isMe(r)?' me':'')+'">'+crown+
-      '<div class="pd-av">'+avOf(r)+'</div>'+
-      '<div class="pd-name">'+esc2(nameOf(r))+(isMe(r)?'<span class="ct-you">YOU</span>':'')+'</div>'+
-      '<div class="pd-cnt">📢 '+cntOf(r)+'</div>'+
-      (r.prizeCrystal ? '<div class="pd-prize">+'+fmtCr(r.prizeCrystal)+' '+CR_IMG+'</div>' : '')+
-      '<div class="pd-base"><span>'+place+'</span></div>'+
-    '</div>';
-  };
-  top3El.innerHTML = '<div class="ct-podium">'+pod(list[1],2)+pod(list[0],1)+pod(list[2],3)+'</div>';
-  var rest = list.slice(3);
-  listEl.innerHTML = rest.map(function(r,i){ return rowHtml(r,i); }).join('');
-  if (listLabel) listLabel.style.display = rest.length ? '' : 'none';
-}
-
-function startAdsTimer(){
-  if (adTimerInterval) clearInterval(adTimerInterval);
-  updateAdsTimer();
-  adTimerInterval = setInterval(updateAdsTimer, 1000);
-}
-
-function updateAdsTimer(){
-  var data = S.adLb;
-  var elT = document.getElementById('adTimer');
-  if (!data || !elT) return;
-  var now = Date.now() + (S.clockOffsetMs || 0);
-  var remain = Math.max(0, (data.weekEndTs || 0) - now);
-  if (remain <= 0){
-    elT.textContent = 'Distributing prizes…';
-    clearInterval(adTimerInterval);
-    setTimeout(function(){ if (S.ctTab === 'ads') loadAdsContest(); }, 5000);
-    return;
-  }
-  var totalSec = Math.floor(remain / 1000);
-  var d = Math.floor(totalSec / 86400);
-  var hh = Math.floor((totalSec % 86400) / 3600);
-  var m = Math.floor((totalSec % 3600) / 60);
-  var s = totalSec % 60;
-  var pad = function(n){ return String(n).padStart(2,'0'); };
-  elT.textContent = (d > 0 ? d + 'd ' : '') + pad(hh) + ':' + pad(m) + ':' + pad(s);
 }
 
 // ── TON Wallet ───────────────────────────────────────────────────────────
@@ -5836,7 +5244,6 @@ function switchPage(name){
       renderTasks(currentTab);
     }, 0);
   }
-  if (name === 'record') loadRecordPage();
   if (name === 'games') renderArcade();
   if (name === 'profile') renderProfile();
     if (name === 'wallet') updateProfileWalletStatus(tonConnectUI ? (tonConnectUI.wallet || tonConnectUI.account || null) : null);
@@ -5982,7 +5389,7 @@ function timeAgo(ts){
 // ═══════════════ ARCADE / GAMES ═══════════════
 var GAMES = [
   { id:'snake', name:'Snake',       cat:'arcade', catLabel:'ARCADE', cover:'assets/dogs_cover_snake.png', coverFb:'assets/cover_snake.jpg', rate:0.5,   cap:150, how:'Eat apples to grow longer. Swipe, tap the arrows, or use the keyboard — do not hit the walls or yourself.' },
-  { id:'g2048', name:'2048',        cat:'puzzle', catLabel:'PUZZLE', cover:'assets/dogs_cover_g2048.png', coverFb:'assets/cover_2048.jpg', rate:0.025, cap:200, how:'Swipe to slide all tiles. When two equal numbers touch, they merge — reach 2048!' },
+  { id:'g2048', name:'2048',        cat:'puzzle', catLabel:'PUZZLE', cover:'assets/dogs_cover_2048.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23120408'/><stop offset='1' stop-color='%234A0D16'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><rect x='46' y='34' width='54' height='54' rx='10' fill='%23FF3131'/><rect x='112' y='34' width='54' height='54' rx='10' fill='%23F5C94B'/><rect x='178' y='34' width='54' height='54' rx='10' fill='%23FF7A45'/><rect x='46' y='100' width='54' height='54' rx='10' fill='%237EE83D'/><rect x='112' y='100' width='120' height='54' rx='10' fill='%23FFD93B'/><text x='73' y='69' font-family='Arial' font-size='24' font-weight='900' fill='white' text-anchor='middle'>2</text><text x='139' y='69' font-family='Arial' font-size='24' font-weight='900' fill='%23120408' text-anchor='middle'>4</text><text x='205' y='69' font-family='Arial' font-size='24' font-weight='900' fill='white' text-anchor='middle'>8</text><text x='73' y='135' font-family='Arial' font-size='22' font-weight='900' fill='%23120408' text-anchor='middle'>16</text><text x='172' y='136' font-family='Arial' font-size='25' font-weight='900' fill='%23120408' text-anchor='middle'>2048</text></svg>", rate:0.025, cap:200, how:'Swipe to slide all tiles. When two equal numbers touch, they merge — reach 2048!' },
   { id:'stack', name:'Stack Tower', cat:'arcade', catLabel:'ARCADE', cover:'assets/dogs_cover_stack.png', coverFb:'assets/cover_stack.jpg', rate:6,     cap:200, how:'Tap anywhere to drop the sliding block. The overhang falls off — stack as high as you can.' },
   { id:'racer', name:'Lane Racer',  cat:'racing', catLabel:'RACING', cover:'assets/dogs_cover_racer.png', coverFb:'assets/cover_racer.jpg', rate:0.06,  cap:150, how:'Dodge the traffic! Tap the sides of the road or the arrows to switch lanes. Survive and drive far.' },
   { id:'math',  name:'Quick Math',  cat:'brain',  catLabel:'BRAIN',  cover:'assets/dogs_cover_math.png', coverFb:'assets/cover_math.jpg',  rate:0.5,   cap:200, how:'Answer as many questions as you can in 30 seconds. Correct streaks earn bonus points — wrong answers cost time.' },
