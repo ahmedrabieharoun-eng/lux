@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>LUX — Digital Asset</title>
+<title>3 DOGS — LUX Crew</title>
 <!-- Open the connection to the API (DNS + TLS) while the page is still loading -->
 <link rel="preconnect" href="https://silent-block-bedf.ahmedrabieharoun.workers.dev" crossorigin>
 <!-- Critical for boot: Telegram SDK + device fingerprint (must be ready before the first API call) -->
@@ -2297,18 +2297,217 @@ html,body{
 canvas.game-canvas{max-width:100%;max-height:100%}
 .g2048-wrap{width:100%;justify-content:center}
 .math-wrap{width:min(94vw,560px)}
+
+/* ════════════════════════════════════════════════════════════════════
+   LUX v6 — «3 DOGS» GANGSTER-DOG REBRAND (final cascade layer)
+   Style borrowed generically from the reference: dark smoke mood, neon
+   accent, glassy cards, display type scale, sparse pages. Accent is now
+   NEON RED + BLACK + WHITE (+ gold for money). ALL artwork is original
+   (assets/dogs_*.png). Signature graphics drawn here: IRON CHAIN strips
+   (--chain-img / --chain-v SVG patterns), paw motifs, dog-tag chips.
+   DENSITY PASS (owner order): one hero + one primary block per page,
+   consolidated stat strips, slimmer rows, more air. Nothing removed.
+   ════════════════════════════════════════════════════════════════════ */
+:root{
+  --red:#FF3131;--red-d:#C8102E;--red-deep:#7A0C1D;
+  --gold:#F5C94B;
+  --bone:#F5F2EA;
+  --soot:#070708;--coal:#101013;--steel:#17171A;--steel2:#1F1F24;
+  --dk-line:rgba(255,255,255,.10);--dk-line2:rgba(255,255,255,.20);
+  --dk-tx:#FFFFFF;--dk-tx2:#C9C9CF;--dk-tx3:#9A9AA2;
+  --glass-d:rgba(255,255,255,.055);
+  --chain-img:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='12' viewBox='0 0 34 12'%3E%3Cg fill='none' stroke='%23C7CBD4' stroke-width='2.4'%3E%3Crect x='1.4' y='2.2' width='16' height='7.6' rx='3.8'/%3E%3Crect x='16.6' y='2.2' width='16' height='7.6' rx='3.8'/%3E%3C/g%3E%3C/svg%3E");
+  --chain-v:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='34' viewBox='0 0 12 34'%3E%3Cg fill='none' stroke='%23C7CBD4' stroke-width='2.4'%3E%3Crect x='2.2' y='1.4' width='7.6' height='16' rx='3.8'/%3E%3Crect x='2.2' y='16.6' width='7.6' height='16' rx='3.8'/%3E%3C/g%3E%3C/svg%3E");
+  --grad-cta:linear-gradient(135deg,#E02323,#8F0F1D);
+  --grad-brand:linear-gradient(150deg,#160408 0%,#38060D 55%,#6E0A18 130%);
+  --grad-amber:linear-gradient(135deg,#FFD34D,#E79A00);
+  --card-sh:0 14px 30px -14px rgba(0,0,0,.7),0 2px 8px -2px rgba(0,0,0,.55);
+  --pop-sh:0 24px 48px -18px rgba(0,0,0,.85);
+  --line:#26262B;--line2:#3A3A42;
+  --ink:#FFFFFF;--ink2:#E8E8EC;--mut:#B9B9C0;--faint:#9A9AA2;
+  --text:#FFFFFF;--text2:#C9C9CF;--text3:#9A9AA2;
+  --bg:#070708;--bg2:#101013;--card:#17171B;--glass:rgba(255,255,255,.055);--glass-border:rgba(255,255,255,.10);
+  --orange:#FF3131;--orange2:#F5C94B;--orange-dim:rgba(255,49,49,.15);
+  --vio:#FF4D4D;--vio-d:#FF3131;--vio-t:rgba(255,49,49,.14);--vio-t2:rgba(255,49,49,.30);
+  --blu:#7DD3FC;--blu-t:rgba(125,211,252,.13);
+  --amb:#F5B83D;--amb-d:#FFC44D;--amb-t:rgba(245,184,61,.14);
+  --grn:#34D399;--grn-t:rgba(52,211,153,.14);
+  --pnk:#FF7AB6;--pnk-t:rgba(255,122,182,.13);
+}
+/* — backdrop: near-black + red smoke photo (falls back to glow gradient) — */
+html,body{background-color:#070708 !important}
+body{
+  background-image:radial-gradient(120% 55% at 50% -8%,rgba(255,49,49,.17),transparent 60%),radial-gradient(90% 40% at 50% 112%,rgba(255,49,49,.10),transparent 60%),url('assets/dogs_smoke_bg.png') !important;
+  background-size:auto,auto,cover !important;background-position:center top,center bottom,center top !important;
+  background-repeat:no-repeat !important;background-attachment:fixed !important;color:#fff;
+}
+.page{background:transparent !important}
+/* — display type: heavy, uppercase, tight — */
+.page-title,.arc-title,.ct-title,.dogs-hero-name{font-weight:900 !important;letter-spacing:.5px;text-transform:uppercase}
+.page-title{color:#fff !important}
+/* — bottom nav: chunky, dark glass, red active pill — */
+.nav{background:rgba(9,9,11,.94) !important;border-top:1px solid var(--dk-line2) !important;box-shadow:0 -12px 30px -12px rgba(0,0,0,.8) !important;backdrop-filter:blur(16px)}
+.nav-item{color:#8E8E96 !important}
+.nav-item.active{background:rgba(255,49,49,.17) !important;color:#fff !important;box-shadow:inset 0 0 0 1px rgba(255,49,49,.35)}
+.nav-item.active .nav-icon{color:var(--red) !important}
+.nav-icon{color:#8E8E96}
+.nav-item.active .nav-label{color:#fff !important}
+.nav-label{color:#8E8E96}
+/* — the great card flip: porcelain → smoky glass — */
+.task-item,.stat-card,.bonus-card,.redeem-card,.convert-box,.wallet-form-card,
+.lang-item,.limit-card,.modal,.ct-modal,.rr-card,.arc-stat,.quick-tile,
+.mine-ton-card,.rr-box,.rr-stat-box,.rf2-wrap,.it-wrap,.pf-tile,.wg-card,
+.home-header,.wheel-info-banner,.wheel-spins-left,.ct-me,.ctp-big,.ct-row,
+.ct-sheet,.dep-steps,.tx-item,.forcesub-card,.ban-card,.arc-spin,.add-task-btn,
+.store-pack-card,.arc-card,.price-box,.pd-card{
+  background:var(--glass-d) !important;background-image:none !important;
+  border:1px solid var(--dk-line) !important;color:var(--dk-tx) !important;
+  box-shadow:var(--card-sh) !important;backdrop-filter:blur(14px);
+}
+.wheel-stage{background:radial-gradient(120% 120% at 50% 0%,#2A0A10,#0C0C0E 70%) !important;border:1px solid rgba(255,49,49,.22) !important;color:#fff !important;box-shadow:var(--card-sh) !important}
+.profile-menu{background:var(--glass-d) !important;border:1px solid var(--dk-line) !important;box-shadow:var(--card-sh) !important;backdrop-filter:blur(14px)}
+.profile-menu-item{background:transparent !important;border-bottom:1px solid var(--dk-line) !important;color:#fff !important}
+.profile-menu-item:last-child{border-bottom:none !important}
+.empty-state{background:rgba(255,255,255,.04) !important;border:1.5px dashed #3A3A42 !important;color:var(--dk-tx2) !important}
+/* inset chips / sub-surfaces → dark steel */
+.limit-val,.dep-bal,.bal-cell,.wd-receive,.qty-chip,.ct-step,.ban-id-box,.rr-link-url,.ctp-chip{
+  background:#101013 !important;border:1px solid var(--dk-line) !important;color:var(--dk-tx) !important;
+}
+.forcesub-item,.ban-item{background:rgba(255,255,255,.05) !important;border:1px solid var(--dk-line) !important;color:#fff !important}
+.rf2-cols{background:rgba(255,255,255,.045) !important;color:var(--dk-tx2) !important}
+.wg-pack{background:rgba(255,49,49,.10) !important;border:1.5px solid rgba(255,49,49,.4) !important;color:#fff !important}
+.wg-later{background:#17171A !important;color:var(--dk-tx2) !important}
+.dep-chip{background:#17171A !important;border:1.5px solid var(--dk-line2) !important;color:#fff !important}
+.dep-chip:active{background:rgba(255,49,49,.2) !important;border-color:var(--red) !important}
+#ctPrizes:empty::after{background:rgba(255,255,255,.04) !important}
+.psub-count{background:rgba(255,255,255,.09) !important}
+.rf2-row,.it-row{border-bottom:1px solid var(--dk-line) !important}
+/* inputs on dark */
+.wallet-input,.modal-input,.add-task-input,.add-task-select,.sbmt-input,.sbmt-textarea,.wg-input,.redeem-input,.buy-qty-input{
+  background:#101013 !important;border:1.5px solid var(--dk-line2) !important;color:#fff !important;
+}
+.wallet-input:focus,.modal-input:focus{border-color:var(--red) !important;background:#141416 !important;box-shadow:0 0 0 3px rgba(255,49,49,.18) !important}
+.wallet-input::placeholder,.modal-input::placeholder{color:#6E6E76 !important}
+/* buttons */
+.wallet-submit,.modal-btn.primary,.task-btn.go,.fs-go,.sbmt-btn,.psub-btn{
+  background:var(--grad-cta) !important;color:#fff !important;border:1px solid rgba(255,120,120,.35) !important;
+  box-shadow:0 12px 24px -10px rgba(255,49,49,.55) !important;
+}
+.modal-btn.ghost{background:rgba(255,255,255,.06) !important;color:#fff !important;border:1px solid var(--dk-line2) !important}
+.back-btn{background:#1B1B1F !important;color:#fff !important;border:1px solid var(--dk-line2) !important;box-shadow:var(--card-sh) !important}
+.modal-overlay,.ct-overlay{background:rgba(3,3,4,.72) !important}
+/* tabs & chips */
+.tabs,.ct-tabs{background:#121214 !important;border:1px solid var(--dk-line) !important}
+.tab,.ct-tab{color:var(--dk-tx3) !important}
+.tab.active,.ct-tab.active{background:rgba(255,49,49,.18) !important;color:#fff !important;box-shadow:inset 0 0 0 1px rgba(255,49,49,.4)}
+.arc-chip{background:#17171A !important;border:1px solid var(--dk-line2) !important;color:var(--dk-tx2) !important}
+.arc-chip.active{background:var(--grad-amber) !important;color:#221300 !important;border-color:transparent !important}
+.lang-flag{background:#2A1215 !important;border:1.5px solid rgba(255,49,49,.35) !important}
+/* — header / home — */
+.header-wallet-btn{background:#1B1B1F !important;border:1px solid var(--dk-line2) !important;color:#fff !important}
+.profile-avatar{border-color:rgba(255,255,255,.85) !important;box-shadow:0 0 0 2px rgba(255,49,49,.65),0 10px 22px -8px rgba(0,0,0,.7) !important}
+/* home hero: dark-red brand slab (grad-brand token) + display numbers */
+.balance-label{color:#FFB3B3 !important}
+.balance-sub{color:#FFC9C2 !important}
+/* Earn = red gradient; Withdraw = WHITE punch card (red+black+WHITE) */
+.home-action.wd{background:#FFFFFF !important;color:#141416 !important;border:1px solid #FFFFFF !important;box-shadow:0 16px 30px -14px rgba(0,0,0,.75) !important}
+.home-action.wd .home-action-sub{color:#5A5A64 !important}
+.home-action.wd .ha-ico{background:rgba(20,20,22,.07) !important;color:#141416 !important}
+.home-action.earn .home-action-sub{color:rgba(255,255,255,.88) !important}
+/* — 3 DOGS art components — */
+.dogs-hero{position:relative;margin:12px 2px 0;border-radius:26px;overflow:hidden;border:1px solid rgba(255,49,49,.32);box-shadow:0 22px 44px -18px rgba(255,49,49,.38),var(--card-sh);background:linear-gradient(160deg,#2A0A10,#0B0B0C)}
+.dogs-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:12px;background-image:var(--chain-img);background-repeat:repeat-x;background-size:34px 12px;z-index:3;opacity:.92}
+.dogs-hero-img{display:block;width:100%;height:300px;object-fit:cover;object-position:center 20%}
+.dogs-hero-cap{position:absolute;left:0;right:0;bottom:0;padding:34px 18px 14px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.85));display:flex;flex-direction:column;gap:2px;z-index:2}
+.dogs-hero-name{font-size:31px;color:#fff;text-shadow:0 2px 16px rgba(255,49,49,.5);line-height:1}
+.dogs-hero-tag{font-size:11px;font-weight:800;letter-spacing:2.4px;color:#FF8A8A}
+.dogs-hero.art-missing{display:none}
+.dogs-banner{margin:14px 2px 0;border-radius:22px;overflow:hidden;border:1px solid rgba(255,49,49,.28);box-shadow:0 16px 34px -16px rgba(255,49,49,.32),var(--card-sh);background:linear-gradient(160deg,#2A0A10,#0D0D0F)}
+.dogs-banner img{display:block;width:100%;height:146px;object-fit:cover}
+.dogs-banner.tall img{height:196px}
+.dogs-banner.art-missing{display:none}
+.chain-divider{height:12px;margin:16px 30px 2px;background-image:var(--chain-img);background-repeat:repeat-x;background-size:34px 12px;opacity:.5}
+/* hanging-chain coin (home balance) */
+.hero-coin-hang{display:flex;flex-direction:column;align-items:center;flex:0 0 auto}
+.hero-chain{width:12px;height:30px;background-image:var(--chain-v);background-repeat:repeat-y;background-size:12px 34px;opacity:.9;margin-bottom:-4px;z-index:1}
+.lux-hero-coin{border-radius:50% !important;object-fit:cover !important;border:2px solid rgba(245,201,75,.65);box-shadow:0 10px 24px -8px rgba(0,0,0,.8),0 0 22px -4px rgba(255,49,49,.5)}
+/* referrals: big red invite CTA + how-it-works steps */
+.dogs-cta{display:block;width:100%;margin:14px 0 0;padding:15px;border:none;border-radius:18px;background:var(--grad-cta);color:#fff;font-size:16px;font-weight:900;letter-spacing:.8px;box-shadow:0 14px 28px -10px rgba(255,49,49,.55);cursor:pointer;font-family:inherit}
+.dogs-cta:active{transform:scale(.985)}
+.how-wrap{margin:18px 2px 0}
+.how-title{font-size:13px;font-weight:900;letter-spacing:1.6px;color:#fff;margin-bottom:10px}
+.how-step{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;background:var(--glass-d);border:1px solid var(--dk-line);border-radius:16px;margin-bottom:8px;backdrop-filter:blur(10px)}
+.how-n{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--grad-cta);color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 6px 14px -4px rgba(255,49,49,.6)}
+.how-t{color:#fff;font-weight:800;font-size:13.5px}
+.how-s{color:var(--dk-tx2);font-size:12.5px;margin-top:2px;line-height:1.5}
+.how-s b{color:var(--gold)}
+/* profile cover: red smoke instead of blue */
+.pf-cover{background:radial-gradient(90% 130% at 85% -10%,rgba(255,49,49,.5),transparent 55%),radial-gradient(70% 110% at 8% 0%,rgba(245,201,75,.28),transparent 50%) !important}
+.pf-avatar-wrap .profile-avatar{box-shadow:0 0 0 3px #0B0B0C,0 0 0 5px rgba(245,201,75,.8) !important}
+/* contest */
+.ct-bar i{background:linear-gradient(90deg,#FF3131,#F5C94B) !important}
+.ctp-big.g1{background:linear-gradient(160deg,#3A2A05,#171205) !important;border:1px solid rgba(245,201,75,.45) !important}
+.ctp-big.g2{background:linear-gradient(160deg,#26262B,#101013) !important;border:1px solid rgba(255,255,255,.3) !important}
+.ctp-big.g3{background:linear-gradient(160deg,#33200F,#140C05) !important;border:1px solid rgba(217,119,43,.45) !important}
+/* wheel */
+.wheel-hub{background:radial-gradient(circle at 35% 30%,#3A3A40,#141416 72%) !important;border:2px solid rgba(255,49,49,.55) !important;color:#fff !important;box-shadow:0 10px 24px -8px rgba(0,0,0,.8),0 0 18px -4px rgba(255,49,49,.5) !important}
+.wheel-info-banner{font-size:12.5px}
+.wheel-spins-left{color:var(--dk-tx2) !important}
+/* invite tasks progress → red/gold */
+.it-fill{background:linear-gradient(90deg,#FF3131,#F5C94B) !important}
+.it-reward{color:#FF7A7A !important}
+.it-btn{background:var(--grad-cta) !important;color:#fff !important}
+.it-btn:disabled{background:#26262B !important;color:#8E8E96 !important}
+/* toast */
+.toast{background:#17171A !important;border:1px solid rgba(255,49,49,.4) !important;color:#fff !important}
+/* game overlay chrome → black/red yard */
+.game-overlay{background:radial-gradient(130% 90% at 50% -10%,#3D0A12 0%,#0A0A0B 55%) !important}
+.game-overlay::before{content:'';position:absolute;top:0;left:0;right:0;height:12px;background-image:var(--chain-img);background-repeat:repeat-x;background-size:34px 12px;opacity:.8;z-index:5;pointer-events:none}
+.game-big-btn.violet{background:var(--grad-cta) !important;box-shadow:0 14px 28px -10px rgba(255,49,49,.6) !important}
+.math-timer-fill{background:linear-gradient(90deg,#FF3131,#F5C94B) !important}
+/* loader: black + red smoke + coin & chain */
+.loading-screen{background-color:#050505 !important;background-image:radial-gradient(95% 55% at 50% -5%,rgba(255,49,49,.24),transparent 62%),url('assets/dogs_smoke_bg.png') !important;background-size:auto,cover !important;background-position:center top,center !important}
+.loading-coin{border-radius:50%;object-fit:cover;filter:drop-shadow(0 12px 28px rgba(255,49,49,.5))}
+.loading-word{color:#fff !important;text-shadow:0 0 28px rgba(255,49,49,.6);letter-spacing:2.5px}
+.loading-sub{color:#FF6B6B !important;letter-spacing:3.6px}
+.ld-bar{background:rgba(255,255,255,.10) !important}
+.ld-bar-fill{background:linear-gradient(90deg,#FF3131,#F5C94B) !important}
+.loading-label{color:#B9B9C0 !important}
+.loading-percent{color:var(--gold) !important}
+/* — DENSITY PASS: slimmer rows, compact stat strip, more air — */
+.stats-grid{gap:8px !important}
+.stat-card{padding:10px 6px !important;border-radius:16px !important}
+.stat-val{font-size:16px !important}
+.quick-grid{gap:8px !important}
+.quick-tile{padding:11px 4px 9px !important}
+.quick-ico{width:38px !important;height:38px !important;border-radius:12px !important}
+.task-item{padding:11px 12px !important}
+.bonus-card,.redeem-card,.mine-ton-card{padding:12px 14px !important}
+.feature-icon{width:42px !important;height:42px !important}
+.rf2-row{padding-top:9px !important;padding-bottom:9px !important}
+.it-row{padding-top:9px !important;padding-bottom:9px !important}
+.ct-row{padding-top:10px !important;padding-bottom:10px !important}
+.tx-item{padding:10px 12px !important}
+.arc-grid{gap:10px !important}
+.section{margin-top:20px !important}
+/* v6 fix round (from the dark contrast sweep): */
+.tx-label{color:#F5F5F7 !important}
+.convert-currency{background:#17171A !important;border:1px solid var(--dk-line) !important}
+.wheel-card-badge{background:var(--grad-cta) !important;color:#fff !important;box-shadow:0 0 0 3px rgba(255,49,49,.25) !important}
+.modal-close{background:rgba(255,255,255,.06) !important;color:#fff !important;border:1px solid var(--dk-line2) !important}
+
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="G" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="48"><stop offset="0" stop-color="#ede9fe"/><stop offset=".5" stop-color="#a78bfa"/><stop offset="1" stop-color="#7c3aed"/></linearGradient><linearGradient id="P" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#bae6fd"/><stop offset="1" stop-color="#2563eb"/></linearGradient><clipPath id="icclip4"><rect x="10" y="15" width="28" height="23" rx="7"/></clipPath><clipPath id="icclip7"><path d="M9 12h18a3 3 0 0 0 6 0h6a4 4 0 0 1 4 4v16a4 4 0 0 1-4 4h-6a3 3 0 0 0-6 0H9a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z"/></clipPath><clipPath id="icclip10"><rect x="5" y="9" width="38" height="23" rx="3.500"/></clipPath><clipPath id="icclipgem"><path d="M14 9h20l9 10-19 22L5 19z"/></clipPath></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="G" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="48"><stop offset="0" stop-color="#FFE3E3"/><stop offset=".5" stop-color="#FF6B6B"/><stop offset="1" stop-color="#C8102E"/></linearGradient><linearGradient id="P" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#E8E8EC"/><stop offset="1" stop-color="#71717A"/></linearGradient><clipPath id="icclip4"><rect x="10" y="15" width="28" height="23" rx="7"/></clipPath><clipPath id="icclip7"><path d="M9 12h18a3 3 0 0 0 6 0h6a4 4 0 0 1 4 4v16a4 4 0 0 1-4 4h-6a3 3 0 0 0-6 0H9a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z"/></clipPath><clipPath id="icclip10"><rect x="5" y="9" width="38" height="23" rx="3.500"/></clipPath><clipPath id="icclipgem"><path d="M14 9h20l9 10-19 22L5 19z"/></clipPath></defs></svg>
 
 
 <!-- Loading -->
 <div class="loading-screen" id="loadingScreen">
   <div class="loading-panel">
-    <img class="loading-coin" src="assets/coin.png" alt="LUX">
-    <div class="loading-word">LUX</div>
-    <div class="loading-sub">DIGITAL ASSET</div>
+    <img class="loading-coin" src="assets/dogs_coin.png" alt="3 DOGS" onerror="this.onerror=null;this.src='assets/coin.png'">
+    <div class="loading-word">3 DOGS</div>
+    <div class="loading-sub">RUN THE YARD</div>
     <div class="loading-label">LUX IS LOADING<span class="ld-dot">.</span><span class="ld-dot">.</span><span class="ld-dot">.</span></div>
     <div class="ld-bar">
       <div class="ld-bar-fill" id="loadingFill"></div>
@@ -2392,13 +2591,18 @@ canvas.game-canvas{max-width:100%;max-height:100%}
         </div>
       </div>
 
+      <div class="dogs-hero">
+        <img class="dogs-hero-img" src="assets/dogs_hero.png" alt="3 DOGS" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()">
+        <div class="dogs-hero-cap"><span class="dogs-hero-name">3 DOGS</span><span class="dogs-hero-tag">RUN THE YARD · EARN LIKE A BOSS</span></div>
+      </div>
+
       <div class="lux-hero">
         <img class="lux-hero-bg" src="assets/hero_home.jpg" alt="">
         <div class="lux-hero-shade"></div>
         <div class="lux-hero-body">
-          <div class="balance-label">Your Balance</div>
+          <div class="balance-label">YOUR STASH</div>
           <div class="balance-amount">
-            <img class="lux-hero-coin" src="assets/coin.png" alt="LUX">
+            <span class="hero-coin-hang"><span class="hero-chain"></span><img class="lux-hero-coin" src="assets/dogs_coin.png" alt="3 DOGS" loading="lazy" onerror="this.onerror=null;this.src='assets/coin.png'"></span>
             <span class="balance-num" id="homeTon">0</span>
             <span class="lux-hero-unit">LUX</span>
           </div>
@@ -2410,6 +2614,8 @@ canvas.game-canvas{max-width:100%;max-height:100%}
           </div>
         </div>
       </div>
+
+      <div class="chain-divider"></div>
 
       <div class="mine-ton-card" id="mineTonCard">
         <div class="mine-ton-ico"><img src="https://cdn.simpleicons.org/ton/0098EA" alt="TON"></div>
@@ -2469,7 +2675,8 @@ canvas.game-canvas{max-width:100%;max-height:100%}
 
     <!-- TASKS -->
     <div class="page" id="page-tasks">
-       <div class="tasks-header"><div class="page-title">Earn</div><div style="font-size:13px;color:var(--text3);margin-top:5px">Complete tasks and collect LUX rewards</div></div>
+       <div class="tasks-header"><div class="page-title">Earn</div><div style="font-size:13px;color:var(--text3);margin-top:5px">Finish jobs. Stack LUX.</div></div>
+      <div class="dogs-banner"><img src="assets/dogs_guard.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="tabs-section"><div class="tabs">
         <div class="tab active" onclick="switchTab(this,'ads')"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="12" rx="2.5"/><path d="M9.5 20.5h5M12 17v3.5"/><path d="M10.3 8.8v4.4l3.8-2.2z" fill="currentColor" stroke="none"/></svg><span>Ads</span></div>
         <div class="tab" onclick="switchTab(this,'channels')"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.8 1.7 1.7L8.8 5.4"/><path d="M12.5 7H20"/><path d="m4 13.3 1.7 1.7 3.1-3.1"/><path d="M12.5 13.5H20"/><path d="M12.5 19.5H20"/><path d="M4 19.5h3.5"/></svg><span>TASKS</span></div>
@@ -2486,7 +2693,9 @@ canvas.game-canvas{max-width:100%;max-height:100%}
 
     <!-- REFERRALS -->
     <div class="page" id="page-refs">
-      <div class="tasks-header"><div class="page-title">Referrals</div><div style="font-size:13px;color:var(--text3);margin-top:5px">Invite friends and earn LUX</div></div>
+      <div class="tasks-header"><div class="page-title">THE CREW</div><div style="font-size:13px;color:var(--text3);margin-top:5px">Grow the pack · split the loot</div></div>
+      <div class="dogs-banner tall"><img src="assets/dogs_crew.png" alt="The Crew" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+      <button class="dogs-cta" onclick="shareInvite()">✈️ INVITE YOUR HOMIES</button>
       <div class="rr-row">
         <div class="rr-box rr-crystal-box">
           <img class="rr-crystal-icon" src="assets/coin.png" alt="">
@@ -2541,6 +2750,13 @@ canvas.game-canvas{max-width:100%;max-height:100%}
         <div id="inviteTasksList"></div>
       </div>
 
+      <div class="how-wrap">
+        <div class="how-title">HOW IT WORKS</div>
+        <div class="how-step"><span class="how-n">1</span><div><div class="how-t">Share your link</div><div class="how-s">Your homie joins 3 DOGS from your invite link.</div></div></div>
+        <div class="how-step"><span class="how-n">2</span><div><div class="how-t">They run 10 ads</div><div class="how-s">Once they watch 10 ads and go active, you bank <b id="rrStepActAmt">100</b> LUX.</div></div></div>
+        <div class="how-step"><span class="how-n">3</span><div><div class="how-t">Earn on every pack</div><div class="how-s">You take 10% of the LUX from every package they buy with TON — credited instantly.</div></div></div>
+      </div>
+
       <div class="rf2-wrap">
         <div class="rf2-head"><span>My Referrals</span><span class="rf-list-count" id="rfCount">0</span></div>
         <div class="rf2-cols"><div>Date</div><div>User</div><div>Ads</div><div>Income</div></div>
@@ -2552,10 +2768,11 @@ canvas.game-canvas{max-width:100%;max-height:100%}
     <!-- ARCADE / GAMES -->
     <div class="page" id="page-games">
       <div class="arc-head">
-        <div class="arc-kicker">⚡ PLAY &amp; EARN</div>
-        <div class="arc-title">Arcade</div>
-        <div class="arc-sub">Play mini-games, win LUX</div>
+        <div class="arc-kicker">⚡ PLAY · EARN · REPEAT</div>
+        <div class="arc-title">THE ARENA</div>
+        <div class="arc-sub">Pick your fight · win LUX</div>
       </div>
+      <div class="dogs-banner"><img src="assets/dogs_games.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="arc-stats">
         <div class="arc-stat">
           <img class="arc-stat-img" src="assets/coin.png" alt="">
@@ -2615,6 +2832,8 @@ canvas.game-canvas{max-width:100%;max-height:100%}
         </div>
       </div>
 
+      <div class="dogs-banner"><img src="assets/dogs_boss.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+
       <div class="pf-tiles">
         <div class="pf-tile" onclick="switchPage('deposit')"><div class="pf-tile-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v9.5"/><path d="m7.5 10 4.5 4.5L16.5 10"/><path d="M4 15.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"/></svg></div><div class="pf-tile-title" data-i18n="profile.deposit.title">Deposit</div></div>
         <div class="pf-tile" onclick="switchPage('withdraw')"><div class="pf-tile-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13.5V4"/><path d="m7.5 7.5 4.5-4 4.5 4"/><path d="M4 15.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"/></svg></div><div class="pf-tile-title" data-i18n="profile.withdraw.title">Withdraw</div></div>
@@ -2647,6 +2866,7 @@ canvas.game-canvas{max-width:100%;max-height:100%}
         <button class="back-btn" onclick="switchPage('profile')">←</button>
         <div class="page-title pg-title"><span class="pg-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v9.5"/><path d="m7.5 10 4.5 4.5L16.5 10"/><path d="M4 15.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"/></svg></span><span data-i18n="deposit.pageTitle">Deposit TON</span></div>
       </div>
+      <div class="dogs-banner"><img src="assets/dogs_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="wallet-form-card">
         <div class="wallet-form-title"><span data-i18n="deposit.formTitle">Deposit TON</span></div>
         <div class="wallet-form-help" data-i18n="deposit.help">Connect your TON wallet and send TON to the LUX deposit wallet. Your User ID is added as the transaction comment.</div>
@@ -2668,6 +2888,7 @@ canvas.game-canvas{max-width:100%;max-height:100%}
         <button class="back-btn" onclick="switchPage('profile')">←</button>
         <div class="page-title pg-title"><span class="pg-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13.5V4"/><path d="m7.5 7.5 4.5-4 4.5 4"/><path d="M4 15.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"/></svg></span><span data-i18n="withdraw.pageTitle">Withdraw TON</span></div>
       </div>
+      <div class="dogs-banner"><img src="assets/dogs_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="wallet-form-card">
         <div class="wallet-form-title"><span data-i18n="withdraw.formTitle">Withdraw TON</span></div>
         <div class="limit-card wd" aria-label="Withdrawal requirements">
@@ -2693,6 +2914,7 @@ canvas.game-canvas{max-width:100%;max-height:100%}
         <button class="back-btn" onclick="switchPage('profile')">←</button>
         <div class="page-title pg-title"><span class="pg-ico"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 8h11.5l-2.7-2.7M19.5 16H8l2.7 2.7"/></svg></span><span data-i18n="convert.pageTitle">Convert</span></div>
       </div>
+      <div class="dogs-banner"><img src="assets/dogs_vault.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="wallet-form-card">
         <div class="wallet-form-title"><span data-i18n="convert.formTitle">Convert TON to LUX</span></div>
         <div class="convert-box">
@@ -2772,9 +2994,11 @@ canvas.game-canvas{max-width:100%;max-height:100%}
     <!-- WEEKLY CONTEST -->
     <div class="page" id="page-record">
       <div class="ct-head">
-        <div><div class="ct-title">🏆 Weekly Contest</div><div class="ct-sub" id="ctSub">Invite friends · climb the ranks · win TON</div></div>
+        <div><div class="ct-title">🏆 TOP DOGS</div><div class="ct-sub" id="ctSub">Invite friends · climb the ranks · win TON</div></div>
         <button class="ct-help" onclick="openContestHelp()" aria-label="How the contest works">?</button>
       </div>
+      <div class="dogs-banner"><img src="assets/dogs_rank.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
+
       <div class="ct-tabs">
         <button class="ct-tab active" id="ctTabRef" onclick="switchContestTab('ref')"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.5"/><path d="M3.5 19.5c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5"/><path d="M15.5 5.6a3.5 3.5 0 0 1 0 5.9M17.8 15.3c1.5.7 2.4 2 2.7 4.2"/></svg> Referrals Contest</button>
         <button class="ct-tab" id="ctTabAds" onclick="switchContestTab('ads')"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="12" rx="2.5"/><path d="M9.5 20.5h5M12 17v3.5"/><path d="M10.3 8.8v4.4l3.8-2.2z" fill="currentColor" stroke="none"/></svg> Ads Contest</button>
@@ -2821,6 +3045,8 @@ canvas.game-canvas{max-width:100%;max-height:100%}
         <button class="back-btn" onclick="switchPage('home')">←</button>
         <div class="page-title">Lucky Wheel</div>
       </div>
+
+      <div class="dogs-banner"><img src="assets/dogs_wheel.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
 
       <div class="wheel-info-banner">
         <svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.4"/><path d="M12 3.5v6.1M12 14.4v6.1M3.5 12h6.1M14.4 12h6.1M6 6l4.3 4.3M13.7 13.7 18 18M18 6l-4.3 4.3M10.3 13.7 6 18"/></svg>
@@ -3006,7 +3232,7 @@ canvas.game-canvas{max-width:100%;max-height:100%}
     <div class="wg-glow"></div>
     <div class="wg-shield">
       <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs><linearGradient id="wgG" x1="0" y1="0" x2="64" y2="64"><stop offset="0" stop-color="#ede9fe"/><stop offset=".5" stop-color="#a78bfa"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
+        <defs><linearGradient id="wgG" x1="0" y1="0" x2="64" y2="64"><stop offset="0" stop-color="#FFE3E3"/><stop offset=".5" stop-color="#FF6B6B"/><stop offset="1" stop-color="#C8102E"/></linearGradient></defs>
         <path d="M32 5 54 13v17c0 14-9.5 24.5-22 29C19.500 54.500 10 44 10 30V13z" fill="rgba(167,139,250,.12)" stroke="url(#wgG)" stroke-width="3" stroke-linejoin="round"/>
         <path d="m22 32 7 7 14-15" stroke="url(#wgG)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -4069,6 +4295,8 @@ function renderReferralRewards(d){
   if (comboTitle) comboTitle.textContent = 'Get ' + fmtShiba(actAmount) + ' LUX';
   var comboDesc = document.getElementById('rrComboDesc');
   if (comboDesc) comboDesc.textContent = 'When your referral watches 10 ads and becomes an active referral.';
+  var stepAmt = document.getElementById('rrStepActAmt');
+  if (stepAmt) stepAmt.textContent = fmtShiba(actAmount);
   var depositBadge = document.getElementById('rrDepositPctBadge');
   if (depositBadge) depositBadge.textContent = depositPct + '%';
   var pkgTitle = document.getElementById('rrPkgTitle');
@@ -5349,13 +5577,13 @@ function wheelLightsChase(on){
 function renderWheelCircle(segments){
   var n = segments.length;
   var slice = 360 / n;
-  var colorA = '#E9EDFB', colorB = '#C7D5FF';
+  var colorA = '#FFFFFF', colorB = '#E2E2E6';
   var gradParts = [];
   var labelsHtml = '';
   for (var i=0;i<n;i++){
     var start = i*slice, end = start+slice;
     var isPrize = Number(segments[i]) >= 5000;
-    var col = isPrize ? '#7C5CFF' : (i%2===0?colorA:colorB);
+    var col = isPrize ? '#FF3131' : (i%2===0?colorA:colorB);
     gradParts.push(col+' '+start+'deg '+end+'deg');
     var center = start + slice/2;
     labelsHtml += '<div class="wheel-seg'+(isPrize?' prize':'')+'" style="transform:rotate('+center+'deg)">'+
@@ -5635,8 +5863,8 @@ var GAMES = [
   { id:'stack', name:'Stack Tower', cat:'arcade', catLabel:'ARCADE', cover:'assets/cover_stack.jpg', rate:6,     cap:200, how:'Tap anywhere to drop the sliding block. The overhang falls off — stack as high as you can.' },
   { id:'racer', name:'Lane Racer',  cat:'racing', catLabel:'RACING', cover:'assets/cover_racer.jpg', rate:0.06,  cap:150, how:'Dodge the traffic! Tap the sides of the road or the arrows to switch lanes. Survive and drive far.' },
   { id:'math',  name:'Quick Math',  cat:'brain',  catLabel:'BRAIN',  cover:'assets/cover_math.jpg',  rate:0.5,   cap:200, how:'Answer as many questions as you can in 30 seconds. Correct streaks earn bonus points — wrong answers cost time.' },
-  { id:'fruit', name:'Fruit Slice', cat:'arcade', catLabel:'ARCADE', cover:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%231E2A52'/><stop offset='1' stop-color='%237C5CFF'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><circle cx='105' cy='118' r='42' fill='%23FF5252'/><path d='M105 76 q6 -18 26 -20 q-4 18 -20 22 z' fill='%2337D67A'/><circle cx='200' cy='92' r='33' fill='%23FFB020'/><circle cx='256' cy='138' r='27' fill='%237EE83D'/><path d='M35 165 Q170 35 308 58' stroke='white' stroke-width='7' fill='none' stroke-linecap='round' opacity='.85'/></svg>", rate:2.5, cap:200, how:'Fruits fly up — swipe through them to slice. Each fruit is +1 point. Miss 3 fruits and the game ends.' },
-  { id:'space', name:'Space Shooter', cat:'arcade', catLabel:'ARCADE', cover:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%230B1030'/><stop offset='1' stop-color='%233A2A6E'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><circle cx='272' cy='52' r='30' fill='%237C5CFF' opacity='.55'/><ellipse cx='272' cy='52' rx='52' ry='13' fill='none' stroke='%23B9A8FF' stroke-width='5' opacity='.6' transform='rotate(-14 272 52)'/><circle cx='40' cy='34' r='2' fill='white'/><circle cx='90' cy='70' r='1.6' fill='white' opacity='.8'/><circle cx='150' cy='26' r='1.8' fill='white'/><circle cx='205' cy='88' r='1.5' fill='white' opacity='.7'/><circle cx='52' cy='120' r='1.6' fill='white' opacity='.8'/><circle cx='310' cy='130' r='1.8' fill='white'/><path d='M170 58 L186 118 L172 106 L168 106 L154 118 Z' fill='%23E8ECF5'/><path d='M170 58 L178 84 L162 84 Z' fill='%23FF5252'/><circle cx='170' cy='92' r='5.5' fill='%2323B7F3'/><path d='M160 118 L170 138 L180 118 Z' fill='%23FF9F1C'/><rect x='120' y='30' width='4' height='16' rx='2' fill='%23FFD93B'/><rect x='222' y='52' width='4' height='16' rx='2' fill='%23FFD93B'/></svg>", rate:0.2, cap:200, how:'Drag to steer your rocket \u2014 it fires on its own! Blast invaders for +10 points and chain kills to raise your Combo. Catch Shield and Triple Shot drops. You have 3 hearts: do not let invaders slip past or crash into you.' }
+  { id:'fruit', name:'Fruit Slice', cat:'arcade', catLabel:'ARCADE', cover:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23120608'/><stop offset='1' stop-color='%23FF3131'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><circle cx='105' cy='118' r='42' fill='%23FF5252'/><path d='M105 76 q6 -18 26 -20 q-4 18 -20 22 z' fill='%2337D67A'/><circle cx='200' cy='92' r='33' fill='%23FFB020'/><circle cx='256' cy='138' r='27' fill='%237EE83D'/><path d='M35 165 Q170 35 308 58' stroke='white' stroke-width='7' fill='none' stroke-linecap='round' opacity='.85'/></svg>", rate:2.5, cap:200, how:'Fruits fly up — swipe through them to slice. Each fruit is +1 point. Miss 3 fruits and the game ends.' },
+  { id:'space', name:'Space Shooter', cat:'arcade', catLabel:'ARCADE', cover:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%230B1030'/><stop offset='1' stop-color='%234A0D16'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><circle cx='272' cy='52' r='30' fill='%23FF3131' opacity='.55'/><ellipse cx='272' cy='52' rx='52' ry='13' fill='none' stroke='%23FF9A9A' stroke-width='5' opacity='.6' transform='rotate(-14 272 52)'/><circle cx='40' cy='34' r='2' fill='white'/><circle cx='90' cy='70' r='1.6' fill='white' opacity='.8'/><circle cx='150' cy='26' r='1.8' fill='white'/><circle cx='205' cy='88' r='1.5' fill='white' opacity='.7'/><circle cx='52' cy='120' r='1.6' fill='white' opacity='.8'/><circle cx='310' cy='130' r='1.8' fill='white'/><path d='M170 58 L186 118 L172 106 L168 106 L154 118 Z' fill='%23E8ECF5'/><path d='M170 58 L178 84 L162 84 Z' fill='%23FF5252'/><circle cx='170' cy='92' r='5.5' fill='%23F5C94B'/><path d='M160 118 L170 138 L180 118 Z' fill='%23FF9F1C'/><rect x='120' y='30' width='4' height='16' rx='2' fill='%23FFD93B'/><rect x='222' y='52' width='4' height='16' rx='2' fill='%23FFD93B'/></svg>", rate:0.2, cap:200, how:'Drag to steer your rocket \u2014 it fires on its own! Blast invaders for +10 points and chain kills to raise your Combo. Catch Shield and Triple Shot drops. You have 3 hearts: do not let invaders slip past or crash into you.' }
 ];
 var _arcFilter = 'all';
 var _game = null;
