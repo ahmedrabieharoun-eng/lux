@@ -4700,6 +4700,8 @@ function renderWalletHistory(logs){
 
 // ── Weekly Referral Leaderboard page ──────────────────────────────────
 var LB_MEDALS = ['🥇','🥈','🥉'];
+// v7.8.1: TON amounts must never show float dust (3.0000000000000004 -> '3')
+function fmtTon(n){ var x = Number(n || 0); return String(Math.round(x * 1000000) / 1000000); }
 var lbTimerInterval = null;
 
 function loadRecordPage(){
@@ -4729,10 +4731,10 @@ function renderLeaderboard(){
   var tonImg = '<img src="https://cdn.simpleicons.org/ton/0098EA" alt="">';
 
   var pool = data.totalPrizePoolTon != null ? data.totalPrizePoolTon : prizes.reduce(function(a,b){return a+b;},0);
-  var poolEl = document.getElementById('ctPool'); if (poolEl) poolEl.textContent = pool;
-  var firstEl = document.getElementById('ctFirst'); if (firstEl) firstEl.textContent = (prizes[0] != null ? prizes[0] : '—') + ' TON';
+  var poolEl = document.getElementById('ctPool'); if (poolEl) poolEl.textContent = fmtTon(pool);
+  var firstEl = document.getElementById('ctFirst'); if (firstEl) firstEl.textContent = (prizes[0] != null ? fmtTon(prizes[0]) : '—') + ' TON';
   if (window.I18N) I18N.setParams({pool: pool});
-  var hp = document.getElementById('ctHelpPool'); if (hp) hp.textContent = pool;
+  var hp = document.getElementById('ctHelpPool'); if (hp) hp.textContent = fmtTon(pool);
 
   var u = S.user || {};
   var myName = u.firstName || (u.username ? '@'+u.username : '') || 'You';
@@ -4761,7 +4763,7 @@ function renderLeaderboard(){
   var CX_LBL = ['1st place','2nd place','3rd place','4th place','5th place','6th place','7th place','8th place','9th place','10th place'];
   var pz = document.getElementById('ctPrizes');
   if (pz) pz.innerHTML = '<div class="cx-ladder">' + prizes.map(function(p,i){
-    return '<div class="cx-lad r'+(i+1)+'"><span class="cx-lad-rank">'+(LB_MEDALS[i] || ('#'+(i+1)))+'</span><span class="cx-lad-lbl">'+CX_LBL[i]+'</span><span class="cx-lad-prize">'+p+' '+tonImg+'</span></div>';
+    return '<div class="cx-lad r'+(i+1)+'"><span class="cx-lad-rank">'+(LB_MEDALS[i] || ('#'+(i+1)))+'</span><span class="cx-lad-lbl">'+CX_LBL[i]+'</span><span class="cx-lad-prize">'+fmtTon(p)+' '+tonImg+'</span></div>';
   }).join('') + '</div>';
 
   var top3El = document.getElementById('ctTop3');
@@ -4780,7 +4782,7 @@ function renderLeaderboard(){
       '<div class="cx-av big">' + avOf(r) + '</div>' +
       '<div class="cx-pod-name">' + esc(nameOf(r)) + (isMe(r)?'<span class="cx-you">YOU</span>':'') + '</div>' +
       '<div class="cx-pod-cnt">👥 ' + cntOf(r) + '</div>' +
-      (r.prizeTon ? '<div class="cx-pod-prize">+' + r.prizeTon + ' ' + tonImg + '</div>' : '') +
+      (r.prizeTon ? '<div class="cx-pod-prize">+' + fmtTon(r.prizeTon) + ' ' + tonImg + '</div>' : '') +
       '<div class="cx-pod-col"><span>' + place + '</span></div></div>';
   };
   top3El.innerHTML = '<div class="cx-podium">' + pod(list[1],2) + pod(list[0],1) + pod(list[2],3) + '</div>';
@@ -4793,7 +4795,7 @@ function renderLeaderboard(){
       '<div class="cx-row-info"><div class="cx-row-name">' + esc(nameOf(r)) + (isMe(r)?'<span class="cx-you">YOU</span>':'') + '</div>' +
       '<div class="cx-row-cnt">👥 ' + cntOf(r) + ' referral' + (cntOf(r)===1?'':'s') + '</div>' +
       '<div class="cx-bar"><i style="width:' + pct + '%"></i></div></div>' +
-      (r.prizeTon ? '<div class="cx-row-prize">+' + r.prizeTon + ' ' + tonImg + '</div>' : '<div class="cx-row-prize none">—</div>') +
+      (r.prizeTon ? '<div class="cx-row-prize">+' + fmtTon(r.prizeTon) + ' ' + tonImg + '</div>' : '<div class="cx-row-prize none">—</div>') +
       '</div>';
   }).join('');
   if (listLabel) listLabel.style.display = rest.length ? '' : 'none';
@@ -4881,7 +4883,7 @@ function renderAdsLeaderboard(){
   var tonImg = '<img src="https://cdn.simpleicons.org/ton/0098EA" alt="">';
   var curImg = isTon ? tonImg : CR_IMG;
   var curName = isTon ? 'TON' : 'VOLT';
-  var fmtP = function(n){ return isTon ? String(n) : fmtCr(n); };
+  var fmtP = function(n){ return isTon ? fmtTon(n) : fmtCr(n); };
   var prizeOf = function(r){ return isTon ? r.prizeTon : r.prizeCrystal; };
 
   var pool = isTon ? data.totalPrizePoolTon : data.totalPrizePoolCrystal;
