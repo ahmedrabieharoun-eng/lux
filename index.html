@@ -2680,6 +2680,91 @@ canvas.game-canvas{touch-action:none}
 .ct-title{-webkit-text-fill-color:#fff !important;color:#fff !important}
 .ct-sub{color:#9A9AA2 !important}
 .ct-sec{color:#FFDE59 !important}
+
+/* ═══ LUX v7.8 — CONTEST ARENA redesign (owner: completely different) ═══
+   New cx-* design system for the contest page only: vault hero, podium
+   columns, position card, prize ladder. Navy-black + gold + TON blue. */
+#page-record{background:radial-gradient(700px 300px at 50% -60px,rgba(0,152,234,.14),transparent 60%),radial-gradient(800px 340px at 50% -40px,rgba(255,196,0,.13),transparent 62%)}
+.cx-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:2px 0 14px}
+.cx-title{font-size:24px;font-weight:900;letter-spacing:.6px;color:#fff;line-height:1.1}
+.cx-sub{font-size:12px;color:#9A9AA2;margin-top:3px;font-weight:600}
+.cx-help{width:34px;height:34px;flex:0 0 auto;border-radius:50%;background:#12151F;border:1px solid rgba(255,196,0,.45);color:#FFDE59;font-size:16px;font-weight:900;cursor:pointer}
+.cx-tabs{display:flex;gap:6px;background:#0D0F16;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:5px;margin-bottom:16px}
+.cx-tab{flex:1;padding:11px 6px;border:none;border-radius:11px;background:transparent;color:#9A9AA2;font-size:13.5px;font-weight:800;cursor:pointer;transition:all .2s}
+.cx-tab.active{background:linear-gradient(135deg,#FFC400,#FF9F1C);color:#181200;box-shadow:0 4px 14px rgba(255,170,0,.35)}
+.cx-hero{position:relative;overflow:hidden;border-radius:22px;padding:16px 18px 18px;background:linear-gradient(160deg,#141B31 0%,#0B0E18 55%,#0B0B0B 100%);border:1px solid rgba(255,196,0,.4);text-align:center;margin-bottom:14px}
+.cx-hero::before{content:'';position:absolute;inset:-40% -10% auto;height:120px;background:radial-gradient(closest-side,rgba(255,196,0,.28),transparent);pointer-events:none}
+.cx-hero-top{display:flex;justify-content:space-between;align-items:center;position:relative}
+.cx-live{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:900;letter-spacing:1.4px;color:#FFDE59}
+.cx-live i{width:7px;height:7px;border-radius:50%;background:#FFC400;box-shadow:0 0 8px #FFC400;animation:cxPulse 1.6s infinite}
+@keyframes cxPulse{0%,100%{opacity:1}50%{opacity:.35}}
+.cx-ends{font-size:11.5px;color:#9A9AA2;font-weight:700}
+.cx-ends b{color:#FFDE59;font-variant-numeric:tabular-nums;font-size:12.5px}
+.cx-pool-lbl{margin-top:14px;font-size:10.5px;letter-spacing:2.6px;color:#8A96B2;font-weight:800}
+.cx-pool{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:2px}
+.cx-pool img{width:30px;height:30px}
+.cx-pool span{font-size:40px;font-weight:900;color:#fff;line-height:1;text-shadow:0 2px 18px rgba(0,152,234,.45)}
+.cx-pool em{font-style:normal;font-size:15px;font-weight:900;color:#4DBEFF;letter-spacing:1px;margin-top:12px}
+.cx-first{display:inline-block;margin-top:10px;padding:6px 14px;border-radius:999px;background:rgba(255,196,0,.13);border:1px solid rgba(255,196,0,.4);font-size:12.5px;color:#FFE9A8;font-weight:700}
+.cx-first b{color:#FFDE59}
+.cx-sec{display:flex;align-items:center;gap:10px;margin:18px 2px 10px;font-size:11px;letter-spacing:2px;font-weight:900;color:#FFDE59;text-transform:uppercase}
+.cx-sec::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,196,0,.4),transparent)}
+.cx-me{display:flex;align-items:center;gap:12px;background:linear-gradient(120deg,#151A2A,#10121A);border:1px solid rgba(255,196,0,.45);border-radius:18px;padding:12px 14px}
+.cx-me-rank{font-size:24px;font-weight:900;color:#FFDE59;min-width:52px;text-align:center}
+.cx-av{width:44px;height:44px;flex:0 0 auto;border-radius:50%;background:#1B2030;color:#FFDE59;border:1px solid rgba(255,196,0,.4);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;overflow:hidden}
+.cx-av img{width:100%;height:100%;object-fit:cover}
+.cx-av.big{width:56px;height:56px;font-size:21px}
+.cx-av.sm{width:38px;height:38px;font-size:15px}
+.cx-me-info{flex:1;min-width:0}
+.cx-me-name{font-weight:800;color:#fff;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cx-me-sub{font-size:11.5px;color:#9A9AA2;margin-top:1px}
+.cx-gapbar{height:5px;border-radius:3px;background:rgba(255,255,255,.09);margin-top:8px;overflow:hidden}
+.cx-gapbar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#FFC400,#2E7CF6)}
+.cx-gap{font-size:11px;color:#FFDE59;font-weight:700;margin-top:5px}
+.cx-podium{display:flex;align-items:flex-end;gap:10px}
+.cx-pod{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+.cx-pod-crown{font-size:22px;line-height:1;margin-bottom:2px;animation:cxBob 2.2s ease-in-out infinite}
+@keyframes cxBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.cx-pod .cx-av.big{border-width:2px}
+.cx-pod.p1 .cx-av.big{border-color:#FFC400;box-shadow:0 0 0 4px rgba(255,196,0,.18),0 6px 18px rgba(255,170,0,.3)}
+.cx-pod.p2 .cx-av.big{border-color:#C9CED6}
+.cx-pod.p3 .cx-av.big{border-color:#D69A5B}
+.cx-pod-name{margin-top:7px;font-size:12.5px;font-weight:800;color:#fff;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cx-you{display:inline-block;margin-left:5px;padding:1px 6px;border-radius:6px;background:#FFC400;color:#141416;font-size:9px;font-weight:900;vertical-align:2px}
+.cx-pod-cnt{font-size:11px;color:#9A9AA2;margin-top:1px}
+.cx-pod-prize{margin-top:5px;padding:3px 9px;border-radius:999px;background:rgba(0,152,234,.14);border:1px solid rgba(77,190,255,.45);color:#AEE3FF;font-size:11.5px;font-weight:800;display:inline-flex;align-items:center;gap:4px}
+.cx-pod-prize img{width:11px;height:11px}
+.cx-pod-col{margin-top:9px;width:100%;border-radius:12px 12px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:7px;font-weight:900;color:rgba(255,255,255,.85)}
+.cx-pod-col span{font-size:19px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.cx-pod.p1 .cx-pod-col{height:64px;background:linear-gradient(180deg,#8A6508,#4A3503)}
+.cx-pod.p2 .cx-pod-col{height:46px;background:linear-gradient(180deg,#4C5261,#262A35)}
+.cx-pod.p3 .cx-pod-col{height:34px;background:linear-gradient(180deg,#6E4520,#3A2410)}
+.cx-pod.empty{opacity:.45}
+.cx-ladder{border:1px solid rgba(255,255,255,.09);border-radius:16px;overflow:hidden}
+.cx-lad{display:flex;align-items:center;gap:12px;padding:10px 14px;background:#10121A;border-bottom:1px solid rgba(255,255,255,.05)}
+.cx-lad:last-child{border-bottom:none}
+.cx-lad.r1{background:linear-gradient(90deg,rgba(255,196,0,.16),rgba(255,196,0,.03))}
+.cx-lad.r2{background:linear-gradient(90deg,rgba(201,206,214,.12),transparent)}
+.cx-lad.r3{background:linear-gradient(90deg,rgba(214,154,91,.13),transparent)}
+.cx-lad-rank{width:30px;text-align:center;font-size:15px;font-weight:900;color:#9A9AA2}
+.cx-lad-lbl{flex:1;font-size:13px;color:#C9CDD6;font-weight:700}
+.cx-lad-prize{display:inline-flex;align-items:center;gap:5px;font-size:14.5px;font-weight:900;color:#fff}
+.cx-lad-prize img{width:14px;height:14px}
+.cx-lad.r1 .cx-lad-prize{color:#FFDE59}
+.cx-row{display:flex;align-items:center;gap:11px;background:#10121A;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:9px 12px;margin-bottom:8px;animation:cxIn .3s both}
+@keyframes cxIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.cx-row.me{border-color:rgba(255,196,0,.55);background:linear-gradient(120deg,rgba(255,196,0,.08),#10121A)}
+.cx-row-rank{width:22px;text-align:center;font-size:13.5px;font-weight:900;color:#8A96B2}
+.cx-row-info{flex:1;min-width:0}
+.cx-row-name{font-size:13.5px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cx-row-cnt{font-size:11px;color:#9A9AA2}
+.cx-bar{height:4px;border-radius:2px;background:rgba(255,255,255,.08);margin-top:5px;overflow:hidden}
+.cx-bar i{display:block;height:100%;background:linear-gradient(90deg,#FFC400,#2E7CF6);border-radius:2px}
+.cx-row-prize{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:999px;background:rgba(0,152,234,.13);border:1px solid rgba(77,190,255,.4);color:#AEE3FF;font-size:12px;font-weight:800;white-space:nowrap}
+.cx-row-prize img{width:11px;height:11px}
+.cx-row-prize.none{background:transparent;border:none;color:#5A5A63}
+.cx-row-prize .ct-cr-ico{width:13px;height:13px}
+.cx-pod-prize .ct-cr-ico,.cx-lad-prize .ct-cr-ico{width:13px;height:13px}
 </style>
 </head>
 <body>
@@ -3199,49 +3284,49 @@ canvas.game-canvas{touch-action:none}
 
     <!-- WEEKLY CONTEST -->
     <div class="page" id="page-record">
-      <div class="ct-head">
-        <div><div class="ct-title">⚡ VOLT ARENA</div><div class="ct-sub" id="ctSub">Invite friends · climb the ranks · win TON</div></div>
-        <button class="ct-help" onclick="openContestHelp()" aria-label="How the contest works">?</button>
+      <div class="cx-head">
+        <div>
+          <div class="cx-title">🏆 CONTEST ARENA</div>
+          <div class="cx-sub" id="ctSub">Invite friends · climb the ranks · win TON</div>
+        </div>
+        <button class="cx-help" onclick="openContestHelp()" aria-label="How the contest works">?</button>
       </div>
-      <div class="dogs-banner"><img src="assets/volt_rank.png" alt="" loading="lazy" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
 
-      <div class="ct-tabs">
-        <button class="ct-tab active" id="ctTabRef" onclick="switchContestTab('ref')"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.5"/><path d="M3.5 19.5c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5"/><path d="M15.5 5.6a3.5 3.5 0 0 1 0 5.9M17.8 15.3c1.5.7 2.4 2 2.7 4.2"/></svg> Referrals Contest</button>
-        <button class="ct-tab" id="ctTabAds" onclick="switchContestTab('ads')"><svg class="lx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="12" rx="2.5"/><path d="M9.5 20.5h5M12 17v3.5"/><path d="M10.3 8.8v4.4l3.8-2.2z" fill="currentColor" stroke="none"/></svg> Ads Contest</button>
+      <div class="cx-tabs">
+        <button class="cx-tab active" id="ctTabRef" onclick="switchContestTab('ref')">👥 Referrals Contest</button>
+        <button class="cx-tab" id="ctTabAds" onclick="switchContestTab('ads')">📺 Ads Contest</button>
       </div>
+
       <div class="ct-pane active" id="ctPaneRef">
-      <div class="ct-pool">
-        <div class="ct-pool-glow"></div>
-        <div class="ct-pool-trophy">🏆</div>
-        <div class="ct-spark s1">✦</div><div class="ct-spark s2">✦</div><div class="ct-spark s3">✦</div>
-        <div class="ct-pool-lbl">Total prize pool</div>
-        <div class="ct-pool-val"><img src="https://cdn.simpleicons.org/ton/0098EA" alt=""><span id="ctPool">3</span><em>TON</em></div>
-        <div class="ct-timer"><span class="ct-live"></span><span class="ct-timer-lbl">Ends in</span><span class="ct-timer-val" id="lbTimer">--:--:--</span></div>
+        <div class="cx-hero">
+          <div class="cx-hero-top"><span class="cx-live"><i></i>LIVE ROUND</span><span class="cx-ends">Ends in <b id="lbTimer">--:--:--</b></span></div>
+          <div class="cx-pool-lbl">TOTAL PRIZE POOL</div>
+          <div class="cx-pool"><img src="https://cdn.simpleicons.org/ton/0098EA" alt=""><span id="ctPool">3</span><em>TON</em></div>
+          <div class="cx-first">🥇 1st place takes <b id="ctFirst">1 TON</b></div>
+        </div>
+        <div id="ctMe"></div>
+        <div class="cx-sec"><span>Top players</span></div>
+        <div id="ctTop3"><div class="empty-state">Loading…</div></div>
+        <div class="cx-sec"><span>Prize ladder</span></div>
+        <div id="ctPrizes"></div>
+        <div class="cx-sec" id="ctListLabel" style="display:none"><span>Rank 4+</span></div>
+        <div id="ctList"></div>
       </div>
-      <div id="ctMe"></div>
-      <div class="ct-sec">Prizes</div>
-      <div class="ct-prizes" id="ctPrizes"></div>
-      <div class="ct-sec" id="ctTopLabel">Leaderboard</div>
-      <div class="ct-top3" id="ctTop3"><div class="empty-state">Loading…</div></div>
-      <div class="ct-sec" id="ctListLabel" style="display:none">Rank 4+</div>
-      <div class="ct-list" id="ctList"></div>
-      </div>
+
       <div class="ct-pane" id="ctPaneAds">
-      <div class="ct-pool">
-        <div class="ct-pool-glow"></div>
-        <div class="ct-pool-trophy">🏆</div>
-        <div class="ct-spark s1">✦</div><div class="ct-spark s2">✦</div><div class="ct-spark s3">✦</div>
-        <div class="ct-pool-lbl">Total prize pool</div>
-        <div class="ct-pool-val"><img src="assets/volt_coin.png" alt="VOLT"><span id="adPool">3,000</span><em>VOLT</em></div>
-        <div class="ct-timer"><span class="ct-live"></span><span class="ct-timer-lbl">Ends in</span><span class="ct-timer-val" id="adTimer">--:--:--</span></div>
-      </div>
-      <div id="adMe"></div>
-      <div class="ct-sec">Prizes</div>
-      <div class="ct-prizes" id="adPrizes"></div>
-      <div class="ct-sec" id="adTopLabel">Leaderboard</div>
-      <div class="ct-top3" id="adTop3"><div class="empty-state">Loading…</div></div>
-      <div class="ct-sec" id="adListLabel" style="display:none">Rank 4+</div>
-      <div class="ct-list" id="adList"></div>
+        <div class="cx-hero">
+          <div class="cx-hero-top"><span class="cx-live"><i></i>LIVE ROUND</span><span class="cx-ends">Ends in <b id="adTimer">--:--:--</b></span></div>
+          <div class="cx-pool-lbl">TOTAL PRIZE POOL</div>
+          <div class="cx-pool"><img id="adPoolIco" src="https://cdn.simpleicons.org/ton/0098EA" alt=""><span id="adPool">3</span><em id="adPoolCur">TON</em></div>
+          <div class="cx-first">🥇 1st place takes <b id="adFirst">1 TON</b></div>
+        </div>
+        <div id="adMe"></div>
+        <div class="cx-sec"><span>Top players</span></div>
+        <div id="adTop3"><div class="empty-state">Loading…</div></div>
+        <div class="cx-sec"><span>Prize ladder</span></div>
+        <div id="adPrizes"></div>
+        <div class="cx-sec" id="adListLabel" style="display:none"><span>Rank 4+</span></div>
+        <div id="adList"></div>
       </div>
     </div>
     <!-- LUCKY WHEEL -->
@@ -3316,7 +3401,7 @@ canvas.game-canvas{touch-action:none}
   <div class="ct-sheet">
     <h3>How the contest works</h3>
     <div class="ct-sheet-sub">Everything you need to know</div>
-    <div class="ct-step"><div class="ct-step-n">1</div><div class="ct-step-t" data-tr-html="contest1"><b>Invite friends</b> with your personal link from the Referrals page. Each round lasts <b>7 days</b>.</div></div>
+    <div class="ct-step"><div class="ct-step-n">1</div><div class="ct-step-t" data-tr-html="contest1"><b>Invite friends</b> with your personal link from the Referrals page. Each round lasts <b>10 days</b>.</div></div>
     <div class="ct-step"><div class="ct-step-n">2</div><div class="ct-step-t" data-tr-html="contest2">Only <b>active</b> referrals who joined <b>during the current round</b> count. Pending, flagged or older invites are not counted.</div></div>
     <div class="ct-step"><div class="ct-step-n">3</div><div class="ct-step-t" data-tr-html="contest3">Ranking is by number of active referrals. On a tie, whoever reached the count <b>first</b> ranks higher.</div></div>
     <div class="ct-step"><div class="ct-step-n">4</div><div class="ct-step-t" data-tr-html="contest4">The <b>top 10</b> win TON prizes. The prize pool is <b id="ctHelpPool">3</b> TON in total, with the biggest prize for #1.</div></div>
@@ -3327,12 +3412,12 @@ canvas.game-canvas{touch-action:none}
 <div class="modal-overlay ct-modal" id="adsContestHelpModal" onclick="closeModalOutside(event,'adsContestHelpModal')">
   <div class="ct-sheet">
     <h3>How the Ads Contest works</h3>
-    <div class="ct-sheet-sub">Watch ads · climb the ranks · win VOLT</div>
-    <div class="ct-step"><div class="ct-step-n">1</div><div class="ct-step-t"><b>Watch ads</b> from the Home page. Each round lasts <b>7 days</b>.</div></div>
+    <div class="ct-sheet-sub">Watch ads · climb the ranks · win TON</div>
+    <div class="ct-step"><div class="ct-step-n">1</div><div class="ct-step-t"><b>Watch ads</b> from the Home page. Each round lasts <b>10 days</b>.</div></div>
     <div class="ct-step"><div class="ct-step-n">2</div><div class="ct-step-t">Only ads you <b>watched completely and got rewarded for</b> during the current round count.</div></div>
     <div class="ct-step"><div class="ct-step-n">3</div><div class="ct-step-t">Ranking is by number of ads watched. On a tie, whoever reached the count <b>first</b> ranks higher.</div></div>
-    <div class="ct-step"><div class="ct-step-n">4</div><div class="ct-step-t">The <b>top 10</b> win VOLT prizes. The prize pool is <b id="adHelpPool">3,000</b> VOLT in total, with the biggest prize for #1.</div></div>
-    <div class="ct-step"><div class="ct-step-n">5</div><div class="ct-step-t">When the timer ends, prizes are <b>added to your VOLT balance automatically</b> and you get a Telegram message. A new round starts right away.</div></div>
+    <div class="ct-step"><div class="ct-step-n">4</div><div class="ct-step-t">The <b>top 10</b> win TON prizes. The prize pool is <b id="adHelpPool">3</b> TON in total, with the biggest prize for #1.</div></div>
+    <div class="ct-step"><div class="ct-step-n">5</div><div class="ct-step-t">When the timer ends, prizes are <b>added to your TON balance automatically</b> and you get a Telegram message. A new round starts right away.</div></div>
     <button class="ct-close" onclick="closeModal('adsContestHelpModal')">Got it</button>
   </div>
 </div>
@@ -4641,46 +4726,43 @@ function renderLeaderboard(){
   if (!data) return;
   var list = data.leaderboard || [];
   var prizes = data.prizesTon || [];
-  var tonImg = '<img src="https://cdn.simpleicons.org/ton/0098EA" alt="" style="width:13px;height:13px;vertical-align:-2px">';
-  var esc2 = esc;
+  var tonImg = '<img src="https://cdn.simpleicons.org/ton/0098EA" alt="">';
 
-  var poolEl = document.getElementById('ctPool');
   var pool = data.totalPrizePoolTon != null ? data.totalPrizePoolTon : prizes.reduce(function(a,b){return a+b;},0);
-  if (poolEl) poolEl.textContent = pool;
-  if (window.I18N) I18N.setParams({pool: pool}); var hp = document.getElementById('ctHelpPool'); if (hp) hp.textContent = pool;
+  var poolEl = document.getElementById('ctPool'); if (poolEl) poolEl.textContent = pool;
+  var firstEl = document.getElementById('ctFirst'); if (firstEl) firstEl.textContent = (prizes[0] != null ? prizes[0] : '—') + ' TON';
+  if (window.I18N) I18N.setParams({pool: pool});
+  var hp = document.getElementById('ctHelpPool'); if (hp) hp.textContent = pool;
 
   var u = S.user || {};
   var myName = u.firstName || (u.username ? '@'+u.username : '') || 'You';
-  var myAv = u.photoUrl ? '<img src="'+esc2(u.photoUrl)+'" alt="">' : esc2(myName.charAt(0).toUpperCase());
+  var myAv = u.photoUrl ? '<img src="'+esc(u.photoUrl)+'" alt="">' : esc(myName.charAt(0).toUpperCase());
   var myCount = data.myActiveReferrals || data.myReferralsThisWeek || 0;
-  var gapHint = '';
-  (function(){
-    var rk = Number(data.myRank || 0);
+  var isMe = function(r){ return S.user && String(r.telegramId) === String(S.user.telegramId); };
+  var nameOf = function(r){ return r.firstName || (r.username ? '@'+r.username : '') || 'User'; };
+  var avOf = function(r){ var n = nameOf(r); return r.photoUrl ? '<img src="'+esc(r.photoUrl)+'" alt="">' : esc(n.charAt(0).toUpperCase()); };
+  var cntOf = function(r){ return r.activeReferrals != null ? r.activeReferrals : (r.referralsThisWeek || 0); };
+
+  var meEl = document.getElementById('ctMe');
+  if (meEl){
+    var rk = Number(data.myRank || 0), gapTxt = '', gapPct = 100;
     if (rk > 1){
       var above = list.filter(function(r){ return r.rank === rk-1; })[0];
-      var cOf = function(r){ return r.activeReferrals != null ? r.activeReferrals : (r.referralsThisWeek || 0); };
-      if (above){
-        var gap = Math.max(1, cOf(above) - myCount + 1);
-        gapHint = '<div class="ct-gap">⚡ '+gap+' more to reach #'+(rk-1)+'</div>';
-      }
-    } else if (rk === 1){
-      gapHint = '<div class="ct-gap lead">👑 You\'re leading!</div>';
-    }
-  })();
-  var meEl = document.getElementById('ctMe');
-  if (meEl) meEl.innerHTML = '<div class="ct-me"><div class="ct-av">'+myAv+'</div>'+
-    '<div class="ct-me-info"><div class="ct-me-name">'+esc2(myName)+'</div><div class="ct-me-sub">'+myCount+' active referral'+(myCount===1?'':'s')+' this round</div>'+gapHint+'</div>'+
-    '<div class="ct-me-rank"><b>'+(data.myRank ? '#'+data.myRank : '—')+'</b><span>YOUR RANK</span></div></div>';
+      if (above){ gapTxt = '⚡ ' + Math.max(1, cntOf(above) - myCount + 1) + ' more to reach #' + (rk-1); gapPct = Math.max(4, Math.min(100, Math.round(myCount / Math.max(1, cntOf(above)) * 100))); }
+    } else if (rk === 1){ gapTxt = '👑 You\'re leading!'; }
+    meEl.innerHTML = '<div class="cx-me"><div class="cx-me-rank">' + (rk ? '#'+rk : '—') + '</div>' +
+      '<div class="cx-av">' + myAv + '</div>' +
+      '<div class="cx-me-info"><div class="cx-me-name">' + esc(myName) + '</div>' +
+      '<div class="cx-me-sub">' + myCount + ' active referral' + (myCount===1?'':'s') + ' this round</div>' +
+      (gapTxt ? '<div class="cx-gapbar"><i style="width:' + gapPct + '%"></i></div><div class="cx-gap">' + gapTxt + '</div>' : '') +
+      '</div></div>';
+  }
 
+  var CX_LBL = ['1st place','2nd place','3rd place','4th place','5th place','6th place','7th place','8th place','9th place','10th place'];
   var pz = document.getElementById('ctPrizes');
-  var tonS = '<img src="https://cdn.simpleicons.org/ton/0098EA" alt="">';
-  if (pz) pz.innerHTML =
-    '<div class="ctp-top">'+prizes.slice(0,3).map(function(p,i){
-      return '<div class="ctp-big g'+(i+1)+'"><div class="ctp-medal">'+LB_MEDALS[i]+'</div><div class="ctp-amt">'+p+' '+tonS+'</div><div class="ctp-lbl">'+['1st','2nd','3rd'][i]+' place</div></div>';
-    }).join('')+'</div>'+
-    (prizes.length>3 ? '<div class="ctp-rest">'+prizes.slice(3).map(function(p,i){
-      return '<div class="ctp-chip"><span>#'+(i+4)+'</span><b>'+p+'</b></div>';
-    }).join('')+'</div>' : '');
+  if (pz) pz.innerHTML = '<div class="cx-ladder">' + prizes.map(function(p,i){
+    return '<div class="cx-lad r'+(i+1)+'"><span class="cx-lad-rank">'+(LB_MEDALS[i] || ('#'+(i+1)))+'</span><span class="cx-lad-lbl">'+CX_LBL[i]+'</span><span class="cx-lad-prize">'+p+' '+tonImg+'</span></div>';
+  }).join('') + '</div>';
 
   var top3El = document.getElementById('ctTop3');
   var listEl = document.getElementById('ctList');
@@ -4691,37 +4773,29 @@ function renderLeaderboard(){
     listEl.innerHTML = ''; if (listLabel) listLabel.style.display = 'none';
     return;
   }
-  var isMe = function(r){ return S.user && String(r.telegramId) === String(S.user.telegramId); };
-  var nameOf = function(r){ return r.firstName || (r.username ? '@'+r.username : '') || 'User'; };
-  var avOf = function(r){ var n = nameOf(r); return r.photoUrl ? '<img src="'+esc2(r.photoUrl)+'" alt="">' : esc2(n.charAt(0).toUpperCase()); };
-  var cntOf = function(r){ return r.activeReferrals != null ? r.activeReferrals : (r.referralsThisWeek || 0); };
   var maxCnt = Math.max(1, cntOf(list[0]));
-  var rowHtml = function(r, i){
-    var cls = r.rank<=3 ? ' r'+r.rank : '';
-    var pct = Math.max(4, Math.round(cntOf(r) / maxCnt * 100));
-    return '<div class="ct-row'+cls+(isMe(r)?' me':'')+'" style="animation-delay:'+Math.min(i*0.04,0.4)+'s">'+
-      '<div class="ct-pos">'+(LB_MEDALS[r.rank-1]||('#'+r.rank))+'</div>'+
-      '<div class="ct-av">'+avOf(r)+'</div>'+
-      '<div class="ct-row-info"><div class="ct-row-name">'+esc2(nameOf(r))+(isMe(r)?'<span class="ct-you">YOU</span>':'')+'</div>'+
-        '<div class="ct-row-cnt">👥 '+cntOf(r)+' referral'+(cntOf(r)===1?'':'s')+'</div>'+
-        '<div class="ct-bar"><i style="width:'+pct+'%"></i></div></div>'+
-      (r.prizeTon ? '<div class="ct-row-prize">+'+r.prizeTon+' '+tonImg+'</div>' : '<div class="ct-row-prize none">—</div>')+
-    '</div>';
-  };
   var pod = function(r, place){
-    if (!r) return '<div class="pd p'+place+' empty"><div class="pd-av">?</div><div class="pd-name">—</div><div class="pd-base"><span>'+place+'</span></div></div>';
-    var crown = place===1 ? '<div class="pd-crown">👑</div>' : '';
-    return '<div class="pd p'+place+(isMe(r)?' me':'')+'">'+crown+
-      '<div class="pd-av">'+avOf(r)+'</div>'+
-      '<div class="pd-name">'+esc2(nameOf(r))+(isMe(r)?'<span class="ct-you">YOU</span>':'')+'</div>'+
-      '<div class="pd-cnt">👥 '+cntOf(r)+'</div>'+
-      (r.prizeTon ? '<div class="pd-prize">+'+r.prizeTon+' '+tonImg+'</div>' : '')+
-      '<div class="pd-base"><span>'+place+'</span></div>'+
-    '</div>';
+    if (!r) return '<div class="cx-pod p'+place+' empty"><div class="cx-av big">?</div><div class="cx-pod-name">—</div><div class="cx-pod-col"><span>'+place+'</span></div></div>';
+    return '<div class="cx-pod p'+place+(isMe(r)?' me':'')+'">' + (place===1 ? '<div class="cx-pod-crown">👑</div>' : '') +
+      '<div class="cx-av big">' + avOf(r) + '</div>' +
+      '<div class="cx-pod-name">' + esc(nameOf(r)) + (isMe(r)?'<span class="cx-you">YOU</span>':'') + '</div>' +
+      '<div class="cx-pod-cnt">👥 ' + cntOf(r) + '</div>' +
+      (r.prizeTon ? '<div class="cx-pod-prize">+' + r.prizeTon + ' ' + tonImg + '</div>' : '') +
+      '<div class="cx-pod-col"><span>' + place + '</span></div></div>';
   };
-  top3El.innerHTML = '<div class="ct-podium">'+pod(list[1],2)+pod(list[0],1)+pod(list[2],3)+'</div>';
+  top3El.innerHTML = '<div class="cx-podium">' + pod(list[1],2) + pod(list[0],1) + pod(list[2],3) + '</div>';
   var rest = list.slice(3);
-  listEl.innerHTML = rest.map(function(r,i){ return rowHtml(r,i); }).join('');
+  listEl.innerHTML = rest.map(function(r,i){
+    var pct = Math.max(4, Math.round(cntOf(r) / maxCnt * 100));
+    return '<div class="cx-row' + (isMe(r)?' me':'') + '" style="animation-delay:' + Math.min(i*0.04,0.4) + 's">' +
+      '<span class="cx-row-rank">' + r.rank + '</span>' +
+      '<div class="cx-av sm">' + avOf(r) + '</div>' +
+      '<div class="cx-row-info"><div class="cx-row-name">' + esc(nameOf(r)) + (isMe(r)?'<span class="cx-you">YOU</span>':'') + '</div>' +
+      '<div class="cx-row-cnt">👥 ' + cntOf(r) + ' referral' + (cntOf(r)===1?'':'s') + '</div>' +
+      '<div class="cx-bar"><i style="width:' + pct + '%"></i></div></div>' +
+      (r.prizeTon ? '<div class="cx-row-prize">+' + r.prizeTon + ' ' + tonImg + '</div>' : '<div class="cx-row-prize none">—</div>') +
+      '</div>';
+  }).join('');
   if (listLabel) listLabel.style.display = rest.length ? '' : 'none';
 }
 
@@ -4768,7 +4842,7 @@ function switchContestTab(tab){
   document.getElementById('ctPaneRef').classList.toggle('active', !isAds);
   document.getElementById('ctPaneAds').classList.toggle('active', isAds);
   var sub = document.getElementById('ctSub');
-  if (sub) sub.textContent = isAds ? 'Watch ads · climb the ranks · win VOLT' : 'Invite friends · climb the ranks · win TON';
+  if (sub) sub.textContent = isAds ? 'Watch ads · climb the ranks · win TON' : 'Invite friends · climb the ranks · win TON';
   loadRecordPage();
 }
 function openContestHelp(){ openModal(S.ctTab === 'ads' ? 'adsContestHelpModal' : 'contestHelpModal'); }
@@ -4799,43 +4873,55 @@ function renderAdsLeaderboard(){
   var data = S.adLb;
   if (!data) return;
   var list = data.leaderboard || [];
-  var prizes = data.prizesCrystal || [];
-  var esc2 = esc;
+  // v7.8: the Ads Contest pays TON now (like Referrals). Until the new
+  // worker is live the API still returns the old VOLT fields — render
+  // whichever currency the server actually sent.
+  var isTon = !!data.prizesTon;
+  var prizes = isTon ? data.prizesTon : (data.prizesCrystal || []);
+  var tonImg = '<img src="https://cdn.simpleicons.org/ton/0098EA" alt="">';
+  var curImg = isTon ? tonImg : CR_IMG;
+  var curName = isTon ? 'TON' : 'VOLT';
+  var fmtP = function(n){ return isTon ? String(n) : fmtCr(n); };
+  var prizeOf = function(r){ return isTon ? r.prizeTon : r.prizeCrystal; };
 
-  var pool = data.totalPrizePoolCrystal != null ? data.totalPrizePoolCrystal : prizes.reduce(function(a,b){return a+b;},0);
-  var poolEl = document.getElementById('adPool'); if (poolEl) poolEl.textContent = fmtCr(pool);
-  var hp = document.getElementById('adHelpPool'); if (hp) hp.textContent = fmtCr(pool);
+  var pool = isTon ? data.totalPrizePoolTon : data.totalPrizePoolCrystal;
+  if (pool == null) pool = prizes.reduce(function(a,b){return a+b;},0);
+  var poolEl = document.getElementById('adPool'); if (poolEl) poolEl.textContent = fmtP(pool);
+  var curEl = document.getElementById('adPoolCur'); if (curEl) curEl.textContent = curName;
+  var icoEl = document.getElementById('adPoolIco'); if (icoEl && !isTon) icoEl.src = 'assets/volt_coin.png';
+  var firstEl = document.getElementById('adFirst'); if (firstEl) firstEl.textContent = (prizes[0] != null ? fmtP(prizes[0]) : '—') + ' ' + curName;
+  var hp = document.getElementById('adHelpPool'); if (hp) hp.textContent = fmtP(pool);
+  var sub = document.getElementById('ctSub'); if (sub && S.ctTab === 'ads') sub.textContent = 'Watch ads · climb the ranks · win ' + curName;
 
   var u = S.user || {};
   var myName = u.firstName || (u.username ? '@'+u.username : '') || 'You';
-  var myAv = u.photoUrl ? '<img src="'+esc2(u.photoUrl)+'" alt="">' : esc2(myName.charAt(0).toUpperCase());
+  var myAv = u.photoUrl ? '<img src="'+esc(u.photoUrl)+'" alt="">' : esc(myName.charAt(0).toUpperCase());
   var myCount = data.myAdsThisWeek || 0;
-  var gapHint = '';
-  (function(){
-    var rk = Number(data.myRank || 0);
+  var isMe = function(r){ return S.user && String(r.telegramId) === String(S.user.telegramId); };
+  var nameOf = function(r){ return r.firstName || (r.username ? '@'+r.username : '') || 'User'; };
+  var avOf = function(r){ var n = nameOf(r); return r.photoUrl ? '<img src="'+esc(r.photoUrl)+'" alt="">' : esc(n.charAt(0).toUpperCase()); };
+  var cntOf = function(r){ return r.adsThisWeek || 0; };
+
+  var meEl = document.getElementById('adMe');
+  if (meEl){
+    var rk = Number(data.myRank || 0), gapTxt = '', gapPct = 100;
     if (rk > 1){
       var above = list.filter(function(r){ return r.rank === rk-1; })[0];
-      if (above){
-        var gap = Math.max(1, (above.adsThisWeek || 0) - myCount + 1);
-        gapHint = '<div class="ct-gap">⚡ '+gap+' more to reach #'+(rk-1)+'</div>';
-      }
-    } else if (rk === 1){
-      gapHint = '<div class="ct-gap lead">👑 You\'re leading!</div>';
-    }
-  })();
-  var meEl = document.getElementById('adMe');
-  if (meEl) meEl.innerHTML = '<div class="ct-me"><div class="ct-av">'+myAv+'</div>'+
-    '<div class="ct-me-info"><div class="ct-me-name">'+esc2(myName)+'</div><div class="ct-me-sub">'+myCount+' ad'+(myCount===1?'':'s')+' watched this round</div>'+gapHint+'</div>'+
-    '<div class="ct-me-rank"><b>'+(data.myRank ? '#'+data.myRank : '—')+'</b><span>YOUR RANK</span></div></div>';
+      if (above){ gapTxt = '⚡ ' + Math.max(1, cntOf(above) - myCount + 1) + ' more to reach #' + (rk-1); gapPct = Math.max(4, Math.min(100, Math.round(myCount / Math.max(1, cntOf(above)) * 100))); }
+    } else if (rk === 1){ gapTxt = '👑 You\'re leading!'; }
+    meEl.innerHTML = '<div class="cx-me"><div class="cx-me-rank">' + (rk ? '#'+rk : '—') + '</div>' +
+      '<div class="cx-av">' + myAv + '</div>' +
+      '<div class="cx-me-info"><div class="cx-me-name">' + esc(myName) + '</div>' +
+      '<div class="cx-me-sub">' + myCount + ' ad' + (myCount===1?'':'s') + ' watched this round</div>' +
+      (gapTxt ? '<div class="cx-gapbar"><i style="width:' + gapPct + '%"></i></div><div class="cx-gap">' + gapTxt + '</div>' : '') +
+      '</div></div>';
+  }
 
+  var CX_LBL = ['1st place','2nd place','3rd place','4th place','5th place','6th place','7th place','8th place','9th place','10th place'];
   var pz = document.getElementById('adPrizes');
-  if (pz) pz.innerHTML =
-    '<div class="ctp-top">'+prizes.slice(0,3).map(function(p,i){
-      return '<div class="ctp-big g'+(i+1)+'"><div class="ctp-medal">'+LB_MEDALS[i]+'</div><div class="ctp-amt">'+fmtCr(p)+' '+CR_IMG+'</div><div class="ctp-lbl">'+['1st','2nd','3rd'][i]+' place</div></div>';
-    }).join('')+'</div>'+
-    (prizes.length>3 ? '<div class="ctp-rest">'+prizes.slice(3).map(function(p,i){
-      return '<div class="ctp-chip"><span>#'+(i+4)+'</span><b>'+fmtCr(p)+'</b></div>';
-    }).join('')+'</div>' : '');
+  if (pz) pz.innerHTML = '<div class="cx-ladder">' + prizes.map(function(p,i){
+    return '<div class="cx-lad r'+(i+1)+'"><span class="cx-lad-rank">'+(LB_MEDALS[i] || ('#'+(i+1)))+'</span><span class="cx-lad-lbl">'+CX_LBL[i]+'</span><span class="cx-lad-prize">'+fmtP(p)+' '+curImg+'</span></div>';
+  }).join('') + '</div>';
 
   var top3El = document.getElementById('adTop3');
   var listEl = document.getElementById('adList');
@@ -4846,37 +4932,31 @@ function renderAdsLeaderboard(){
     listEl.innerHTML = ''; if (listLabel) listLabel.style.display = 'none';
     return;
   }
-  var isMe = function(r){ return S.user && String(r.telegramId) === String(S.user.telegramId); };
-  var nameOf = function(r){ return r.firstName || (r.username ? '@'+r.username : '') || 'User'; };
-  var avOf = function(r){ var n = nameOf(r); return r.photoUrl ? '<img src="'+esc2(r.photoUrl)+'" alt="">' : esc2(n.charAt(0).toUpperCase()); };
-  var cntOf = function(r){ return r.adsThisWeek || 0; };
   var maxCnt = Math.max(1, cntOf(list[0]));
-  var rowHtml = function(r, i){
-    var cls = r.rank<=3 ? ' r'+r.rank : '';
-    var pct = Math.max(4, Math.round(cntOf(r) / maxCnt * 100));
-    return '<div class="ct-row'+cls+(isMe(r)?' me':'')+'" style="animation-delay:'+Math.min(i*0.04,0.4)+'s">'+
-      '<div class="ct-pos">'+(LB_MEDALS[r.rank-1]||('#'+r.rank))+'</div>'+
-      '<div class="ct-av">'+avOf(r)+'</div>'+
-      '<div class="ct-row-info"><div class="ct-row-name">'+esc2(nameOf(r))+(isMe(r)?'<span class="ct-you">YOU</span>':'')+'</div>'+
-        '<div class="ct-row-cnt">📢 '+cntOf(r)+' ad'+(cntOf(r)===1?'':'s')+'</div>'+
-        '<div class="ct-bar"><i style="width:'+pct+'%"></i></div></div>'+
-      (r.prizeCrystal ? '<div class="ct-row-prize">+'+fmtCr(r.prizeCrystal)+' '+CR_IMG+'</div>' : '<div class="ct-row-prize none">—</div>')+
-    '</div>';
-  };
   var pod = function(r, place){
-    if (!r) return '<div class="pd p'+place+' empty"><div class="pd-av">?</div><div class="pd-name">—</div><div class="pd-base"><span>'+place+'</span></div></div>';
-    var crown = place===1 ? '<div class="pd-crown">👑</div>' : '';
-    return '<div class="pd p'+place+(isMe(r)?' me':'')+'">'+crown+
-      '<div class="pd-av">'+avOf(r)+'</div>'+
-      '<div class="pd-name">'+esc2(nameOf(r))+(isMe(r)?'<span class="ct-you">YOU</span>':'')+'</div>'+
-      '<div class="pd-cnt">📢 '+cntOf(r)+'</div>'+
-      (r.prizeCrystal ? '<div class="pd-prize">+'+fmtCr(r.prizeCrystal)+' '+CR_IMG+'</div>' : '')+
-      '<div class="pd-base"><span>'+place+'</span></div>'+
-    '</div>';
+    if (!r) return '<div class="cx-pod p'+place+' empty"><div class="cx-av big">?</div><div class="cx-pod-name">—</div><div class="cx-pod-col"><span>'+place+'</span></div></div>';
+    var pv = prizeOf(r);
+    return '<div class="cx-pod p'+place+(isMe(r)?' me':'')+'">' + (place===1 ? '<div class="cx-pod-crown">👑</div>' : '') +
+      '<div class="cx-av big">' + avOf(r) + '</div>' +
+      '<div class="cx-pod-name">' + esc(nameOf(r)) + (isMe(r)?'<span class="cx-you">YOU</span>':'') + '</div>' +
+      '<div class="cx-pod-cnt">📢 ' + cntOf(r) + '</div>' +
+      (pv ? '<div class="cx-pod-prize">+' + fmtP(pv) + ' ' + curImg + '</div>' : '') +
+      '<div class="cx-pod-col"><span>' + place + '</span></div></div>';
   };
-  top3El.innerHTML = '<div class="ct-podium">'+pod(list[1],2)+pod(list[0],1)+pod(list[2],3)+'</div>';
+  top3El.innerHTML = '<div class="cx-podium">' + pod(list[1],2) + pod(list[0],1) + pod(list[2],3) + '</div>';
   var rest = list.slice(3);
-  listEl.innerHTML = rest.map(function(r,i){ return rowHtml(r,i); }).join('');
+  listEl.innerHTML = rest.map(function(r,i){
+    var pct = Math.max(4, Math.round(cntOf(r) / maxCnt * 100));
+    var pv = prizeOf(r);
+    return '<div class="cx-row' + (isMe(r)?' me':'') + '" style="animation-delay:' + Math.min(i*0.04,0.4) + 's">' +
+      '<span class="cx-row-rank">' + r.rank + '</span>' +
+      '<div class="cx-av sm">' + avOf(r) + '</div>' +
+      '<div class="cx-row-info"><div class="cx-row-name">' + esc(nameOf(r)) + (isMe(r)?'<span class="cx-you">YOU</span>':'') + '</div>' +
+      '<div class="cx-row-cnt">📢 ' + cntOf(r) + ' ad' + (cntOf(r)===1?'':'s') + '</div>' +
+      '<div class="cx-bar"><i style="width:' + pct + '%"></i></div></div>' +
+      (pv ? '<div class="cx-row-prize">+' + fmtP(pv) + ' ' + curImg + '</div>' : '<div class="cx-row-prize none">—</div>') +
+      '</div>';
+  }).join('');
   if (listLabel) listLabel.style.display = rest.length ? '' : 'none';
 }
 
