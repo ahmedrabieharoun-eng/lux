@@ -7064,7 +7064,7 @@ function playSpace(stage, panel){
     mult = Math.min(5, 1 + Math.floor(streak / 5));
     var pts = 10 * mult;
     score += pts; gameSetScore(score);
-    floats.push({ x: e.x, y: e.y, txt: '+' + pts, a: 1, color: '#FFD93B' });
+    // v7.6.1 (owner): kill points still count, but no '+N' number pops up from destroyed enemies.
     burst(e.x, e.y, ['#FFD93B', '#FF9F1C', '#FFF3B0'], 8, 3);
     try { SFX.explosion(); SFX.coin(); } catch(_){}
     if (Math.random() < 0.12) drops.push({ x: e.x, y: e.y, type: Math.random() < 0.5 ? 'shield' : 'triple', vy: 1.7 });
