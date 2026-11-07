@@ -6161,6 +6161,12 @@ function startGame(id){
   var stage = document.getElementById('gameStage');
   var panel = document.getElementById('gamePanel');
   stage.innerHTML = ''; panel.innerHTML = '';
+  // v7.7 ROOT-CAUSE FIX (owner: games freeze / Space ends with no Collect
+  // panel): every round gets a FRESH _game object. Play Again used to
+  // reuse openGame()'s object, so _overShown/_ended from the finished
+  // round stayed set — gameOver() then no-oped forever and the round
+  // just froze with no collect card.
+  _game = { id:id, score:0 };
   gameSetScore(0);
   if (id === 'snake') playSnake(stage, panel);
   else if (id === 'g2048') play2048(stage, panel);
@@ -6180,16 +6186,24 @@ function gameOver(score, maxed){
   var est = gameEst(_game.id, score);
   var st = gameState(_game.id);
   var panel = document.getElementById('gamePanel');
-  panel.innerHTML = '<div class="game-card"><div style="font-size:11px;letter-spacing:2.5px;color:#8A96B2;font-weight:800">' + (maxed ? '🏆 MAX REWARD REACHED!' : 'GAME OVER') + '</div>' +
+  try { panel.innerHTML = '<div class="game-card"><div style="font-size:11px;letter-spacing:2.5px;color:#8A96B2;font-weight:800">' + (maxed ? '🏆 MAX REWARD REACHED!' : 'GAME OVER') + '</div>' +
     '<div class="game-over-score">' + fmtNum(score) + '</div>' +
     '<div><span class="game-over-reward"><img src="assets/volt_coin.png" onerror="this.onerror=null;this.src=\'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2247%22 fill=%22%23111316%22/><circle cx=%2250%22 cy=%2250%22 r=%2243%22 fill=%22none%22 stroke=%22%23FFC400%22 stroke-width=%222%22/><path d=%22M55 10 L26 57 L45 57 L38 90 L76 39 L55 39 Z%22 fill=%22%23FFC400%22/></svg>\'" alt=""> +' + fmtNum(est) + ' VOLT</span></div>' +
     '<div style="height:14px"></div>' +
     '<button class="game-big-btn" id="gameCollectBtn">' + (est > 0 ? 'Collect +' + fmtNum(est) + ' VOLT' : 'Collect') + '</button>' +
     '<button class="game-ghost-btn" id="gameAgainBtn"' + (st.playsLeft<=1 ? ' disabled style="opacity:.45"' : '') + '>↻ Play Again (' + Math.max(0, st.playsLeft-1) + ' left)</button>' +
     '<button class="game-ghost-btn" onclick="closeGame()">Back to Arcade</button></div>';
+  } catch(_){
+    // v7.7: the Collect card must appear no matter what — minimal fallback.
+    panel.innerHTML = '<div class="game-card"><div style="font-size:11px;letter-spacing:2.5px;color:#8A96B2;font-weight:800">' + (maxed ? '🏆 MAX REWARD REACHED!' : 'GAME OVER') + '</div>' +
+      '<div class="game-over-score">' + fmtNum(score) + '</div>' +
+      '<button class="game-big-btn" id="gameCollectBtn">' + (est > 0 ? 'Collect +' + fmtNum(est) + ' VOLT' : 'Collect') + '</button>' +
+      '<button class="game-ghost-btn" id="gameAgainBtn">↻ Play Again</button>' +
+      '<button class="game-ghost-btn" onclick="closeGame()">Back to Arcade</button></div>';
+  }
   try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback) Telegram.WebApp.HapticFeedback.notificationOccurred('warning'); } catch(_){}
   var cb = document.getElementById('gameCollectBtn');
-  cb.onclick = function(){
+  if (cb) cb.onclick = function(){
     cb.disabled = true; cb.textContent = '...';
     api('claimGameReward', { gameId: d.id, score: score }).then(function(res){
       if (!res || !res.success){ showToast((res && res.error) || 'Could not collect', 'error'); cb.disabled = false; cb.textContent = 'Collect'; return; }
@@ -6573,7 +6587,8 @@ function playStack(stage, panel){
   layers.push({ x:(340-baseW)/2, w:baseW });
   function spawnBlock(){
     var below = layers[layers.length-1];
-    cur = { x: dir > 0 ? -below.w : 340, w: below.w };
+    // v7.7: spawn at the edge, fully visible, moving inward (bounce motion)
+    cur = { x: dir > 0 ? 0 : 340 - below.w, w: below.w };
   }
   spawnBlock();
   function hue(i){ return (i % 2 === 0) ? 45 : 210; }
@@ -6607,18 +6622,20 @@ function playStack(stage, panel){
     ctx.font = '800 13px sans-serif'; ctx.textAlign = 'left';
     ctx.fillText('HEIGHT ' + layers.length, 12, 24);
   }
-  function loop(){
+  var stkLast = 0;
+  function loop(ts){
     if (dead) return;
-    if (cur){
-      cur.x += dir * speed;
-      if (cur.x + cur.w > 340 + cur.w) { /* allow pass */ }
-      if (dir > 0 && cur.x > 340) cur.x = -cur.w;
-      if (dir < 0 && cur.x + cur.w < 0) cur.x = 340;
-      if (dir > 0 && cur.x >= 340) dir = -1;
-      if (dir < 0 && cur.x <= -cur.w) dir = 1;
-    }
-    draw();
     raf = requestAnimationFrame(loop);
+    var dt = 1;
+    if (ts != null){ if (stkLast) dt = Math.min(3, Math.max(0.4, (ts - stkLast) / 16.667)); stkLast = ts; }
+    try {
+      if (cur){
+        cur.x += dir * speed * dt;
+        if (cur.x <= 0){ cur.x = 0; dir = 1; }
+        if (cur.x + cur.w >= 340){ cur.x = 340 - cur.w; dir = -1; }
+      }
+      draw();
+    } catch(_){}
   }
   function drop(){
     if (dead || !cur) return;
@@ -6694,18 +6711,24 @@ function playRacer(stage, panel){
     ctx.font = '900 15px sans-serif'; ctx.textAlign = 'left';
     ctx.fillText(Math.floor(dist) + ' m', 12, 24);
   }
-  function loop(){
+  var rcrLast = 0, rcrSpawnT = 20;
+  function loop(ts){
     if (dead) return;
-    tickN++;
-    dist += speed * 0.42;
-    speed = Math.min(8.5, speed + 0.0035);
-    carX += (LANES[lane] - carX) * 0.22;
-    if (tickN % Math.max(26, 62 - Math.floor(speed*4)) === 0){
+    raf = requestAnimationFrame(loop);
+    var dt = 1;
+    if (ts != null){ if (rcrLast) dt = Math.min(3, Math.max(0.4, (ts - rcrLast) / 16.667)); rcrLast = ts; }
+    try {
+    dist += speed * 0.42 * dt;
+    speed = Math.min(8.5, speed + 0.0035 * dt);
+    carX += (LANES[lane] - carX) * Math.min(1, 0.22 * dt);
+    rcrSpawnT -= dt;
+    if (rcrSpawnT <= 0){
+      rcrSpawnT = Math.max(26, 62 - Math.floor(speed*4)) + Math.random() * 10;
       var l = (Math.random()*3)|0;
       if (!enemies.some(function(e){ return e.lane === l && e.y < 90; }))
         enemies.push({ lane:l, x:LANES[l], y:-CARH - 10, color:ECOLORS[(Math.random()*ECOLORS.length)|0] });
     }
-    enemies.forEach(function(e){ e.y += speed * 0.92; });
+    enemies.forEach(function(e){ e.y += speed * 0.92 * dt; });
     enemies.forEach(function(e){ if (!e.passed && e.y > playerY + CARH){ e.passed = true; try { SFX.whoosh(); } catch(_){} } });
     enemies = enemies.filter(function(e){ return e.y < 460; });
     for (var i=0;i<enemies.length;i++){
@@ -6718,7 +6741,7 @@ function playRacer(stage, panel){
     }
     gameSetScore(Math.floor(dist));
     draw();
-    raf = requestAnimationFrame(loop);
+    } catch(_){}
   }
   loop();
   function go(d){ lane = Math.max(0, Math.min(2, lane + d)); }
@@ -6879,10 +6902,15 @@ function playFruit(stage, panel){
     ctx.fillStyle = '#D6B137'; ctx.fill();
     ctx.restore();
   }
-  function frame(){
+  var frLast = 0;
+  function frame(ts){
     if (dead) return;
-    elapsed++;
-    spawnT--;
+    raf = requestAnimationFrame(frame);
+    var dt = 1;
+    if (ts != null){ if (frLast) dt = Math.min(3, Math.max(0.4, (ts - frLast) / 16.667)); frLast = ts; }
+    try {
+    elapsed += dt;
+    spawnT -= dt;
     var interval = Math.max(34, 52 - Math.floor(elapsed / 300) * 3);
     if (spawnT <= 0){ spawn(); spawnT = interval + Math.random() * 14; }
     ctx.clearRect(0, 0, W, H);
@@ -6896,7 +6924,7 @@ function playFruit(stage, panel){
     var i, f;
     for (i = fruits.length - 1; i >= 0; i--){
       f = fruits[i];
-      f.x += f.vx; f.y += f.vy; f.vy += 0.27; f.ang += f.va;
+      f.x += f.vx * dt; f.y += f.vy * dt; f.vy += 0.27 * dt; f.ang += f.va * dt;
       if (f.x < f.r) { f.x = f.r; f.vx *= -1; }
       if (f.x > W - f.r) { f.x = W - f.r; f.vx *= -1; }
       if (f.y > H + 40 && f.vy > 0){
@@ -6917,7 +6945,7 @@ function playFruit(stage, panel){
     }
     for (i = halves.length - 1; i >= 0; i--){
       var h = halves[i];
-      h.x += h.vx; h.y += h.vy; h.vy += 0.3; h.ang += h.va; h.a -= 0.012;
+      h.x += h.vx * dt; h.y += h.vy * dt; h.vy += 0.3 * dt; h.ang += h.va * dt; h.a -= 0.012 * dt;
       if (h.y > H + 40 || h.a <= 0){ halves.splice(i, 1); continue; }
       ctx.save(); ctx.translate(h.x, h.y); ctx.rotate(h.ang); ctx.globalAlpha = Math.max(0, h.a);
       var him = (h.kind && GAME_ART.fruitImgs[h.kind]) || null;
@@ -6938,7 +6966,7 @@ function playFruit(stage, panel){
     }
     for (i = parts.length - 1; i >= 0; i--){
       var p = parts[i];
-      p.x += p.vx; p.y += p.vy; p.vy += 0.22; p.a -= 0.03;
+      p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 0.22 * dt; p.a -= 0.03 * dt;
       if (p.a <= 0){ parts.splice(i, 1); continue; }
       ctx.globalAlpha = Math.max(0, p.a);
       ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.29); ctx.fillStyle = p.color; ctx.fill();
@@ -6958,7 +6986,7 @@ function playFruit(stage, panel){
       }
       ctx.restore();
     }
-    raf = requestAnimationFrame(frame);
+    } catch(_){}
   }
   function pos(e){
     var r = cv.getBoundingClientRect();
@@ -7089,21 +7117,21 @@ function playSpace(stage, panel){
       gameOver(score);
     }
   }
-  function step(){
-    elapsed++;
+  function step(dt){
+    elapsed += dt;
     var w = 1 + Math.floor(elapsed / 1200);
     if (w !== wave){ wave = w; var we = document.getElementById('spaceWave'); if (we) we.textContent = 'W' + wave; try { SFX.good(); } catch(_){} }
-    if (tripleT > 0){ tripleT--; if (tripleT === 0){ pillCache = '__'; updateHud(); } }
-    if (btnL) ship.tx = Math.max(18, ship.tx - 6.5);
-    if (btnR) ship.tx = Math.min(W - 18, ship.tx + 6.5);
-    ship.x += (ship.tx - ship.x) * 0.35;
-    ship.y += (ship.ty - ship.y) * 0.35;
+    if (tripleT > 0){ tripleT -= dt; if (tripleT <= 0){ tripleT = 0; pillCache = '__'; updateHud(); } }
+    if (btnL) ship.tx = Math.max(18, ship.tx - 6.5 * dt);
+    if (btnR) ship.tx = Math.min(W - 18, ship.tx + 6.5 * dt);
+    ship.x += (ship.tx - ship.x) * Math.min(1, 0.35 * dt);
+    ship.y += (ship.ty - ship.y) * Math.min(1, 0.35 * dt);
     var i, j, e, b, d, dx, dy;
-    for (i = 0; i < stars.length; i++){ var st = stars[i]; st.y += st.s * 1.1; if (st.y > H + 2){ st.y = -2; st.x = Math.random() * W; } }
-    fireT--; if (fireT <= 0){ fire(); fireT = 9; }
-    spawnT--; if (spawnT <= 0){ spawn(); spawnT = Math.max(26, 58 - wave * 5) + Math.random() * 16; }
+    for (i = 0; i < stars.length; i++){ var st = stars[i]; st.y += st.s * 1.1 * dt; if (st.y > H + 2){ st.y = -2; st.x = Math.random() * W; } }
+    fireT -= dt; if (fireT <= 0){ fire(); fireT = 9; }
+    spawnT -= dt; if (spawnT <= 0){ spawn(); spawnT = Math.max(26, 58 - wave * 5) + Math.random() * 16; }
     for (i = bullets.length - 1; i >= 0; i--){
-      b = bullets[i]; b.x += b.vx; b.y += b.vy;
+      b = bullets[i]; b.x += b.vx * dt; b.y += b.vy * dt;
       if (b.y < -14 || b.x < -10 || b.x > W + 10){ bullets.splice(i, 1); continue; }
       for (j = enemies.length - 1; j >= 0; j--){
         e = enemies[j]; dx = b.x - e.x; dy = b.y - e.y;
@@ -7117,7 +7145,7 @@ function playSpace(stage, panel){
     }
     for (i = enemies.length - 1; i >= 0; i--){
       e = enemies[i];
-      e.y += e.vy; e.x += Math.sin(elapsed * 0.03 + e.ph) * 0.55; e.ang += e.va;
+      e.y += e.vy * dt; e.x += Math.sin(elapsed * 0.03 + e.ph) * 0.55 * dt; e.ang += e.va * dt;
       if (e.x < e.r) e.x = e.r;
       if (e.x > W - e.r) e.x = W - e.r;
       if (e.y - e.r > H){ enemies.splice(i, 1); hurt(); if (dead) return; continue; }
@@ -7129,7 +7157,7 @@ function playSpace(stage, panel){
       }
     }
     for (i = drops.length - 1; i >= 0; i--){
-      d = drops[i]; d.y += d.vy;
+      d = drops[i]; d.y += d.vy * dt;
       if (d.y > H + 16){ drops.splice(i, 1); continue; }
       dx = d.x - ship.x; dy = d.y - ship.y;
       if (dx * dx + dy * dy < 30 * 30){
@@ -7140,8 +7168,8 @@ function playSpace(stage, panel){
         drops.splice(i, 1);
       }
     }
-    for (i = parts.length - 1; i >= 0; i--){ var p = parts[i]; p.x += p.vx; p.y += p.vy; p.a -= 0.03; if (p.a <= 0) parts.splice(i, 1); }
-    for (i = floats.length - 1; i >= 0; i--){ var f = floats[i]; f.y -= 0.7; f.a -= 0.016; if (f.a <= 0) floats.splice(i, 1); }
+    for (i = parts.length - 1; i >= 0; i--){ var p = parts[i]; p.x += p.vx * dt; p.y += p.vy * dt; p.a -= 0.03 * dt; if (p.a <= 0) parts.splice(i, 1); }
+    for (i = floats.length - 1; i >= 0; i--){ var f = floats[i]; f.y -= 0.7 * dt; f.a -= 0.016 * dt; if (f.a <= 0) floats.splice(i, 1); }
   }
   function drawShip(){
     ctx.save(); ctx.translate(ship.x, ship.y);
@@ -7245,19 +7273,24 @@ function playSpace(stage, panel){
     }
     ctx.globalAlpha = 1;
   }
-  function frame(){
+  var spLast = 0;
+  function frame(ts){
     if (dead) return;
-    if (!paused) step();
-    if (dead) return;
-    draw();
-    if (paused){
-      ctx.fillStyle = 'rgba(6, 6, 9, .55)'; ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = '#FFFFFF'; ctx.font = '900 22px system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText('⏸ PAUSED', W / 2, H / 2 - 8);
-      ctx.font = '700 12px system-ui, sans-serif'; ctx.fillStyle = '#8A96B2';
-      ctx.fillText('Tap ▶ to resume', W / 2, H / 2 + 18);
-    }
     raf = requestAnimationFrame(frame);
+    var dt = 1;
+    if (ts != null){ if (spLast) dt = Math.min(3, Math.max(0.4, (ts - spLast) / 16.667)); spLast = ts; }
+    try {
+      if (!paused) step(dt);
+      if (dead) return;
+      draw();
+      if (paused){
+        ctx.fillStyle = 'rgba(6, 6, 9, .55)'; ctx.fillRect(0, 0, W, H);
+        ctx.fillStyle = '#FFFFFF'; ctx.font = '900 22px system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('⏸ PAUSED', W / 2, H / 2 - 8);
+        ctx.font = '700 12px system-ui, sans-serif'; ctx.fillStyle = '#8A96B2';
+        ctx.fillText('Tap ▶ to resume', W / 2, H / 2 + 18);
+      }
+    } catch(_){}
   }
   function pos(e){
     var r = cv.getBoundingClientRect();
