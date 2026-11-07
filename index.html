@@ -1465,6 +1465,15 @@ html,body{
 /* ── Game overlay (dark immersive stage) ── */
 .game-overlay{position:fixed;inset:0;z-index:420;background:radial-gradient(120% 90% at 50% 0%,#141B33 0%,#090A0E 60%);display:none;flex-direction:column;color:#FFFFFF}
 .game-overlay.show{display:flex}
+/* v7.9.1 (owner): nothing inside a game is selectable or copyable — a
+   long-press must never pop the system selection / read-aloud toolbar. */
+.game-overlay, .game-overlay *{
+  -webkit-user-select:none !important;
+  user-select:none !important;
+  -webkit-touch-callout:none !important;
+  -webkit-tap-highlight-color:transparent;
+}
+.game-overlay img{ -webkit-user-drag:none; }
 .game-top{display:flex;align-items:center;gap:10px;padding:14px 14px 8px}
 .game-close{width:38px;height:38px;border-radius:12px;border:1px solid rgba(255, 255, 255, .16);background:rgba(255, 255, 255, .06);color:#FFFFFF;font-size:15px;cursor:pointer}
 .game-top-mid{flex:1;text-align:center}
@@ -6209,6 +6218,13 @@ function openGame(id){
   var d = gameDef(id); if (!d) return;
   if (_gameCleanup){ try { _gameCleanup(); } catch(_){} _gameCleanup = null; }
   _game = { id:id, score:0 };
+  var _ov = document.getElementById('gameOverlay');
+  if (_ov && !_ov._noCopyBound){ // v7.9.1: block copy/selection menus inside games
+    _ov._noCopyBound = true;
+    _ov.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+    _ov.addEventListener('selectstart', function(e){ e.preventDefault(); });
+    _ov.addEventListener('dragstart', function(e){ e.preventDefault(); });
+  }
   document.getElementById('gameName').textContent = d.name;
   document.getElementById('gameScore').textContent = '0';
   document.getElementById('gameRewardEst').textContent = '+0';
