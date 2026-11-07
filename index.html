@@ -6053,13 +6053,13 @@ function timeAgo(ts){
 }
 // ═══════════════ ARCADE / GAMES ═══════════════
 var GAMES = [
-  { id:'snake', name:'Snake',       cat:'arcade', catLabel:'ARCADE', cover:'assets/volt_cover_snake.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><path d='M30 140 Q110 60 170 120 T310 80' stroke='%2338B2F8' stroke-width='16' fill='none' stroke-linecap='round'/><circle cx='286' cy='86' r='17' fill='%23FFC400'/></svg>", rate:0.5,   cap:150, how:'Eat apples to grow longer. Swipe, tap the arrows, or use the keyboard — do not hit the walls or yourself.' },
-  { id:'g2048', name:'2048',        cat:'puzzle', catLabel:'PUZZLE', cover:'assets/volt_cover_2048.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><rect x='52' y='38' width='52' height='52' rx='10' fill='%23FFC400'/><rect x='118' y='38' width='52' height='52' rx='10' fill='%232E7CF6'/><rect x='184' y='38' width='52' height='52' rx='10' fill='%23FFD21F'/><rect x='52' y='104' width='52' height='52' rx='10' fill='%2338B2F8'/><rect x='118' y='104' width='118' height='52' rx='10' fill='%23F5A623'/></svg>", rate:0.025, cap:200, how:'Swipe to slide all tiles. When two equal numbers touch, they merge — reach 2048!' },
-  { id:'stack', name:'Stack Tower', cat:'arcade', catLabel:'ARCADE', cover:'assets/volt_cover_stack.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><rect x='110' y='140' width='120' height='18' rx='4' fill='%232E7CF6'/><rect x='122' y='118' width='96' height='18' rx='4' fill='%23FFC400'/><rect x='134' y='96' width='72' height='18' rx='4' fill='%2338B2F8'/><rect x='146' y='74' width='48' height='18' rx='4' fill='%23FFD21F'/></svg>", rate:6,     cap:200, how:'Tap anywhere to drop the sliding block. The overhang falls off — stack as high as you can.' },
-  { id:'racer', name:'Lane Racer',  cat:'racing', catLabel:'RACING', cover:'assets/volt_cover_racer.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><path d='M118 200 L158 36 L182 36 L222 200 Z' fill='%2315171B'/><path d='M170 196 L170 58' stroke='%23FFC400' stroke-width='5' stroke-dasharray='16 14'/><path d='M170 92 L190 132 L150 132 Z' fill='%2338B2F8'/></svg>", rate:0.06,  cap:150, how:'Dodge the traffic! Tap the sides of the road or the arrows to switch lanes. Survive and drive far.' },
-  { id:'math',  name:'Quick Math',  cat:'brain',  catLabel:'BRAIN',  cover:'assets/volt_cover_math.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><rect x='62' y='84' width='46' height='12' fill='%23FFC400'/><rect x='79' y='67' width='12' height='46' fill='%23FFC400'/><g transform='rotate(45 160 90)'><rect x='137' y='84' width='46' height='12' fill='%2338B2F8'/><rect x='154' y='67' width='12' height='46' fill='%2338B2F8'/></g><rect x='214' y='76' width='48' height='11' fill='%23FFD21F'/><rect x='214' y='98' width='48' height='11' fill='%23FFD21F'/></svg>",  rate:0.5,   cap:200, how:'Answer as many questions as you can in 30 seconds. Correct streaks earn bonus points — wrong answers cost time.' },
-  { id:'fruit', name:'Fruit Slice', cat:'arcade', catLabel:'ARCADE', cover:'assets/volt_cover_fruit.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><circle cx='118' cy='120' r='34' fill='%23FF9F1C'/><circle cx='206' cy='86' r='27' fill='%23FFC400'/><circle cx='262' cy='134' r='22' fill='%23F5A623'/><path d='M30 168 Q170 30 312 56' stroke='white' stroke-width='7' fill='none' stroke-linecap='round' opacity='.85'/></svg>", rate:2.5, cap:200, how:'Fruits fly up — swipe through them to slice. Each fruit is +1 point. Miss 3 fruits and the game ends.' },
-  { id:'space', name:'Space Shooter', cat:'arcade', catLabel:'ARCADE', cover:'assets/volt_cover_space.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><circle cx='52' cy='40' r='2.4' fill='white'/><circle cx='120' cy='24' r='1.8' fill='white' opacity='.8'/><circle cx='272' cy='48' r='2.2' fill='white'/><circle cx='300' cy='120' r='1.8' fill='white' opacity='.7'/><path d='M170 52 L188 118 L173 105 L167 105 L152 118 Z' fill='%23E8ECF5'/><path d='M170 52 L179 82 L161 82 Z' fill='%2338B2F8'/><circle cx='170' cy='92' r='5.5' fill='%23FFC400'/><path d='M160 118 L170 140 L180 118 Z' fill='%23FF9F1C'/></svg>", rate:0.2, cap:200, how:'Drag to steer your rocket \u2014 it fires on its own! Blast invaders for +10 points and chain kills to raise your Combo. Catch Shield and Triple Shot drops. You have 3 hearts: do not let invaders slip past or crash into you.' }
+  { id:'snake', name:'Snake',       cat:'arcade', catLabel:'ARCADE', cover:'assets/volt_cover_snake.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><path d='M30 140 Q110 60 170 120 T310 80' stroke='%2338B2F8' stroke-width='16' fill='none' stroke-linecap='round'/><circle cx='286' cy='86' r='17' fill='%23FFC400'/></svg>", rate:0.0067, cap:150, how:'Eat apples to grow longer. Swipe, tap the arrows, or use the keyboard — do not hit the walls or yourself.' },
+  { id:'g2048', name:'2048',        cat:'puzzle', catLabel:'PUZZLE', cover:'assets/volt_cover_2048.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><rect x='52' y='38' width='52' height='52' rx='10' fill='%23FFC400'/><rect x='118' y='38' width='52' height='52' rx='10' fill='%232E7CF6'/><rect x='184' y='38' width='52' height='52' rx='10' fill='%23FFD21F'/><rect x='52' y='104' width='52' height='52' rx='10' fill='%2338B2F8'/><rect x='118' y='104' width='118' height='52' rx='10' fill='%23F5A623'/></svg>", rate:0.002,  cap:200, how:'Swipe to slide all tiles. When two equal numbers touch, they merge — reach 2048!' },
+  { id:'stack', name:'Stack Tower', cat:'arcade', catLabel:'ARCADE', cover:'assets/volt_cover_stack.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><rect x='110' y='140' width='120' height='18' rx='4' fill='%232E7CF6'/><rect x='122' y='118' width='96' height='18' rx='4' fill='%23FFC400'/><rect x='134' y='96' width='72' height='18' rx='4' fill='%2338B2F8'/><rect x='146' y='74' width='48' height='18' rx='4' fill='%23FFD21F'/></svg>", rate:0.067,  cap:200, how:'Tap anywhere to drop the sliding block. The overhang falls off — stack as high as you can.' },
+  { id:'racer', name:'Lane Racer',  cat:'racing', catLabel:'RACING', cover:'assets/volt_cover_racer.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><path d='M118 200 L158 36 L182 36 L222 200 Z' fill='%2315171B'/><path d='M170 196 L170 58' stroke='%23FFC400' stroke-width='5' stroke-dasharray='16 14'/><path d='M170 92 L190 132 L150 132 Z' fill='%2338B2F8'/></svg>", rate:0.000125, cap:150, how:'Dodge the traffic! Tap the sides of the road or the arrows to switch lanes. Survive and drive far.' },
+  { id:'math',  name:'Quick Math',  cat:'brain',  catLabel:'BRAIN',  cover:'assets/volt_cover_math.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><rect x='62' y='84' width='46' height='12' fill='%23FFC400'/><rect x='79' y='67' width='12' height='46' fill='%23FFC400'/><g transform='rotate(45 160 90)'><rect x='137' y='84' width='46' height='12' fill='%2338B2F8'/><rect x='154' y='67' width='12' height='46' fill='%2338B2F8'/></g><rect x='214' y='76' width='48' height='11' fill='%23FFD21F'/><rect x='214' y='98' width='48' height='11' fill='%23FFD21F'/></svg>",  rate:0.005,  cap:200, how:'Answer as many questions as you can in 6 minutes. Correct streaks earn bonus points — wrong answers cost time.' },
+  { id:'fruit', name:'Fruit Slice', cat:'arcade', catLabel:'ARCADE', cover:'assets/volt_cover_fruit.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><circle cx='118' cy='120' r='34' fill='%23FF9F1C'/><circle cx='206' cy='86' r='27' fill='%23FFC400'/><circle cx='262' cy='134' r='22' fill='%23F5A623'/><path d='M30 168 Q170 30 312 56' stroke='white' stroke-width='7' fill='none' stroke-linecap='round' opacity='.85'/></svg>", rate:0.02, cap:200, how:'Fruits fly up — swipe through them to slice. Each fruit is +1 point. Miss 3 fruits and the game ends.' },
+  { id:'space', name:'Space Shooter', cat:'arcade', catLabel:'ARCADE', cover:'assets/volt_cover_space.png', coverFb:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='200'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23070708'/><stop offset='1' stop-color='%230B1A3B'/></linearGradient></defs><rect width='340' height='200' fill='url(%23g)'/><circle cx='52' cy='40' r='2.4' fill='white'/><circle cx='120' cy='24' r='1.8' fill='white' opacity='.8'/><circle cx='272' cy='48' r='2.2' fill='white'/><circle cx='300' cy='120' r='1.8' fill='white' opacity='.7'/><path d='M170 52 L188 118 L173 105 L167 105 L152 118 Z' fill='%23E8ECF5'/><path d='M170 52 L179 82 L161 82 Z' fill='%2338B2F8'/><circle cx='170' cy='92' r='5.5' fill='%23FFC400'/><path d='M160 118 L170 140 L180 118 Z' fill='%23FF9F1C'/></svg>", rate:0.00125, cap:200, how:'Drag to steer your rocket \u2014 it fires on its own! Blast invaders for +10 points and chain kills to raise your Combo. Catch Shield and Triple Shot drops. You have 3 hearts: do not let invaders slip past or crash into you.' }
 ];
 var _arcFilter = 'all';
 var _game = null;
@@ -6113,6 +6113,15 @@ function gameSetScore(v){
   _game.score = v;
   var sc = document.getElementById('gameScore'); if (sc) sc.textContent = fmtNum(v);
   var rw = document.getElementById('gameRewardEst'); if (rw) rw.textContent = '+' + fmtNum(gameEst(_game.id, v));
+  // v7.5 (owner): the moment the score reaches the max reward, the round
+  // ends right there — no playing on past the cap.
+  try {
+    var capNow = (gameState(_game.id) || {}).cap || 0;
+    if (capNow > 0 && !_game._ended && gameEst(_game.id, v) >= capNow){
+      _game._ended = true;
+      setTimeout(function(){ gameOver(v, true); }, 80);
+    }
+  } catch(_){}
 }
 function openGame(id){
   var d = gameDef(id); if (!d) return;
@@ -6127,6 +6136,7 @@ function openGame(id){
   var st = gameState(id);
   panel.innerHTML = '<div class="game-card"><h3>' + d.name + '</h3><p>' + d.how + '</p>' +
     '<p style="margin-bottom:12px">🪙 Up to <b style="color:#FFD166">' + st.cap + ' AD VOLT</b> · Plays left today: <b style="color:#FFFFFF">' + st.playsLeft + '/' + st.playsPerDay + '</b></p>' +
+    '<p style="margin:-4px 0 12px;color:#8A96B2;font-size:12px">🏁 Hit the max reward and the round ends instantly — it takes about 6 minutes of strong play.</p>' +
     '<button class="game-big-btn" id="gamePlayBtn"' + (st.playsLeft<=0 ? ' disabled' : '') + '>' + (st.playsLeft<=0 ? 'Come back tomorrow' : '▶ Play') + '</button>' +
     '<button class="game-ghost-btn" onclick="closeGame()">Back to Arcade</button></div>';
   document.getElementById('gameOverlay').classList.add('show');
@@ -6160,15 +6170,17 @@ function startGame(id){
   else if (id === 'fruit') playFruit(stage, panel);
   else if (id === 'space') playSpace(stage, panel);
 }
-function gameOver(score){
-  if (_gameCleanup){ try { _gameCleanup(); } catch(_){} _gameCleanup = null; }
+function gameOver(score, maxed){
   if (!_game) return;
+  if (_game._overShown) return;
+  _game._overShown = true;
+  if (_gameCleanup){ try { _gameCleanup(); } catch(_){} _gameCleanup = null; }
   var d = gameDef(_game.id);
-  try { SFX.over(); } catch(_){}
+  try { maxed ? SFX.success() : SFX.over(); } catch(_){}
   var est = gameEst(_game.id, score);
   var st = gameState(_game.id);
   var panel = document.getElementById('gamePanel');
-  panel.innerHTML = '<div class="game-card"><div style="font-size:11px;letter-spacing:2.5px;color:#8A96B2;font-weight:800">GAME OVER</div>' +
+  panel.innerHTML = '<div class="game-card"><div style="font-size:11px;letter-spacing:2.5px;color:#8A96B2;font-weight:800">' + (maxed ? '🏆 MAX REWARD REACHED!' : 'GAME OVER') + '</div>' +
     '<div class="game-over-score">' + fmtNum(score) + '</div>' +
     '<div><span class="game-over-reward"><img src="assets/volt_coin.png" onerror="this.onerror=null;this.src=\'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2247%22 fill=%22%23111316%22/><circle cx=%2250%22 cy=%2250%22 r=%2243%22 fill=%22none%22 stroke=%22%23FFC400%22 stroke-width=%222%22/><path d=%22M55 10 L26 57 L45 57 L38 90 L76 39 L55 39 Z%22 fill=%22%23FFC400%22/></svg>\'" alt=""> +' + fmtNum(est) + ' AD VOLT</span></div>' +
     '<div style="height:14px"></div>' +
@@ -6732,7 +6744,7 @@ function playMath(stage, panel){
     '<div class="math-streak" id="mathStreak"></div>' +
     '<div class="math-opts" id="mathOpts"></div></div>';
   panel.innerHTML = '';
-  var score = 0, streak = 0, timeLeft = 300, answer = 0, timer = null, dead = false;
+  var score = 0, streak = 0, timeLeft = 3600, answer = 0, timer = null, dead = false;
   var qEl = document.getElementById('mathQ'), optsEl = document.getElementById('mathOpts'),
       fillEl = document.getElementById('mathFill'), streakEl = document.getElementById('mathStreak');
   function gen(){
@@ -6781,7 +6793,7 @@ function playMath(stage, panel){
   timer = setInterval(function(){
     if (dead) return;
     timeLeft--;
-    fillEl.style.width = Math.max(0, timeLeft/3) + '%';
+    fillEl.style.width = Math.max(0, timeLeft/36) + '%';
     if (timeLeft <= 0){
       dead = true; clearInterval(timer);
       try { SFX.bad(); } catch(_){}
