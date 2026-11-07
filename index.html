@@ -6453,12 +6453,14 @@ function playSnake(stage, panel){
   var cv = document.getElementById('snkCv'); var ctx = gameCtx(cv, 340, 340);
   var N = 17, C = 20;
   var snake = [{x:8,y:9},{x:7,y:9},{x:6,y:9}], dir = {x:1,y:0}, pend = {x:1,y:0};
-  var apple = null, score = 0, speed = 145, timer = null, dead = false;
+  var apple = null, score = 0, speed = 185, timer = null, dead = false; // v7.9 (owner): snake starts slower (was 145ms/step)
   function placeApple(){
-    while (true){
-      var a = { x:(Math.random()*N)|0, y:(Math.random()*N)|0 };
-      if (!snake.some(function(p){ return p.x===a.x && p.y===a.y; })){ apple = a; return; }
-    }
+    // v7.9: choose from the real free cells — blind random retry could
+    // spin for a long time on a long snake and visibly freeze the game.
+    var free = [];
+    for (var i=0;i<N;i++) for (var j=0;j<N;j++)
+      if (!snake.some(function(p){ return p.x===i && p.y===j; })) free.push({x:i, y:j});
+    apple = free.length ? free[(Math.random()*free.length)|0] : null;
   }
   placeApple();
   function draw(){
@@ -6467,12 +6469,14 @@ function playSnake(stage, panel){
     ctx.fillStyle = grd; ctx.fillRect(0,0,340,340);
     ctx.fillStyle = 'rgba(255, 255, 255, .04)';
     for (var i=0;i<N;i++) for (var j=0;j<N;j++) if ((i+j)%2===0) ctx.fillRect(i*C, j*C, C, C);
-    var cx = apple.x*C + C/2, cy = apple.y*C + C/2;
-    var ag = ctx.createRadialGradient(cx-3, cy-4, 2, cx, cy, 10);
-    ag.addColorStop(0,'#FFDE73'); ag.addColorStop(1,'#E0B424');
-    ctx.fillStyle = ag; ctx.beginPath(); ctx.arc(cx, cy, 8.5, 0, 7); ctx.fill();
-    ctx.fillStyle = '#8A5A2B'; ctx.fillRect(cx-1, cy-13, 2, 5);
-    ctx.fillStyle = '#CFAD3E'; ctx.beginPath(); ctx.ellipse(cx+4, cy-10, 4, 2, .6, 0, 7); ctx.fill();
+    if (apple){
+      var cx = apple.x*C + C/2, cy = apple.y*C + C/2;
+      var ag = ctx.createRadialGradient(cx-3, cy-4, 2, cx, cy, 10);
+      ag.addColorStop(0,'#FFDE73'); ag.addColorStop(1,'#E0B424');
+      ctx.fillStyle = ag; ctx.beginPath(); ctx.arc(cx, cy, 8.5, 0, 7); ctx.fill();
+      ctx.fillStyle = '#8A5A2B'; ctx.fillRect(cx-1, cy-13, 2, 5);
+      ctx.fillStyle = '#CFAD3E'; ctx.beginPath(); ctx.ellipse(cx+4, cy-10, 4, 2, .6, 0, 7); ctx.fill();
+    }
     snake.forEach(function(p, idx){
       var t = idx / Math.max(1, snake.length-1);
       ctx.fillStyle = idx===0 ? '#E8C963' : 'hsl(' + (212 - t*166) + ',62%,' + (54 - t*15) + '%)';
@@ -6495,20 +6499,26 @@ function playSnake(stage, panel){
   }
   function tick(){
     if (dead) return;
-    dir = pend;
-    var head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
-    if (head.x < 0 || head.y < 0 || head.x >= N || head.y >= N || snake.some(function(p){ return p.x===head.x && p.y===head.y; })){
-      dead = true; try { SFX.explosion(); } catch(_){} draw(); setTimeout(function(){ gameOver(score); }, 250); return;
-    }
-    snake.unshift(head);
-    if (head.x === apple.x && head.y === apple.y){
-      score += 10; gameSetScore(score);
-      try { SFX.pop(); } catch(_){}
-      speed = Math.max(70, speed - 4);
-      placeApple();
-    } else snake.pop();
-    draw();
-    timer = setTimeout(tick, speed);
+    try {
+      dir = pend;
+      var head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+      var eats = !!apple && head.x === apple.x && head.y === apple.y;
+      // v7.9: entering the tail cell is legal — the tail leaves it on
+      // this very step (unless the snake grows by eating right now).
+      var body = eats ? snake : snake.slice(0, -1);
+      if (head.x < 0 || head.y < 0 || head.x >= N || head.y >= N || body.some(function(p){ return p.x===head.x && p.y===head.y; })){
+        dead = true; try { SFX.explosion(); } catch(_){} draw(); setTimeout(function(){ gameOver(score); }, 250); return;
+      }
+      snake.unshift(head);
+      if (eats){
+        score += 10; gameSetScore(score);
+        try { SFX.pop(); } catch(_){}
+        speed = Math.max(110, speed - 3); // v7.9: gentler ramp, calmer floor (was max(70, -4))
+        placeApple();
+      } else snake.pop();
+      draw();
+    } catch(_){}
+    if (!dead) timer = setTimeout(tick, speed);
   }
   draw();
   timer = setTimeout(tick, 350);
@@ -6763,10 +6773,11 @@ function playRacer(stage, panel){
   function drawCar(x, y, color, isPlayer){
     ctx.fillStyle = 'rgba(0, 0, 0, .35)';
     roundRectPath(ctx, x-CARW/2+3, y+5, CARW, CARH, 12); ctx.fill();
-    var g = ctx.createLinearGradient(x-CARW/2, y, x+CARW/2, y);
-    g.addColorStop(0, color); g.addColorStop(.5, '#FFFFFF55'); g.addColorStop(.52, color); g.addColorStop(1, color);
     ctx.fillStyle = color; roundRectPath(ctx, x-CARW/2, y, CARW, CARH, 12); ctx.fill();
-    ctx.fillStyle = g; roundRectPath(ctx, x-CARW/2, y, CARW, CARH, 12); ctx.fill();
+    // v7.9 perf: flat gloss stripe instead of a fresh CanvasGradient for
+    // every car on every frame (a real stutter source on phone WebViews).
+    ctx.fillStyle = 'rgba(255, 255, 255, .20)';
+    roundRectPath(ctx, x-6, y+4, 12, CARH-8, 6); ctx.fill();
     ctx.fillStyle = '#16233F';
     roundRectPath(ctx, x-15, y + (isPlayer ? 14 : CARH-30), 30, 16, 5); ctx.fill();
     roundRectPath(ctx, x-15, y + (isPlayer ? CARH-28 : 12), 30, 12, 5); ctx.fill();
@@ -6793,7 +6804,7 @@ function playRacer(stage, panel){
     ctx.font = '900 15px sans-serif'; ctx.textAlign = 'left';
     ctx.fillText(Math.floor(dist) + ' m', 12, 24);
   }
-  var rcrLast = 0, rcrSpawnT = 20;
+  var rcrLast = 0, rcrSpawnT = 20, rcrShown = -1;
   function loop(ts){
     if (dead) return;
     raf = requestAnimationFrame(loop);
@@ -6821,7 +6832,8 @@ function playRacer(stage, panel){
         return;
       }
     }
-    gameSetScore(Math.floor(dist));
+    var fl = Math.floor(dist);
+    if (fl !== rcrShown){ rcrShown = fl; gameSetScore(fl); } // v7.9: DOM writes only when the metre count changes
     draw();
     } catch(_){}
   }
