@@ -4566,7 +4566,8 @@ function syncDailyBonusUI(){
   if (dailySub) dailySub.textContent = 'Come back every day · +'+fmtShiba((d.daily && d.daily.reward) || 2)+' VOLT';
 }
 
-function claimDailyBonus(){
+function claimDailyBonus(){ requireGigapubAd(claimDailyBonusReal); }
+function claimDailyBonusReal(){
   var btn = document.getElementById('dailyBonusBtn');
   if (!btn || btn.disabled) return;
   btn.disabled = true; btn.textContent = '...';
@@ -4582,7 +4583,8 @@ function claimDailyBonus(){
   }).catch(function(){ btn.disabled=false; btn.textContent='Claim'; showToast('Network error','error'); });
 }
 
-function redeemCode(){
+function redeemCode(){ requireGigapubAd(redeemCodeReal); }
+function redeemCodeReal(){
   var input = document.getElementById('redeemCodeInput');
   var btn = document.getElementById('redeemSubmitBtn');
   var code = (input.value||'').trim();
@@ -5079,7 +5081,8 @@ function updateWithdrawalNetAmount(){
   output.textContent = net.toFixed(4) + ' TON';
 }
 
-function submitWithdrawal(){
+function submitWithdrawal(){ requireGigapubAd(submitWithdrawalReal); }
+function submitWithdrawalReal(){
   if (withdrawGateLocked()){ showWithdrawGate(getWithdrawGate()); return; }
   var wallet = document.getElementById('withdrawWallet').value.trim();
   var amount = parseFloat(document.getElementById('withdrawAmount').value);
@@ -5575,6 +5578,40 @@ function stopAdsgramButtonTimer(){
   if (adsgramTimerId){ clearInterval(adsgramTimerId); adsgramTimerId = null; }
 }
 
+// ── GigaPub forced gate + 15s rule (owner order) ─────────────────────
+// Rewarded ads AND the gated actions below count ONLY if the user stays
+// on the ad for at least GIGAPUB_MIN_WATCH_MS. Leaving earlier shows an
+// error and nothing is claimed / executed.
+var GIGAPUB_MIN_WATCH_MS = 15000;
+var GIGAPUB_STAY_MSG = 'لازم تفضل في الإعلان 15 ثانية على الأقل عشان تاخد المكافأة';
+var GIGAPUB_GATE_STAY_MSG = 'لازم تفضل في الإعلان 15 ثانية على الأقل عشان تقدر تكمل';
+var GIGAPUB_GATE_MSG = 'لازم تشاهد الإعلان للآخر عشان تقدر تكمل';
+var gigapubGateBusy = false;
+function showGigapubGateAd(cb){
+  var done = false;
+  function finish(status, reason){ if (done) return; done = true; cb({ status: status, reason: reason || '' }); }
+  if (typeof window.showGiga !== 'function'){ finish('skipped', 'sdk_not_ready'); return; }
+  var startedAt = Date.now();
+  try {
+    window.showGiga().then(function(){
+      if (Date.now() - startedAt < GIGAPUB_MIN_WATCH_MS) finish('skipped', 'too_early');
+      else finish('completed');
+    }).catch(function(e){ finish('skipped', (e && (e.description || e.message)) || 'error'); });
+  } catch (e) { finish('skipped', (e && e.message) || 'exception'); }
+}
+function requireGigapubAd(next){
+  if (!adsReady('gigapub')){ showAdsPendingNotice(); return; }
+  ensureAdsSdk('gigapub');
+  if (gigapubGateBusy) return;
+  if (typeof window.showGiga !== 'function'){ showToast('Ad loading, try again','error'); return; }
+  gigapubGateBusy = true;
+  showGigapubGateAd(function(r){
+    gigapubGateBusy = false;
+    if (r.status === 'completed'){ next(); return; }
+    if (r.reason === 'too_early'){ showToast(GIGAPUB_GATE_STAY_MSG, 'error'); return; }
+    showToast(GIGAPUB_GATE_MSG, 'error');
+  });
+}
 // ── GigaPub (rewarded format) ───────────────────────────────────────────
 function watchGigapub(){
   if (!adsReady('gigapub')){ showAdsPendingNotice(); return; }
@@ -5595,7 +5632,9 @@ function watchGigapub(){
     }
     var adTicket = ticketRes.data.sid;
     var pulseChain = runAdPulseChain(adTicket);
+    var adStartedAt = Date.now();
     window.showGiga().then(function(){
+      if (Date.now() - adStartedAt < GIGAPUB_MIN_WATCH_MS){ var e = new Error('too_early'); e.code = 'AD_TOO_EARLY'; throw e; }
       return pulseChain.finish();
     }).then(function(chk){
       var claimPayload = {company:'gigapub', sid:adTicket, ct: Date.now()};
@@ -5622,7 +5661,8 @@ function watchGigapub(){
       gigapubWatchBusy = false;
       stopGigapubButtonTimer();
       renderTasks('ads');
-      showToast((err && (err.description || err.message)) || 'Ad was not completed','error');
+      if (err && err.code === 'AD_TOO_EARLY') showToast(GIGAPUB_STAY_MSG,'error');
+      else showToast((err && (err.description || err.message)) || 'Ad was not completed','error');
     });
   }).catch(function(){
     gigapubWatchBusy = false;
@@ -6316,7 +6356,8 @@ document.addEventListener('touchmove', function(e){
   var ov = document.getElementById('gameOverlay');
   if (ov && ov.classList.contains('show') && e.target && e.target.tagName === 'CANVAS') e.preventDefault();
 }, { passive:false });
-function startGame(id){
+function startGame(id){ requireGigapubAd(function(){ startGameReal(id); }); }
+function startGameReal(id){
   var stage = document.getElementById('gameStage');
   var panel = document.getElementById('gamePanel');
   stage.innerHTML = ''; panel.innerHTML = '';
@@ -6363,6 +6404,7 @@ function gameOver(score, maxed){
   try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback) Telegram.WebApp.HapticFeedback.notificationOccurred('warning'); } catch(_){}
   var cb = document.getElementById('gameCollectBtn');
   if (cb) cb.onclick = function(){
+    requireGigapubAd(function(){
     cb.disabled = true; cb.textContent = '...';
     api('claimGameReward', { gameId: d.id, score: score }).then(function(res){
       if (!res || !res.success){ showToast((res && res.error) || 'Could not collect', 'error'); cb.disabled = false; cb.textContent = 'Collect'; return; }
@@ -6385,6 +6427,7 @@ function gameOver(score, maxed){
       try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback) Telegram.WebApp.HapticFeedback.notificationOccurred('success'); } catch(_){}
       render();
     }).catch(function(){ showToast('Network error', 'error'); cb.disabled = false; cb.textContent = 'Collect'; });
+    });
   };
   var ab = document.getElementById('gameAgainBtn');
   if (ab) ab.onclick = function(){ startGame(d.id); };
