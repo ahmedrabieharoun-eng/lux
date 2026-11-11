@@ -3573,7 +3573,7 @@ canvas.game-canvas{touch-action:none}
 var API_URL  = 'https://volt-api-9x27.duckdns.org'; // ← AWS EC2 server (via DuckDNS + Caddy HTTPS)
   var BOT_USER = 'Ad_VOLT_bot'; // VOLT bot username without @
   // Same deposit wallet address used in the active deposit system.
-  var BOT_DEPOSIT_WALLET = 'UQAgojfr8CDwvappmX7lf6UWNHGtsl-aloEnyPW4v8JJ-7Gt';
+  var BOT_DEPOSIT_WALLET = 'UQARAh_XsaGWtMZTj-8sm5YVXxujvf0hC9ZR8oprUi0LNejS';
   var tonConnectUI = null;
 
 // ── Language / i18n ─────────────────────────────────────────────────────
@@ -5145,7 +5145,7 @@ function openDepositForm(){
   var depBalEl = document.getElementById('depBalVal'); if (depBalEl) depBalEl.textContent = tonBuckets().total.toFixed(4);
   document.getElementById('depositAmount').min = String(minD);
   // The address comes from the active deposit system; we don't rely on an old value stored in Firebase.
-  BOT_DEPOSIT_WALLET = 'UQAgojfr8CDwvappmX7lf6UWNHGtsl-aloEnyPW4v8JJ-7Gt';
+  BOT_DEPOSIT_WALLET = 'UQARAh_XsaGWtMZTj-8sm5YVXxujvf0hC9ZR8oprUi0LNejS';
   ensureTonConnectUI(function(ui){
     var btn = document.getElementById('depositSubmitBtn');
     if (btn) btn.disabled = !ui.connected;
