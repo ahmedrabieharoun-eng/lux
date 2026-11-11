@@ -1645,6 +1645,8 @@ html,body{
 .wallet-input,.modal-input,.convert-amount{min-height:50px;border-radius:14px;font-size:15px}
 .wd-receive{display:flex;align-items:center;justify-content:space-between;margin:2px 0 12px;padding:12px 14px;border-radius:14px;background:#F2F5FB;border:1px dashed #C9D4EA;font-size:13px;color:var(--text2)}
 .wd-receive b{font-size:15px;color:var(--text);font-variant-numeric:tabular-nums}
+.wd-fee{display:flex;align-items:center;justify-content:space-between;margin:10px 0 8px;padding:12px 14px;border-radius:14px;background:rgba(255,196,0,.10);border:1px dashed rgba(255,196,0,.6);font-size:13.5px;font-weight:700;color:#FFC400}
+.wd-fee b{font-size:15px;color:#FFDE59;font-variant-numeric:tabular-nums}
 .nav-item{flex:1 1 0;min-width:0}
 .nav-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 /* Invite tasks (Referrals page) */
@@ -3284,6 +3286,7 @@ canvas.game-canvas{touch-action:none}
         <div class="bal-note" data-i18n="wd.note">Your full TON balance is available to withdraw, or to spend on VOLT packages and conversions.</div>
         <input class="wallet-input" id="withdrawWallet" placeholder="TON Wallet Address (UQ...)" data-i18n-placeholder="withdraw.walletPh">
         <input class="wallet-input" id="withdrawAmount" type="number" step="0.01" inputmode="decimal" placeholder="TON amount" data-i18n-placeholder="deposit.amountPh">
+        <div class="wd-fee"><span id="withdrawFeeLabel">Withdrawal fee (10%)</span><b id="withdrawFeeAmount">−0.0000 TON</b></div>
         <div class="wd-receive"><span data-i18n="withdraw.receive">You receive</span><b id="withdrawNetAmount">0.0000 TON</b></div>
         <button class="wallet-submit" id="withdrawSubmitBtn" onclick="submitWithdrawal()" data-i18n="withdraw.submit">Submit TON Withdrawal</button>
         <button class="wd-history-btn" onclick="openWdHistory()">🕐 <span data-i18n="withdraw.history">Withdrawal History</span></button>
@@ -3765,6 +3768,7 @@ var LANG = {
     'wdStatus.pending':'Processing',
     'wdStatus.completed':'Completed',
     'wdStatus.rejected':'Rejected',
+    'withdraw.fee': 'Withdrawal fee ({pct}%)',
     'ambassador.tab': 'Ambassadors',
     'ambassador.title': 'Ambassador Program',
     'ambassador.intro': 'Promote your channel as an official task in VOLT',
@@ -3889,6 +3893,7 @@ var LANG = {
     'wdStatus.pending':'قيد المعالجة',
     'wdStatus.completed':'مكتمل',
     'wdStatus.rejected':'مرفوض',
+    'withdraw.fee': 'رسوم السحب ({pct}%)',
     'ambassador.tab': 'السفراء',
     'ambassador.title': 'برنامج السفراء',
     'ambassador.intro': 'روّج لقناتك كمهمة رسمية داخل VOLT',
@@ -4013,6 +4018,7 @@ var LANG = {
     'wdStatus.pending':'En traitement',
     'wdStatus.completed':'Terminé',
     'wdStatus.rejected':'Rejeté',
+    'withdraw.fee': 'Frais de retrait ({pct}%)',
     'ambassador.tab': 'Ambassadeurs',
     'ambassador.title': 'Programme Ambassadeur',
     'ambassador.intro': 'Promouvez votre chaîne comme tâche officielle dans VOLT',
@@ -4109,6 +4115,7 @@ var LANG = {
     'wdStatus.pending':'В обработке',
     'wdStatus.completed':'Выполнено',
     'wdStatus.rejected':'Отклонено',
+    'withdraw.fee': 'Комиссия за вывод ({pct}%)',
     'ambassador.tab': 'Амбассадоры',
     'ambassador.title': 'Программа амбассадоров',
     'ambassador.intro': 'Продвигайте свой канал как официальное задание в VOLT',
@@ -4205,6 +4212,7 @@ var LANG = {
     'wdStatus.pending':'در حال پردازش',
     'wdStatus.completed':'تکمیل شد',
     'wdStatus.rejected':'رد شد',
+    'withdraw.fee': 'کارمزد برداشت ({pct}%)',
     'ambassador.tab': 'سفیران',
     'ambassador.title': 'برنامه سفیران',
     'ambassador.intro': 'کانال خود را به‌عنوان یک مأموریت رسمی در VOLT تبلیغ کنید',
@@ -4301,6 +4309,7 @@ var LANG = {
     'wdStatus.pending':'प्रोसेसिंग',
     'wdStatus.completed':'पूर्ण',
     'wdStatus.rejected':'अस्वीकृत',
+    'withdraw.fee': 'निकासी शुल्क ({pct}%)',
     'ambassador.tab': 'एम्बेसडर',
     'ambassador.title': 'एम्बेसडर प्रोग्राम',
     'ambassador.intro': 'अपने चैनल को VOLT में आधिकारिक टास्क के रूप में प्रमोट करें',
@@ -5790,6 +5799,11 @@ function updateWithdrawalNetAmount(){
   var amount = Number(input.value || 0);
   var net = Number.isFinite(amount) && amount > 0 ? amount * (1 - withdrawFeeRate()) : 0;
   output.textContent = net.toFixed(4) + ' TON';
+  var feeEl = document.getElementById('withdrawFeeAmount');
+  var feeLbl = document.getElementById('withdrawFeeLabel');
+  var fee = Number.isFinite(amount) && amount > 0 ? amount * withdrawFeeRate() : 0;
+  if (feeEl) feeEl.textContent = '−' + fee.toFixed(4) + ' TON';
+  if (feeLbl) feeLbl.textContent = t('withdraw.fee').replace('{pct}', String(Math.round(withdrawFeeRate() * 1000) / 10));
 }
 
 function openWdHistory(){ renderWdHistory(); switchPage('wdhistory'); }
