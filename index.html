@@ -2762,14 +2762,14 @@ canvas.game-canvas{touch-action:none}
 .cx-gapbar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#FFC400,#2E7CF6)}
 .cx-gap{font-size:11px;color:#FFDE59;font-weight:700;margin-top:5px}
 .cx-podium{display:flex;align-items:flex-end;gap:10px}
-.cx-pod{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+.cx-pod{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
 .cx-pod-crown{font-size:22px;line-height:1;margin-bottom:2px;animation:cxBob 2.2s ease-in-out infinite}
 @keyframes cxBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 .cx-pod .cx-av.big{border-width:2px}
 .cx-pod.p1 .cx-av.big{border-color:#FFC400;box-shadow:0 0 0 4px rgba(255,196,0,.18),0 6px 18px rgba(255,170,0,.3)}
 .cx-pod.p2 .cx-av.big{border-color:#C9CED6}
 .cx-pod.p3 .cx-av.big{border-color:#D69A5B}
-.cx-pod-name{margin-top:7px;font-size:12.5px;font-weight:800;color:#fff;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cx-pod-name{margin-top:7px;font-size:12.5px;font-weight:800;color:#fff;width:100%;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cx-you{display:inline-block;margin-left:5px;padding:1px 6px;border-radius:6px;background:#FFC400;color:#141416;font-size:9px;font-weight:900;vertical-align:2px}
 .cx-pod-cnt{font-size:11px;color:#9A9AA2;margin-top:1px}
 .cx-pod-prize{margin-top:5px;padding:3px 9px;border-radius:999px;background:rgba(0,152,234,.14);border:1px solid rgba(77,190,255,.45);color:#AEE3FF;font-size:11.5px;font-weight:800;display:inline-flex;align-items:center;gap:4px}
@@ -4916,6 +4916,14 @@ async function _apiRaw(action, data){
   try {
     var fp = await getDeviceFingerprint();
     if (fp) payload._deviceFingerprint = fp;
+    if (window.AntiFraud && AntiFraud.collect) {
+      var afData = await AntiFraud.collect();
+      if (afData) {
+        if (afData.deviceId) payload._deviceId = afData.deviceId;
+        if (afData.signals) payload._afSignals = afData.signals;
+        if (afData.suspiciousFlags) payload._afFlags = afData.suspiciousFlags;
+      }
+    }
   } catch(_) {}
   // ─────────────────────────────────────────────────────────────────
   return fetch(API_URL.replace(/\/$/,'') + '/' + action, {
@@ -6217,8 +6225,8 @@ function renderTasks(tab){
      var adsByCompany = stats.adsWatchedByCompany || {};
     document.getElementById('tasksContent').innerHTML =
        adTask(IC.adsgram,'Adsgram','+'+fmtShiba(adsgramCfg.reward)+' VOLT','Watch', 'watchAdsgram()', false, Number(adsByCompany.adsgram||0), adsgramCfg.dailyLimit)+
-       adTask(IC.monetag,'Adloop','+'+fmtShiba(adloopCfg.reward)+' VOLT','Watch', 'watchAdloop()', false, Number(adsByCompany.adloop||0), adloopCfg.dailyLimit)+
-       adTask(IC.gigapub,'GigaPub','+'+fmtShiba(gigapubCfg.reward)+' VOLT','Watch', 'watchGigapub()', false, Number(adsByCompany.gigapub||0), gigapubCfg.dailyLimit);
+       adTask(IC.gigapub,'GigaPub','+'+fmtShiba(gigapubCfg.reward)+' VOLT','Watch', 'watchGigapub()', false, Number(adsByCompany.gigapub||0), gigapubCfg.dailyLimit)+
+       adTask(IC.monetag,'Adloop','+'+fmtShiba(adloopCfg.reward)+' VOLT','Watch', 'watchAdloop()', false, Number(adsByCompany.adloop||0), adloopCfg.dailyLimit);
     return;
   }
 
