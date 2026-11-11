@@ -2775,6 +2775,15 @@ canvas.game-canvas{touch-action:none}
 .cx-row-prize.none{background:transparent;border:none;color:#5A5A63}
 .cx-row-prize .ct-cr-ico{width:13px;height:13px}
 .cx-pod-prize .ct-cr-ico,.cx-lad-prize .ct-cr-ico{width:13px;height:13px}
+.wd-history-btn{width:100%;margin-top:10px;padding:12px;border-radius:12px;background:transparent;border:1px solid rgba(255,196,0,.45);color:#FFC400;font-weight:700;cursor:pointer}
+.wdh-item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#121215;border:1px solid rgba(255,196,0,.25);border-radius:14px;padding:12px 14px;margin:0 0 10px}
+.wdh-amt{font-weight:800;color:#fff}
+.wdh-time{color:#9a9aa0;font-size:12px;margin-top:2px}
+.wdh-status{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;border:1px solid;white-space:nowrap}
+.wdh-status.wait{color:#FFC400;border-color:rgba(255,196,0,.5)}
+.wdh-status.ok{color:#4ade80;border-color:rgba(74,222,128,.5)}
+.wdh-status.bad{color:#f87171;border-color:rgba(248,113,113,.5)}
+.wdh-empty{text-align:center;color:#9a9aa0;padding:28px 0}
 </style>
 </head>
 <body>
@@ -3205,11 +3214,21 @@ canvas.game-canvas{touch-action:none}
         <input class="wallet-input" id="withdrawAmount" type="number" step="0.01" inputmode="decimal" placeholder="TON amount" data-i18n-placeholder="deposit.amountPh">
         <div class="wd-receive"><span data-i18n="withdraw.receive">You receive</span><b id="withdrawNetAmount">0.0000 TON</b></div>
         <button class="wallet-submit" id="withdrawSubmitBtn" onclick="submitWithdrawal()" data-i18n="withdraw.submit">Submit TON Withdrawal</button>
+        <button class="wd-history-btn" onclick="openWdHistory()">🕐 <span data-i18n="withdraw.history">Withdrawal History</span></button>
       </div>
       <div class="dep-steps"><div class="dep-step"><span class="dep-step-n">1</span><div><div class="dep-step-t">Submit your request</div><div class="dep-step-s">Enter your wallet address and the amount — the minimum is shown above.</div></div></div><div class="dep-step"><span class="dep-step-n">2</span><div><div class="dep-step-t">We review it</div><div class="dep-step-s">Every request is checked before payout; you can follow its status in Transaction History.</div></div></div><div class="dep-step"><span class="dep-step-n">3</span><div><div class="dep-step-t">TON lands in your wallet</div><div class="dep-step-s">Once approved, the TON is sent to the address you provided.</div></div></div></div>
     </div>
 
-    <!-- CONVERT: TON → LUX, fixed rate 1 TON = 1100 LUX (own page, reached from Profile) -->
+    <!-- WITHDRAWAL HISTORY (own page, reached from Withdraw) -->
+    <div class="page" id="page-wdhistory">
+      <div class="wheel-page-header">
+        <button class="back-btn" onclick="switchPage('withdraw')">←</button>
+        <div class="page-title pg-title"><span data-i18n="withdraw.history">Withdrawal History</span></div>
+      </div>
+      <div id="wdHistoryList"></div>
+    </div>
+
+    <!-- CONVERT: VOLT → TON (own page, reached from Profile) -->
     <div class="page" id="page-convert">
       <div class="wheel-page-header">
         <button class="back-btn" onclick="switchPage('profile')">←</button>
@@ -3217,27 +3236,27 @@ canvas.game-canvas{touch-action:none}
       </div>
       <div class="dogs-banner"><img src="assets/volt_vault.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
       <div class="wallet-form-card">
-        <div class="wallet-form-title"><span data-i18n="convert.formTitle">Convert TON to VOLT</span></div>
+        <div class="wallet-form-title"><span data-i18n="convert.formTitle">Convert VOLT to TON</span></div>
         <div class="convert-box">
           <div class="convert-box-label">FROM</div>
           <div class="convert-currency">
-            <img src="https://cdn.simpleicons.org/ton/0098EA" alt="TON">
-            <span class="convert-currency-name">TON</span>
-            <input class="convert-amount" id="tcAmount" type="number" step="0.01" min="0.01" placeholder="0">
-            <button type="button" class="convert-max-btn" onclick="setMaxTonConvertAmount()">MAX</button>
+            <img src="assets/volt_coin.png" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2247%22 fill=%22%23111316%22/><circle cx=%2250%22 cy=%2250%22 r=%2243%22 fill=%22none%22 stroke=%22%23FFC400%22 stroke-width=%222%22/><path d=%22M55 10 L26 57 L45 57 L38 90 L76 39 L55 39 Z%22 fill=%22%23FFC400%22/></svg>'" alt="VOLT">
+            <span class="convert-currency-name">VOLT</span>
+            <input class="convert-amount" id="tcAmount" type="number" step="1" min="1" placeholder="0">
+            <button type="button" class="convert-max-btn" onclick="setMaxVoltConvertAmount()">MAX</button>
           </div>
-          <div class="convert-balance"><span data-i18n="convert.balance">Balance:</span> <span id="tcTonBalance">0 TON</span></div>
+          <div class="convert-balance"><span data-i18n="convert.balance">Balance:</span> <span id="tcVoltBalance">0 VOLT</span></div>
           <div class="convert-arrow">↓</div>
           <div class="convert-box-label">TO</div>
           <div class="convert-currency">
-            <img src="assets/volt_coin.png" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2247%22 fill=%22%23111316%22/><circle cx=%2250%22 cy=%2250%22 r=%2243%22 fill=%22none%22 stroke=%22%23FFC400%22 stroke-width=%222%22/><path d=%22M55 10 L26 57 L45 57 L38 90 L76 39 L55 39 Z%22 fill=%22%23FFC400%22/></svg>'" alt="VOLT">
-            <span class="convert-currency-name">VOLT</span>
-            <span class="convert-amount" id="tcVoltOutput">0</span>
+            <img src="https://cdn.simpleicons.org/ton/0098EA" alt="TON">
+            <span class="convert-currency-name">TON</span>
+            <span class="convert-amount" id="tcTonOutput">0</span>
           </div>
-          <div class="convert-balance"><span data-i18n="convert.balance">Balance:</span> <span id="tcVoltBalance">0 VOLT</span></div>
+          <div class="convert-balance"><span data-i18n="convert.balance">Balance:</span> <span id="tcTonBalance">0 TON</span></div>
         </div>
-        <div class="convert-rate" id="tcRateLabel">📊 1 TON = 1,100 VOLT</div>
-        <button class="wallet-submit" id="tcSubmitBtn" onclick="submitTonToVoltConvert()" data-i18n="convert.submit">⚡ Exchange Now</button>
+        <div class="convert-rate" id="tcRateLabel">📊 1 TON = 700 VOLT</div>
+        <button class="wallet-submit" id="tcSubmitBtn" onclick="submitVoltToTonConvert()" data-i18n="convert.submit">⚡ Exchange Now</button>
       </div>
     </div>
 
@@ -3605,11 +3624,76 @@ var LANG = {
     'withdraw.min':'MIN','withdraw.walletPh':'TON Wallet Address (UQ...)',
     'withdraw.fee':'Withdrawal fee:','withdraw.net':'Amount you will receive after the fee',
     'withdraw.submit':'Submit TON Withdrawal','wd.balance':'TON Balance','wd.note':'Your full TON balance is available to withdraw, or to spend on VOLT packages and conversions.','store.note':'Purchases are paid from your TON balance.','store.needDeposit':'Insufficient TON balance — deposit TON first','gate.title':'Account Verification Required','gate.text':"To confirm that your account is real and active, withdrawals require purchasing a package from the Store. This prevents multiple accounts and abuse of the system, protects the project's funds, and keeps the bot running for everyone.",'gate.required':'MINIMUM PACKAGE','gate.keep':'Your VOLT stays in your balance — convert it or withdraw it anytime.','gate.cta':'Go to Store','gate.ctaDeposit':'Deposit TON','gate.later':'Not now','gate.badge':'Minimum to withdraw','gate.badgeHigher':'Also unlocks withdrawal','gate.orHigher':'Buy this package or any higher package to unlock withdrawals.','gate.needTon':'Your TON balance is {bal}. Deposit TON first to buy this package.',
-    'convert.pageTitle':'Convert','convert.formTitle':'Convert TON to VOLT',
+    'convert.pageTitle':'Convert','convert.formTitle':'Convert VOLT to TON',
     'convert.balance':'Balance:','convert.submit':'⚡ Exchange Now',
     'language.pageTitle':'Language',
     'home.balanceLabel':'YOUR VOLTAGE','referrals.title':'Referrals','referrals.subtitle':'Invite friends and earn rewards',
-    'referrals.yourLink':'Your referral link','referrals.copy':'Copy','withdraw.receive':'You receive'
+    'referrals.yourLink':'Your referral link','referrals.copy':'Copy','withdraw.receive':'You receive',
+    'common.networkError':'Network error',
+    'common.voltAdded':'+{n} VOLT added 🎉',
+    'common.voltAddedBalance':'+{n} VOLT added to your balance 🎉',
+    'common.enterValidAmount':'Enter a valid amount',
+    'common.failedSubmit':'Failed to submit',
+    'common.claim':'Claim',
+    'common.collect':'Collect',
+    'ads.loading':'Ad loading, try again',
+    'ads.rewardUnavailable':'Ad reward unavailable',
+    'ads.notCompleted':'Ad was not completed',
+    'ads.watchFull15':'Watch the full ad (15s) to earn',
+    'ads.stayForReward':'You must stay on the ad for at least 15 seconds to get the reward',
+    'ads.stayToContinue':'You must stay on the ad for at least 15 seconds to continue',
+    'ads.watchToEnd':'You must watch the ad to the end to continue',
+    'ads.pending':'It will open as soon as the ad company approves our project',
+    'ads.watching':'Watching...',
+    'ads.waitSec':'Wait {s}s',
+    'ads.addedWithIcon':'+{n} {icon} added! 🎉',
+    'verify.failed':'Verification failed, please try again',
+    'verify.connection':'Connection problem, please try again',
+    'wallet.sdkFailed':'Wallet SDK failed to load, check your connection',
+    'forcesub.verified':'Verified! Welcome aboard 🎉',
+    'forcesub.joinFirst':'Join all channels first',
+    'referrals.nothingToCollect':'Nothing to collect yet',
+    'referrals.inviteCopied':'Invite link copied! 🎉',
+    'referrals.linkCopied':'Referral link copied! 📋',
+    'profile.idCopied':'ID copied 📋',
+    'withdraw.disabled':'Withdrawals are currently disabled',
+    'withdraw.enterWallet':'Enter a TON wallet address',
+    'withdraw.invalidWallet':'Invalid wallet address',
+    'withdraw.minIs':'Minimum withdrawal is {min} TON',
+    'withdraw.insufficientTon':'Insufficient TON balance',
+    'withdraw.submitted':'Withdrawal request submitted ✅',
+    'deposit.enterAmount':'Enter a valid TON amount',
+    'deposit.minIs':'Minimum deposit is {min} TON',
+    'deposit.connectFirst':'Connect your TON wallet first',
+    'deposit.sentVerifying':'Deposit sent, verifying... ✅',
+    'deposit.confirmed':'Deposit confirmed ✅',
+    'deposit.pendingLater':'Deposit pending, refresh later',
+    'deposit.cancelled':'Deposit cancelled',
+    'tasks.openBotHint':'Open bot, wait 5s, then Verify',
+    'tasks.joinHint':'Join channel, then Verify ✓',
+    'tasks.networkRetry':'Network error — tap Open to try again',
+    'wheel.won':'🎉 You won {n} {icon}!',
+    'wheel.noReward':'😬 No reward. Try again!',
+    'addTask.name':'Enter a task name',
+    'addTask.link':'Enter your Telegram link',
+    'addTask.members':'Enter at least 100 members',
+    'addTask.success':'Task added successfully ✅',
+    'games.couldNotCollect':'Could not collect',
+    'daily.couldNotClaim':'Could not claim bonus',
+    'redeem.enterCode':'Enter a redeem code',
+    'redeem.btnLabel':'Redeem Reward',
+    'common.tonAdded':'+{n} TON added 🎉',
+    'common.converting':'Converting...',
+    'common.submitting':'Submitting...',
+    'convert.failed':'Conversion failed',
+    'convert.insufficientVolt':'Insufficient VOLT balance',
+    'withdraw.failed':'Withdrawal failed',
+    'withdraw.history':'Withdrawal History',
+    'withdraw.historyEmpty':'No withdrawals yet',
+    'wdStatus.pending':'Processing',
+    'wdStatus.completed':'Completed',
+    'wdStatus.rejected':'Rejected',
+    'convert.formTitle':'Convert VOLT to TON'
   },
   ar: {
     'nav.home':'الرئيسية','nav.store':'المتجر','nav.tasks':'المهام','nav.combo':'الكومبو',
@@ -3635,11 +3719,76 @@ var LANG = {
     'withdraw.min':'الحد الأدنى','withdraw.walletPh':'عنوان محفظة TON (UQ...)',
     'withdraw.fee':'رسوم السحب:','withdraw.net':'المبلغ الذي ستستلمه بعد خصم الرسوم',
     'withdraw.submit':'إرسال طلب سحب TON','wd.balance':'رصيد TON','wd.note':'رصيد TON بالكامل متاح للسحب أو للشراء من المتجر.','store.note':'الشراء يتم من رصيد TON الخاص بك.','store.needDeposit':'رصيد TON غير كافٍ — أودع TON أولاً','gate.title':'مطلوب التحقق من نشاط الحساب','gate.text':"للتأكد من أن حسابك حقيقي ونشط، يتطلب السحب شراء باقة من المتجر. هذا الإجراء يمنع الحسابات المتعددة والتحايل على النظام وسرقة أموال المشروع، ويحافظ على استمرار البوت للجميع.",'gate.required':'الحد الأدنى للباقة','gate.keep':'يبقى رصيد VOLT في حسابك — حوّله أو اسحبه في أي وقت.','gate.cta':'اذهب إلى المتجر','gate.ctaDeposit':'إيداع TON','gate.later':'ليس الآن','gate.badge':'الحد الأدنى للسحب','gate.badgeHigher':'تفتح السحب أيضًا','gate.orHigher':'اشترِ هذه الباقة أو أي باقة أعلى منها لفتح السحب.','gate.needTon':'رصيد TON لديك {bal}. قم بإيداع TON أولاً لشراء هذه الباقة.',
-    'convert.pageTitle':'تحويل','convert.formTitle':'تحويل TON إلى VOLT',
+    'convert.pageTitle':'تحويل','convert.formTitle':'تحويل VOLT إلى TON',
     'convert.balance':'الرصيد:','convert.submit':'⚡ تنفيذ التحويل',
     'language.pageTitle':'اللغة',
     'home.balanceLabel':'شحنتك','referrals.title':'الإحالات','referrals.subtitle':'ادعُ أصدقاءك واربح المكافآت',
-    'referrals.yourLink':'رابط الإحالة الخاص بك','referrals.copy':'نسخ','withdraw.receive':'ستستلم'
+    'referrals.yourLink':'رابط الإحالة الخاص بك','referrals.copy':'نسخ','withdraw.receive':'ستستلم',
+    'common.networkError':'خطأ في الشبكة',
+    'common.voltAdded':'تمت إضافة {n} VOLT 🎉',
+    'common.voltAddedBalance':'تمت إضافة {n} VOLT إلى رصيدك 🎉',
+    'common.enterValidAmount':'أدخل مبلغاً صحيحاً',
+    'common.failedSubmit':'فشل الإرسال',
+    'common.claim':'استلام',
+    'common.collect':'تجميع',
+    'ads.loading':'جارٍ تحميل الإعلان، حاول مرة أخرى',
+    'ads.rewardUnavailable':'مكافأة الإعلان غير متاحة',
+    'ads.notCompleted':'الإعلان لم يكتمل',
+    'ads.watchFull15':'شاهد الإعلان كاملاً (15 ثانية) لتكسب المكافأة',
+    'ads.stayForReward':'لازم تفضل في الإعلان 15 ثانية على الأقل عشان تاخد المكافأة',
+    'ads.stayToContinue':'لازم تفضل في الإعلان 15 ثانية على الأقل عشان تقدر تكمل',
+    'ads.watchToEnd':'لازم تشاهد الإعلان للآخر عشان تقدر تكمل',
+    'ads.pending':'سيتم فتحه فور قبول شركة الاعلانات المشروع الخاص بنا',
+    'ads.watching':'جارٍ المشاهدة...',
+    'ads.waitSec':'انتظر {s} ث',
+    'ads.addedWithIcon':'تمت إضافة {n} {icon} 🎉',
+    'verify.failed':'فشل التحقق، حاول مرة أخرى',
+    'verify.connection':'مشكلة في الاتصال، حاول مرة أخرى',
+    'wallet.sdkFailed':'فشل تحميل مكتبة المحفظة، تحقق من اتصالك',
+    'forcesub.verified':'تم التحقق! أهلاً بك 🎉',
+    'forcesub.joinFirst':'انضم إلى كل القنوات أولاً',
+    'referrals.nothingToCollect':'لا يوجد شيء لتجميعه بعد',
+    'referrals.inviteCopied':'تم نسخ رابط الدعوة! 🎉',
+    'referrals.linkCopied':'تم نسخ رابط الإحالة! 📋',
+    'profile.idCopied':'تم نسخ المعرف 📋',
+    'withdraw.disabled':'السحب متوقف حالياً',
+    'withdraw.enterWallet':'أدخل عنوان محفظة TON',
+    'withdraw.invalidWallet':'عنوان المحفظة غير صحيح',
+    'withdraw.minIs':'الحد الأدنى للسحب هو {min} TON',
+    'withdraw.insufficientTon':'رصيد TON غير كافٍ',
+    'withdraw.submitted':'تم إرسال طلب السحب ✅',
+    'deposit.enterAmount':'أدخل كمية TON صحيحة',
+    'deposit.minIs':'الحد الأدنى للإيداع هو {min} TON',
+    'deposit.connectFirst':'اربط محفظة TON أولاً',
+    'deposit.sentVerifying':'تم إرسال الإيداع، جارٍ التحقق... ✅',
+    'deposit.confirmed':'تم تأكيد الإيداع ✅',
+    'deposit.pendingLater':'الإيداع معلّق، حدّث الصفحة لاحقاً',
+    'deposit.cancelled':'تم إلغاء الإيداع',
+    'tasks.openBotHint':'افتح البوت، انتظر 5 ثوانٍ، ثم اضغط تحقق',
+    'tasks.joinHint':'انضم إلى القناة، ثم اضغط تحقق ✓',
+    'tasks.networkRetry':'خطأ في الشبكة — اضغط «فتح» للمحاولة مرة أخرى',
+    'wheel.won':'🎉 كسبت {n} {icon}!',
+    'wheel.noReward':'😬 لا مكافأة. حاول مرة أخرى!',
+    'addTask.name':'أدخل اسم المهمة',
+    'addTask.link':'أدخل رابط تليجرام الخاص بك',
+    'addTask.members':'أدخل 100 عضو على الأقل',
+    'addTask.success':'تمت إضافة المهمة بنجاح ✅',
+    'games.couldNotCollect':'تعذّر التجميع',
+    'daily.couldNotClaim':'تعذّر استلام المكافأة',
+    'redeem.enterCode':'أدخل كود الاستبدال',
+    'redeem.btnLabel':'استبدال المكافأة',
+    'common.tonAdded':'تمت إضافة {n} TON 🎉',
+    'common.converting':'جارٍ التحويل...',
+    'common.submitting':'جارٍ الإرسال...',
+    'convert.failed':'فشل التحويل',
+    'convert.insufficientVolt':'رصيد VOLT غير كافٍ',
+    'withdraw.failed':'فشل السحب',
+    'withdraw.history':'سجل السحوبات',
+    'withdraw.historyEmpty':'لا توجد سحوبات بعد',
+    'wdStatus.pending':'قيد المعالجة',
+    'wdStatus.completed':'مكتمل',
+    'wdStatus.rejected':'مرفوض',
+    'convert.formTitle':'تحويل VOLT إلى TON'
   },
   fr: {
     'nav.home':'Accueil','nav.store':'Boutique','nav.tasks':'Tâches','nav.combo':'Combo',
@@ -3665,13 +3814,278 @@ var LANG = {
     'withdraw.min':'MIN','withdraw.walletPh':'Adresse du portefeuille TON (UQ...)',
     'withdraw.fee':'Frais de retrait :','withdraw.net':'Montant que vous recevrez après déduction des frais',
     'withdraw.submit':'Envoyer la demande de retrait','wd.balance':'Solde TON','wd.note':'Votre solde TON complet est disponible pour le retrait ou pour la Boutique.','store.note':'Les achats sont payés depuis votre solde TON.','store.needDeposit':'Solde TON insuffisant — déposez des TON','gate.title':'Vérification du compte requise','gate.text':"Pour confirmer que votre compte est réel et actif, le retrait nécessite l'achat d'un pack dans la Boutique. Cela empêche les comptes multiples et les abus, protège les fonds du projet et assure la continuité du bot pour tous.",'gate.required':'PACK MINIMUM','gate.keep':'Vos VOLT restent sur votre solde — convertissez-les ou retirez-les à tout moment.','gate.cta':'Aller à la boutique','gate.ctaDeposit':'Déposer des TON','gate.later':'Pas maintenant','gate.badge':'Minimum pour retirer','gate.badgeHigher':'Débloque aussi le retrait','gate.orHigher':"Achetez ce pack ou n'importe quel pack supérieur pour débloquer les retraits.",'gate.needTon':'Votre solde TON est de {bal}. Déposez d\'abord des TON pour acheter ce pack.',
-    'convert.pageTitle':'Convertir','convert.formTitle':'Convertir TON en VOLT',
+    'convert.pageTitle':'Convertir','convert.formTitle':'Convertir VOLT en TON',
     'convert.balance':'Solde :','convert.submit':'⚡ Échanger maintenant',
     'language.pageTitle':'Langue',
     'home.balanceLabel':'TA CHARGE','referrals.title':'Parrainage','referrals.subtitle':'Invite tes amis et gagne des récompenses',
-    'referrals.yourLink':'Ton lien de parrainage','referrals.copy':'Copier','withdraw.receive':'Vous recevez'
+    'referrals.yourLink':'Ton lien de parrainage','referrals.copy':'Copier','withdraw.receive':'Vous recevez',
+    'common.networkError':'Erreur réseau',
+    'common.voltAdded':'+{n} VOLT ajoutés 🎉',
+    'common.voltAddedBalance':'+{n} VOLT ajoutés à votre solde 🎉',
+    'common.enterValidAmount':'Entrez un montant valide',
+    'common.failedSubmit':"Échec de l'envoi",
+    'common.claim':'Réclamer',
+    'common.collect':'Collecter',
+    'ads.loading':'Publicité en cours de chargement, réessayez',
+    'ads.rewardUnavailable':'Récompense publicitaire indisponible',
+    'ads.notCompleted':"La publicité n'a pas été terminée",
+    'ads.watchFull15':'Regardez la publicité en entier (15 s) pour gagner',
+    'ads.stayForReward':'Vous devez rester sur la publicité au moins 15 secondes pour recevoir la récompense',
+    'ads.stayToContinue':'Vous devez rester sur la publicité au moins 15 secondes pour continuer',
+    'ads.watchToEnd':"Vous devez regarder la publicité jusqu'à la fin pour continuer",
+    'ads.pending':"Il s'ouvrira dès que la régie publicitaire approuvera notre projet",
+    'ads.watching':'Lecture...',
+    'ads.waitSec':'Attendez {s} s',
+    'ads.addedWithIcon':'+{n} {icon} ajoutés ! 🎉',
+    'verify.failed':'Échec de la vérification, veuillez réessayer',
+    'verify.connection':'Problème de connexion, veuillez réessayer',
+    'wallet.sdkFailed':'Échec du chargement du SDK du portefeuille, vérifiez votre connexion',
+    'forcesub.verified':'Vérifié ! Bienvenue 🎉',
+    'forcesub.joinFirst':"Rejoignez d'abord toutes les chaînes",
+    'referrals.nothingToCollect':'Rien à collecter pour le moment',
+    'referrals.inviteCopied':"Lien d'invitation copié ! 🎉",
+    'referrals.linkCopied':'Lien de parrainage copié ! 📋',
+    'profile.idCopied':'ID copié 📋',
+    'withdraw.disabled':'Les retraits sont actuellement désactivés',
+    'withdraw.enterWallet':'Entrez une adresse de portefeuille TON',
+    'withdraw.invalidWallet':'Adresse de portefeuille invalide',
+    'withdraw.minIs':'Le retrait minimum est de {min} TON',
+    'withdraw.insufficientTon':'Solde TON insuffisant',
+    'withdraw.submitted':'Demande de retrait envoyée ✅',
+    'deposit.enterAmount':'Entrez un montant TON valide',
+    'deposit.minIs':'Le dépôt minimum est de {min} TON',
+    'deposit.connectFirst':"Connectez d'abord votre portefeuille TON",
+    'deposit.sentVerifying':'Dépôt envoyé, vérification en cours... ✅',
+    'deposit.confirmed':'Dépôt confirmé ✅',
+    'deposit.pendingLater':'Dépôt en attente, actualisez plus tard',
+    'deposit.cancelled':'Dépôt annulé',
+    'tasks.openBotHint':'Ouvrez le bot, attendez 5 s, puis touchez Vérifier',
+    'tasks.joinHint':'Rejoignez le canal, puis touchez Vérifier ✓',
+    'tasks.networkRetry':'Erreur réseau — touchez Ouvrir pour réessayer',
+    'wheel.won':'🎉 Vous avez gagné {n} {icon} !',
+    'wheel.noReward':'😬 Aucune récompense. Réessayez !',
+    'addTask.name':'Entrez un nom de tâche',
+    'addTask.link':'Entrez votre lien Telegram',
+    'addTask.members':'Entrez au moins 100 membres',
+    'addTask.success':'Tâche ajoutée avec succès ✅',
+    'games.couldNotCollect':'Impossible de collecter',
+    'daily.couldNotClaim':'Impossible de réclamer le bonus',
+    'redeem.enterCode':"Entrez un code d'échange",
+    'redeem.btnLabel':'Échanger la récompense',
+    'common.tonAdded':'+{n} TON ajoutés 🎉',
+    'common.converting':'Conversion...',
+    'common.submitting':'Envoi...',
+    'convert.failed':'Échec de la conversion',
+    'convert.insufficientVolt':'Solde VOLT insuffisant',
+    'withdraw.failed':'Échec du retrait',
+    'withdraw.history':'Historique des retraits',
+    'withdraw.historyEmpty':'Aucun retrait pour le moment',
+    'wdStatus.pending':'En traitement',
+    'wdStatus.completed':'Terminé',
+    'wdStatus.rejected':'Rejeté',
+    'convert.formTitle':'Convertir VOLT en TON'
   },
-  ru: {}, fa: {}, hi: {}
+  ru: {
+    'common.networkError':'Ошибка сети',
+    'common.voltAdded':'+{n} VOLT добавлено 🎉',
+    'common.voltAddedBalance':'+{n} VOLT добавлено на ваш баланс 🎉',
+    'common.enterValidAmount':'Введите корректную сумму',
+    'common.failedSubmit':'Не удалось отправить',
+    'common.claim':'Получить',
+    'common.collect':'Собрать',
+    'ads.loading':'Реклама загружается, попробуйте ещё раз',
+    'ads.rewardUnavailable':'Награда за рекламу недоступна',
+    'ads.notCompleted':'Реклама не была досмотрена',
+    'ads.watchFull15':'Досмотрите рекламу полностью (15 сек), чтобы получить награду',
+    'ads.stayForReward':'Оставайтесь на рекламе не менее 15 секунд, чтобы получить награду',
+    'ads.stayToContinue':'Оставайтесь на рекламе не менее 15 секунд, чтобы продолжить',
+    'ads.watchToEnd':'Досмотрите рекламу до конца, чтобы продолжить',
+    'ads.pending':'Откроется, как только рекламная компания одобрит наш проект',
+    'ads.watching':'Просмотр...',
+    'ads.waitSec':'Подождите {s} сек',
+    'ads.addedWithIcon':'+{n} {icon} добавлено! 🎉',
+    'verify.failed':'Проверка не удалась, попробуйте ещё раз',
+    'verify.connection':'Проблема с подключением, попробуйте ещё раз',
+    'wallet.sdkFailed':'Не удалось загрузить SDK кошелька, проверьте подключение',
+    'forcesub.verified':'Подтверждено! Добро пожаловать 🎉',
+    'forcesub.joinFirst':'Сначала вступите во все каналы',
+    'referrals.nothingToCollect':'Пока нечего собирать',
+    'referrals.inviteCopied':'Ссылка-приглашение скопирована! 🎉',
+    'referrals.linkCopied':'Реферальная ссылка скопирована! 📋',
+    'profile.idCopied':'ID скопирован 📋',
+    'withdraw.disabled':'Вывод средств сейчас отключён',
+    'withdraw.enterWallet':'Введите адрес TON-кошелька',
+    'withdraw.invalidWallet':'Неверный адрес кошелька',
+    'withdraw.minIs':'Минимальный вывод — {min} TON',
+    'withdraw.insufficientTon':'Недостаточно TON на балансе',
+    'withdraw.submitted':'Заявка на вывод отправлена ✅',
+    'deposit.enterAmount':'Введите корректную сумму TON',
+    'deposit.minIs':'Минимальный депозит — {min} TON',
+    'deposit.connectFirst':'Сначала подключите TON-кошелёк',
+    'deposit.sentVerifying':'Депозит отправлен, проверка... ✅',
+    'deposit.confirmed':'Депозит подтверждён ✅',
+    'deposit.pendingLater':'Депозит в ожидании, обновите позже',
+    'deposit.cancelled':'Депозит отменён',
+    'tasks.openBotHint':'Откройте бота, подождите 5 сек, затем нажмите «Проверить»',
+    'tasks.joinHint':'Вступите в канал, затем нажмите «Проверить» ✓',
+    'tasks.networkRetry':'Ошибка сети — нажмите «Открыть», чтобы повторить',
+    'wheel.won':'🎉 Вы выиграли {n} {icon}!',
+    'wheel.noReward':'😬 Без награды. Попробуйте ещё раз!',
+    'addTask.name':'Введите название задания',
+    'addTask.link':'Введите вашу ссылку Telegram',
+    'addTask.members':'Укажите не менее 100 участников',
+    'addTask.success':'Задание успешно добавлено ✅',
+    'games.couldNotCollect':'Не удалось собрать',
+    'daily.couldNotClaim':'Не удалось получить бонус',
+    'redeem.enterCode':'Введите промокод',
+    'redeem.btnLabel':'Обменять награду',
+    'common.tonAdded':'+{n} TON добавлено 🎉',
+    'common.converting':'Конвертация...',
+    'common.submitting':'Отправка...',
+    'convert.failed':'Ошибка конвертации',
+    'convert.insufficientVolt':'Недостаточно VOLT на балансе',
+    'withdraw.failed':'Ошибка вывода',
+    'withdraw.history':'История выводов',
+    'withdraw.historyEmpty':'Выводов пока нет',
+    'wdStatus.pending':'В обработке',
+    'wdStatus.completed':'Выполнено',
+    'wdStatus.rejected':'Отклонено',
+    'convert.formTitle':'Конвертировать VOLT в TON'
+  },
+  fa: {
+    'common.networkError':'خطای شبکه',
+    'common.voltAdded':'+{n} VOLT اضافه شد 🎉',
+    'common.voltAddedBalance':'+{n} VOLT به موجودی شما اضافه شد 🎉',
+    'common.enterValidAmount':'یک مبلغ معتبر وارد کنید',
+    'common.failedSubmit':'ارسال ناموفق بود',
+    'common.claim':'دریافت',
+    'common.collect':'جمع‌آوری',
+    'ads.loading':'تبلیغ در حال بارگذاری است، دوباره تلاش کنید',
+    'ads.rewardUnavailable':'پاداش تبلیغ در دسترس نیست',
+    'ads.notCompleted':'تبلیغ کامل دیده نشد',
+    'ads.watchFull15':'برای کسب پاداش، تبلیغ را کامل (۱۵ ثانیه) تماشا کنید',
+    'ads.stayForReward':'برای دریافت پاداش باید حداقل ۱۵ ثانیه در تبلیغ بمانید',
+    'ads.stayToContinue':'برای ادامه باید حداقل ۱۵ ثانیه در تبلیغ بمانید',
+    'ads.watchToEnd':'برای ادامه باید تبلیغ را تا پایان تماشا کنید',
+    'ads.pending':'به محض تأیید پروژه ما توسط شرکت تبلیغاتی باز خواهد شد',
+    'ads.watching':'در حال تماشا...',
+    'ads.waitSec':'{s} ثانیه صبر کنید',
+    'ads.addedWithIcon':'+{n} {icon} اضافه شد! 🎉',
+    'verify.failed':'تأیید ناموفق بود، لطفاً دوباره تلاش کنید',
+    'verify.connection':'مشکل اتصال، لطفاً دوباره تلاش کنید',
+    'wallet.sdkFailed':'بارگذاری SDK کیف پول ناموفق بود، اتصال خود را بررسی کنید',
+    'forcesub.verified':'تأیید شد! خوش آمدید 🎉',
+    'forcesub.joinFirst':'ابتدا به همه کانال‌ها بپیوندید',
+    'referrals.nothingToCollect':'هنوز چیزی برای جمع‌آوری وجود ندارد',
+    'referrals.inviteCopied':'لینک دعوت کپی شد! 🎉',
+    'referrals.linkCopied':'لینک ارجاع کپی شد! 📋',
+    'profile.idCopied':'شناسه کپی شد 📋',
+    'withdraw.disabled':'برداشت در حال حاضر غیرفعال است',
+    'withdraw.enterWallet':'آدرس کیف پول TON را وارد کنید',
+    'withdraw.invalidWallet':'آدرس کیف پول نامعتبر است',
+    'withdraw.minIs':'حداقل برداشت {min} TON است',
+    'withdraw.insufficientTon':'موجودی TON کافی نیست',
+    'withdraw.submitted':'درخواست برداشت ارسال شد ✅',
+    'deposit.enterAmount':'یک مقدار معتبر TON وارد کنید',
+    'deposit.minIs':'حداقل واریز {min} TON است',
+    'deposit.connectFirst':'ابتدا کیف پول TON خود را متصل کنید',
+    'deposit.sentVerifying':'واریز ارسال شد، در حال تأیید... ✅',
+    'deposit.confirmed':'واریز تأیید شد ✅',
+    'deposit.pendingLater':'واریز در انتظار است، بعداً دوباره بررسی کنید',
+    'deposit.cancelled':'واریز لغو شد',
+    'tasks.openBotHint':'ربات را باز کنید، ۵ ثانیه صبر کنید، سپس تأیید کنید',
+    'tasks.joinHint':'به کانال بپیوندید، سپس تأیید کنید ✓',
+    'tasks.networkRetry':'خطای شبکه — برای تلاش دوباره روی «باز کردن» بزنید',
+    'wheel.won':'🎉 شما {n} {icon} بردید!',
+    'wheel.noReward':'😬 پاداشی نیست. دوباره تلاش کنید!',
+    'addTask.name':'نام وظیفه را وارد کنید',
+    'addTask.link':'لینک تلگرام خود را وارد کنید',
+    'addTask.members':'حداقل ۱۰۰ عضو وارد کنید',
+    'addTask.success':'وظیفه با موفقیت اضافه شد ✅',
+    'games.couldNotCollect':'جمع‌آوری ممکن نشد',
+    'daily.couldNotClaim':'دریافت پاداش ممکن نشد',
+    'redeem.enterCode':'کد بازخرید را وارد کنید',
+    'redeem.btnLabel':'مبادله پاداش',
+    'common.tonAdded':'+{n} TON اضافه شد 🎉',
+    'common.converting':'در حال تبدیل...',
+    'common.submitting':'در حال ارسال...',
+    'convert.failed':'تبدیل ناموفق بود',
+    'convert.insufficientVolt':'موجودی VOLT کافی نیست',
+    'withdraw.failed':'برداشت ناموفق بود',
+    'withdraw.history':'سوابق برداشت',
+    'withdraw.historyEmpty':'هنوز برداشتی نیست',
+    'wdStatus.pending':'در حال پردازش',
+    'wdStatus.completed':'تکمیل شد',
+    'wdStatus.rejected':'رد شد',
+    'convert.formTitle':'تبدیل VOLT به TON'
+  },
+  hi: {
+    'common.networkError':'नेटवर्क त्रुटि',
+    'common.voltAdded':'+{n} VOLT जोड़े गए 🎉',
+    'common.voltAddedBalance':'+{n} VOLT आपके बैलेंस में जोड़े गए 🎉',
+    'common.enterValidAmount':'मान्य राशि दर्ज करें',
+    'common.failedSubmit':'सबमिट विफल',
+    'common.claim':'लें',
+    'common.collect':'इकट्ठा करें',
+    'ads.loading':'विज्ञापन लोड हो रहा है, फिर से प्रयास करें',
+    'ads.rewardUnavailable':'विज्ञापन पुरस्कार उपलब्ध नहीं है',
+    'ads.notCompleted':'विज्ञापन पूरा नहीं हुआ',
+    'ads.watchFull15':'कमाने के लिए पूरा विज्ञापन (15 सेकंड) देखें',
+    'ads.stayForReward':'पुरस्कार पाने के लिए विज्ञापन पर कम से कम 15 सेकंड रहें',
+    'ads.stayToContinue':'जारी रखने के लिए विज्ञापन पर कम से कम 15 सेकंड रहें',
+    'ads.watchToEnd':'जारी रखने के लिए विज्ञापन अंत तक देखें',
+    'ads.pending':'जैसे ही विज्ञापन कंपनी हमारी परियोजना को स्वीकृति देगी, यह खुल जाएगा',
+    'ads.watching':'देख रहे हैं...',
+    'ads.waitSec':'{s}s प्रतीक्षा करें',
+    'ads.addedWithIcon':'+{n} {icon} जोड़ा गया! 🎉',
+    'verify.failed':'सत्यापन विफल, कृपया फिर से प्रयास करें',
+    'verify.connection':'कनेक्शन समस्या, कृपया फिर से प्रयास करें',
+    'wallet.sdkFailed':'वॉलेट SDK लोड नहीं हुआ, अपना कनेक्शन जांचें',
+    'forcesub.verified':'सत्यापित! स्वागत है 🎉',
+    'forcesub.joinFirst':'पहले सभी चैनलों से जुड़ें',
+    'referrals.nothingToCollect':'अभी इकट्ठा करने के लिए कुछ नहीं है',
+    'referrals.inviteCopied':'आमंत्रण लिंक कॉपी हो गया! 🎉',
+    'referrals.linkCopied':'रेफ़रल लिंक कॉपी हो गया! 📋',
+    'profile.idCopied':'ID कॉपी हो गया 📋',
+    'withdraw.disabled':'निकासी वर्तमान में अक्षम है',
+    'withdraw.enterWallet':'TON वॉलेट पता दर्ज करें',
+    'withdraw.invalidWallet':'अमान्य वॉलेट पता',
+    'withdraw.minIs':'न्यूनतम निकासी {min} TON है',
+    'withdraw.insufficientTon':'अपर्याप्त TON बैलेंस',
+    'withdraw.submitted':'निकासी अनुरोध भेजा गया ✅',
+    'deposit.enterAmount':'मान्य TON राशि दर्ज करें',
+    'deposit.minIs':'न्यूनतम जमा {min} TON है',
+    'deposit.connectFirst':'पहले अपना TON वॉलेट कनेक्ट करें',
+    'deposit.sentVerifying':'जमा भेजा गया, सत्यापित हो रहा है... ✅',
+    'deposit.confirmed':'जमा की पुष्टि हो गई ✅',
+    'deposit.pendingLater':'जमा लंबित है, बाद में रीफ़्रेश करें',
+    'deposit.cancelled':'जमा रद्द कर दिया गया',
+    'tasks.openBotHint':'बॉट खोलें, 5 सेकंड प्रतीक्षा करें, फिर सत्यापित करें',
+    'tasks.joinHint':'चैनल से जुड़ें, फिर सत्यापित करें ✓',
+    'tasks.networkRetry':'नेटवर्क त्रुटि — पुनः प्रयास के लिए खोलें पर टैप करें',
+    'wheel.won':'🎉 आपने {n} {icon} जीता!',
+    'wheel.noReward':'😬 कोई पुरस्कार नहीं. फिर से प्रयास करें!',
+    'addTask.name':'कार्य का नाम दर्ज करें',
+    'addTask.link':'अपना Telegram लिंक दर्ज करें',
+    'addTask.members':'कम से कम 100 सदस्य दर्ज करें',
+    'addTask.success':'कार्य सफलतापूर्वक जोड़ा गया ✅',
+    'games.couldNotCollect':'इकट्ठा नहीं हो सका',
+    'daily.couldNotClaim':'बोनस नहीं लिया जा सका',
+    'redeem.enterCode':'रिडीम कोड दर्ज करें',
+    'redeem.btnLabel':'पुरस्कार रिडीम करें',
+    'common.tonAdded':'+{n} TON जोड़े गए 🎉',
+    'common.converting':'कन्वर्ट हो रहा है...',
+    'common.submitting':'भेज रहे हैं...',
+    'convert.failed':'कन्वर्ज़न विफल',
+    'convert.insufficientVolt':'अपर्याप्त VOLT बैलेंस',
+    'withdraw.failed':'निकासी विफल',
+    'withdraw.history':'निकासी इतिहास',
+    'withdraw.historyEmpty':'अभी तक कोई निकासी नहीं',
+    'wdStatus.pending':'प्रोसेसिंग',
+    'wdStatus.completed':'पूर्ण',
+    'wdStatus.rejected':'अस्वीकृत',
+    'convert.formTitle':'VOLT को TON में बदलें'
+  }
 };
 var currentLang = (function(){
   try { return localStorage.getItem('appLang') || 'en'; } catch(_){ return 'en'; }
@@ -3714,6 +4128,7 @@ function rerenderAfterLang(){
   try { if (S.adLb) renderAdsLeaderboard(); } catch(_){}
   try { var fs = S.data.forceSub; if (fs && fs.required && !fs.passed) renderForceSub(fs); } catch(_){}
   try { renderWithdrawBalances(); } catch(_){}
+  try { if (currentPage === 'wdhistory') renderWdHistory(); } catch(_){}
   if (window.I18N) I18N.apply();
 }
 function I18N_block(k, p){ return window.I18N ? I18N.block(k, p) : ''; }
@@ -3737,7 +4152,7 @@ function ensureTonConnectUI(cb, tries){
   if (tonConnectUI){ if (cb) cb(tonConnectUI); return; }
   if (!window.TON_CONNECT_UI){
     tries = tries || 0;
-    if (tries > 40){ showToast('Wallet SDK failed to load, check your connection','error'); return; }
+    if (tries > 40){ showToast(t('wallet.sdkFailed'),'error'); return; }
     setTimeout(function(){ ensureTonConnectUI(cb, tries + 1); }, 150);
     return;
   }
@@ -3882,8 +4297,7 @@ function adsReady(which){
   if (which === 'adloop') return !!(AD_IDS.adloopSite && AD_IDS.adloopSlot);
   return false;
 }
-var ADS_PENDING_MSG = 'سيتم فتحه فور قبول شركة الاعلانات المشروع الخاص بنا';
-function showAdsPendingNotice(){ showToast(ADS_PENDING_MSG); }
+function showAdsPendingNotice(){ showToast(t('ads.pending')); }
 var adsgramController = null;
 var adsgramControllers = {};          // blockId -> controller
 // Lazy SDK loader — a network's SDK is fetched only when its own id
@@ -4049,7 +4463,7 @@ function renderCaptchaWidget(){
       if (resolve) resolve(token);
     },
     'error-callback': function(){
-      showToast('Verification failed, please try again','error');
+      showToast(t('verify.failed'),'error');
     },
     'expired-callback': function(){
       if (captchaWidgetId !== null) turnstile.reset(captchaWidgetId);
@@ -4069,10 +4483,10 @@ function ensureCaptchaSession(){
       }).then(function(res){
         if (res && res.success){ resolve(true); return; }
         if (res && res.blocked){ resolve(false); return; }
-        showToast((res && res.error && !res.requiresCaptcha) ? res.error : 'Verification failed, please try again','error');
+        showToast((res && res.error && !res.requiresCaptcha) ? res.error : t('verify.failed'),'error');
         attempt();
       }).catch(function(){
-        showToast('Connection problem, please try again','error');
+        showToast(t('verify.connection'),'error');
         setTimeout(attempt, 1500);
       });
     })();
@@ -4486,7 +4900,7 @@ function verifyForceSub(){
     btn.disabled = false; btn.textContent = '✅ Verify Membership';
     if (!res.success){ showToast(res.error||'Verification failed','error'); return; }
     if (res.data.passed){
-      showToast('Verified! Welcome aboard 🎉');
+      showToast(t('forcesub.verified'));
       document.getElementById('forceSubScreen').classList.remove('show');
       document.getElementById('mainApp').style.display = 'flex';
       // Fully reload the state to ensure any updates appear (activating the referrer's reward if any)
@@ -4495,11 +4909,11 @@ function verifyForceSub(){
       S.data.forceSub = S.data.forceSub || {};
       S.data.forceSub.channels = res.data.channels;
       renderForceSub(S.data.forceSub);
-      showToast('Join all channels first','error');
+      showToast(t('forcesub.joinFirst'),'error');
     }
   }).catch(function(){
     btn.disabled = false; btn.textContent = '✅ Verify Membership';
-    showToast('Network error','error');
+    showToast(t('common.networkError'),'error');
   });
 }
 
@@ -4572,15 +4986,15 @@ function claimDailyBonusReal(){
   if (!btn || btn.disabled) return;
   btn.disabled = true; btn.textContent = '...';
   api('claimDailyBonus', {}).then(function(res){
-    if (!res.success){ btn.disabled=false; btn.textContent='Claim'; showToast(res.error||'Could not claim bonus','error'); return; }
+    if (!res.success){ btn.disabled=false; btn.textContent=t('common.claim'); showToast(res.error||t('daily.couldNotClaim'),'error'); return; }
     S.user.balance = res.data.shibaBalance;
     updateVoltTonValueDisplays();
     S.data.daily = S.data.daily || {};
     S.data.daily.claimed = true;
     document.getElementById('homeTon').textContent = fmtShiba(S.user.balance);
     btn.textContent = 'Claimed';
-    showToast('+'+fmtShiba(res.data.shibaAdded)+' VOLT added 🎉', null, true);
-  }).catch(function(){ btn.disabled=false; btn.textContent='Claim'; showToast('Network error','error'); });
+    showToast(t('common.voltAdded').replace('{n}', fmtShiba(res.data.shibaAdded)), null, true);
+  }).catch(function(){ btn.disabled=false; btn.textContent=t('common.claim'); showToast(t('common.networkError'),'error'); });
 }
 
 function redeemCode(){ requireGigapubAd(redeemCodeReal); }
@@ -4588,19 +5002,19 @@ function redeemCodeReal(){
   var input = document.getElementById('redeemCodeInput');
   var btn = document.getElementById('redeemSubmitBtn');
   var code = (input.value||'').trim();
-  if (!code){ showToast('Enter a redeem code','error'); return; }
+  if (!code){ showToast(t('redeem.enterCode'),'error'); return; }
   if (btn.disabled) return;
   btn.disabled=true; btn.textContent='Checking...';
   api('redeemCode', { code:code }).then(function(res){
-    btn.disabled=false; btn.textContent='Redeem Reward';
+    btn.disabled=false; btn.textContent=t('redeem.btnLabel');
     if (!res.success){ showToast(res.error||'Invalid code','error'); return; }
     S.user.balance = res.data.shibaBalance;
     updateVoltTonValueDisplays();
     document.getElementById('homeTon').textContent = fmtShiba(S.user.balance);
     input.value='';
     closeModal('redeemModal');
-    showToast('+'+fmtShiba(res.data.shibaAdded)+' VOLT added 🎉', null, true);
-  }).catch(function(){ btn.disabled=false; btn.textContent='Redeem Reward'; showToast('Network error','error'); });
+    showToast(t('common.voltAdded').replace('{n}', fmtShiba(res.data.shibaAdded)), null, true);
+  }).catch(function(){ btn.disabled=false; btn.textContent=t('redeem.btnLabel'); showToast(t('common.networkError'),'error'); });
 }
 
 function renderActivity(log){
@@ -4666,17 +5080,17 @@ function collectReferralEarnings(){
   var btn = document.getElementById('rrCollectBtn');
   var pendingEl = document.getElementById('rrPendingVolt');
   var pending = pendingEl ? (parseFloat(pendingEl.textContent.replace(/,/g,'')) || 0) : 0;
-  if (pending <= 0){ showToast('Nothing to collect yet', 'error'); return; }
+  if (pending <= 0){ showToast(t('referrals.nothingToCollect'), 'error'); return; }
   rrCollectBusy = true;
   if (btn) btn.disabled = true;
   api('collectReferralEarnings', {}).then(function(res){
     if (!res.success){ showToast(res.error || 'Could not collect', 'error'); return; }
     S.user.balance = res.data.balance;
     if (S.data && S.data.referralRewards) S.data.referralRewards.pendingVolt = 0;
-    showToast('+' + fmtShiba(res.data.collected) + ' VOLT added to your balance 🎉', null, true);
+    showToast(t('common.voltAddedBalance').replace('{n}', fmtShiba(res.data.collected)), null, true);
     render();
   }).catch(function(){
-    showToast('Network error', 'error');
+    showToast(t('common.networkError'), 'error');
   }).finally(function(){
     rrCollectBusy = false;
   });
@@ -4738,7 +5152,7 @@ function renderWalletHistory(logs){
   var entries = [];
   (logs||[]).forEach(function(l){
     if (l.type === 'withdrawal') return; // It's shown directly from withdrawals/ with its real status instead of staying "Pending" forever
-     var labels = { task_reward:'Task Reward', claim_task:'Invite Reward', referral_activation:'Referral Bonus', game_reward:'Game Reward', combo_claim:'Daily Bonus', combo_streak:'Referral Bonus', referral_reward:'Referral Bonus', referral_purchase_commission:'Referral Commission', referral_deposit_commission:'Referral Commission', buy_crystal:'Store Purchase', buy_volt:'Store Purchase', wheel_spin:'Lucky Wheel', deposit:'Deposit', welcome_bonus:'Welcome Bonus', daily_bonus:'Daily Bonus', ad_reward:'Ad Reward', crystal_to_ton:'Convert', volt_to_ton:'Convert', lottery_ticket:'Lottery Ticket', lottery_win:'Lottery Prize', mining_reward:'Bonus' };
+     var labels = { task_reward:'Task Reward', claim_task:'Invite Reward', referral_activation:'Referral Bonus', game_reward:'Game Reward', combo_claim:'Daily Bonus', combo_streak:'Referral Bonus', referral_reward:'Referral Bonus', referral_purchase_commission:'Referral Commission', referral_deposit_commission:'Referral Commission', buy_crystal:'Store Purchase', buy_volt:'Store Purchase', wheel_spin:'Lucky Wheel', deposit:'Deposit', welcome_bonus:'Welcome Bonus', daily_bonus:'Daily Bonus', ad_reward:'Ad Reward', crystal_to_ton:'Convert', volt_to_ton:'Convert', convert_volt_ton:'Convert', lottery_ticket:'Lottery Ticket', lottery_win:'Lottery Prize', mining_reward:'Bonus' };
     var label = labels[l.type] || (l.type||'Reward');
      if (l.type === 'deposit' || l.currency === 'TON') {
        entries.push({ ts:l.ts||0, kind:'in', label:label+' +'+Number(l.amount||0).toFixed(4)+' TON', cls:'ok', txt:'Done' });
@@ -5057,7 +5471,7 @@ function updateAdsTimer(){
 // that page is opened instead of being toggled open/closed on one page.
 function openWithdrawForm(){
   var cfg = (S.data && S.data.config) || {};
-  if (cfg.withdrawalEnabled === false){ showToast('Withdrawals are currently disabled','error'); return; }
+  if (cfg.withdrawalEnabled === false){ showToast(t('withdraw.disabled'),'error'); return; }
   if (withdrawGateLocked()){ showWithdrawGate(getWithdrawGate()); }
   renderWithdrawBalances();
   var minW = Number(cfg.minWithdrawalTon != null ? cfg.minWithdrawalTon : 0.02);
@@ -5072,35 +5486,54 @@ function renderWithdrawBalances(){
   var el = document.getElementById('wdBalTotal');
   if (el) el.textContent = tonBuckets().total.toFixed(4) + ' TON';
 }
+function withdrawFeeRate(){
+  var c = (S.data && S.data.config) || {};
+  return Number(c.withdrawalFeeRate != null ? c.withdrawalFeeRate : 0.10);
+}
 function updateWithdrawalNetAmount(){
   var input = document.getElementById('withdrawAmount');
   var output = document.getElementById('withdrawNetAmount');
   if (!input || !output) return;
   var amount = Number(input.value || 0);
-  var net = Number.isFinite(amount) && amount > 0 ? amount : 0;
+  var net = Number.isFinite(amount) && amount > 0 ? amount * (1 - withdrawFeeRate()) : 0;
   output.textContent = net.toFixed(4) + ' TON';
 }
 
+function openWdHistory(){ renderWdHistory(); switchPage('wdhistory'); }
+function renderWdHistory(){
+  var list = document.getElementById('wdHistoryList');
+  if (!list) return;
+  var items = ((S.data && S.data.withdrawals) || []).slice().sort(function(a,b){ return (b.ts||0) - (a.ts||0); });
+  if (!items.length){ list.innerHTML = '<div class="wdh-empty">' + escapeHtmlClient(t('withdraw.historyEmpty')) + '</div>'; return; }
+  list.innerHTML = items.map(function(w){
+    var st = String(w.status || 'pending');
+    var key = st === 'completed' ? 'wdStatus.completed' : (st === 'rejected' ? 'wdStatus.rejected' : 'wdStatus.pending');
+    var cls = st === 'completed' ? 'ok' : (st === 'rejected' ? 'bad' : 'wait');
+    var amt = Number(w.amount != null ? w.amount : (w.netAmount || 0));
+    var when = w.ts ? new Date(w.ts).toLocaleString() : '—';
+    return '<div class="wdh-item"><div><div class="wdh-amt">' + amt.toFixed(4) + ' TON</div><div class="wdh-time">' + escapeHtmlClient(when) + '</div></div><span class="wdh-status ' + cls + '">' + escapeHtmlClient(t(key)) + '</span></div>';
+  }).join('');
+}
 function submitWithdrawal(){ requireGigapubAd(submitWithdrawalReal); }
 function submitWithdrawalReal(){
   if (withdrawGateLocked()){ showWithdrawGate(getWithdrawGate()); return; }
   var wallet = document.getElementById('withdrawWallet').value.trim();
   var amount = parseFloat(document.getElementById('withdrawAmount').value);
-  if (!wallet){ showToast('Enter a TON wallet address','error'); return; }
-  if (!/^([UE]Q)[A-Za-z0-9_-]{46}$/.test(wallet)){ showToast('Invalid wallet address','error'); return; }
-  if (!amount || amount<=0){ showToast('Enter a valid amount','error'); return; }
+  if (!wallet){ showToast(t('withdraw.enterWallet'),'error'); return; }
+  if (!/^([UE]Q)[A-Za-z0-9_-]{46}$/.test(wallet)){ showToast(t('withdraw.invalidWallet'),'error'); return; }
+  if (!amount || amount<=0){ showToast(t('common.enterValidAmount'),'error'); return; }
   var minW = Number((S.data && S.data.config && S.data.config.minWithdrawalTon != null) ? S.data.config.minWithdrawalTon : 0.02);
-  if (amount < minW){ showToast('Minimum withdrawal is ' + minW + ' TON','error'); return; }
-  if (amount > tonBuckets().total){ showToast('Insufficient TON balance','error'); return; }
+  if (amount < minW){ showToast(t('withdraw.minIs').replace('{min}', minW),'error'); return; }
+  if (amount > tonBuckets().total){ showToast(t('withdraw.insufficientTon'),'error'); return; }
   var btn = document.getElementById('withdrawSubmitBtn');
   if (btn.disabled) return;
-  btn.disabled = true; btn.textContent = 'Submitting...';
+  btn.disabled = true; btn.textContent = t('common.submitting');
   function resetBtn(){ btn.disabled = false; btn.textContent = t('withdraw.submit'); }
   api('requestWithdrawal', { walletAddress:wallet, amountTon:amount }).then(function(res){
     resetBtn();
     if (!res.success){
       if (res.code === 'PACKAGE_REQUIRED' && res.gate){ S.data.withdrawalGate = res.gate; showWithdrawGate(res.gate); return; }
-      showToast(res.error||'Withdrawal failed','error'); return;
+      showToast(res.error||t('withdraw.failed'),'error'); return;
     }
     syncTonFromServer(res.data);
     S.user.tonWallet = wallet;
@@ -5109,10 +5542,10 @@ function submitWithdrawalReal(){
     S.data.withdrawals.unshift({ id:res.data.withdrawalId, walletAddress:wallet, amount:res.data.netAmount, requestedAmount:amount, fee:res.data.fee, currency:'TON', status:'pending', ts:Date.now() });
     renderWalletHistory(S.data.balanceLogs||[]);
     switchPage('profile');
-    showToast('Withdrawal request submitted ✅');
+    showToast(t('withdraw.submitted'));
   }).catch(function(){
     resetBtn();
-    showToast('Network error','error');
+    showToast(t('common.networkError'),'error');
   });
 }
 
@@ -5161,10 +5594,10 @@ function depChip(v){
 }
 async function submitDeposit(){
   var amount = Number(document.getElementById('depositAmount').value);
-  if (!Number.isFinite(amount) || amount <= 0){ showToast('Enter a valid TON amount','error'); return; }
+  if (!Number.isFinite(amount) || amount <= 0){ showToast(t('deposit.enterAmount'),'error'); return; }
   var minD = Number((S.data && S.data.config && S.data.config.minDepositTon != null) ? S.data.config.minDepositTon : 1);
-  if (amount < minD){ showToast('Minimum deposit is ' + minD + ' TON','error'); return; }
-  if (!tonConnectUI){ showToast('Connect your TON wallet first','error'); return; }
+  if (amount < minD){ showToast(t('deposit.minIs').replace('{min}', minD),'error'); return; }
+  if (!tonConnectUI){ showToast(t('deposit.connectFirst'),'error'); return; }
   var btn = document.getElementById('depositSubmitBtn');
   if (btn) { btn.disabled = true; btn.textContent = 'Waiting for wallet...'; }
   try {
@@ -5181,7 +5614,7 @@ async function submitDeposit(){
     if (btn) btn.textContent = 'Registering deposit...';
     var reg = await api('createDeposit', { amount: amount, txHash: result.boc });
     if (!reg || !reg.success) throw new Error((reg && reg.error) || 'Deposit registration failed');
-    showToast('Deposit sent, verifying... ✅');
+    showToast(t('deposit.sentVerifying'));
     switchPage('profile');
     var depositId = reg.data.depositId;
     var attempts = 0;
@@ -5192,66 +5625,70 @@ async function submitDeposit(){
           clearInterval(poll);
           S.user.tonBalance = res.data.tonBalance;
           updateWalletTonBalance();
-          showToast('Deposit confirmed ✅');
+          showToast(t('deposit.confirmed'));
         } else if (attempts >= 18) {
           clearInterval(poll);
-          showToast('Deposit pending, refresh later','error');
+          showToast(t('deposit.pendingLater'),'error');
         }
       }).catch(function(){ if (attempts >= 18) clearInterval(poll); });
     }, 10000);
   } catch(e){
-    showToast(e && e.message ? e.message : 'Deposit cancelled','error');
+    showToast(e && e.message ? e.message : t('deposit.cancelled'),'error');
   } finally {
     if (btn) { btn.disabled = false; btn.textContent = t('deposit.submit'); }
   }
 }
 
-// ── Convert: TON → LUX, fixed rate 1 TON = 1100 LUX ─────────────
-// Reuses the same store endpoint the Store page's fixed packs use
-// (buyVoltWithTon), just with a free-form TON amount typed by the user.
+// ── Convert: VOLT → TON (owner order: direction reversed) ────────────
+// The user sells VOLT from his game balance and receives TON at the
+// config rate (voltPerTon VOLT = 1 TON), via POST /convertVoltToTon.
+// (TON → VOLT still exists only as the Store's package purchase.)
 var TON_TO_VOLT_RATE = 1100;
+function convertRate(){
+  return Number((S.data && S.data.config && (S.data.config.voltPerTon || S.data.config.crystalPerTon)) || TON_TO_VOLT_RATE);
+}
+function fmtTonOut(v){ return (Math.floor(v * 10000) / 10000).toFixed(4); }
 function openConvertForm(){
-  var rate = Number((S.data && S.data.config && (S.data.config.voltPerTon || S.data.config.crystalPerTon)) || TON_TO_VOLT_RATE);
-  document.getElementById('tcTonBalance').textContent = tonBuckets().deposit.toFixed(4)+' TON';
+  var rate = convertRate();
   document.getElementById('tcVoltBalance').textContent = fmtShiba((S.user&&S.user.balance)||0)+' VOLT';
+  document.getElementById('tcTonBalance').textContent = tonBuckets().total.toFixed(4)+' TON';
   document.getElementById('tcRateLabel').textContent = '📊 1 TON = ' + rate.toLocaleString('en-US') + ' VOLT';
   document.getElementById('tcAmount').value = '';
-  document.getElementById('tcVoltOutput').textContent = '0';
+  document.getElementById('tcTonOutput').textContent = '0';
   document.getElementById('tcAmount').oninput = function(){
-    document.getElementById('tcVoltOutput').textContent = fmtShiba((Number(this.value||0))*rate);
+    var v = Number(this.value||0);
+    document.getElementById('tcTonOutput').textContent = v > 0 ? fmtTonOut(v / rate) : '0';
   };
 }
-function setMaxTonConvertAmount(){
-  var rate = Number((S.data && S.data.config && (S.data.config.voltPerTon || S.data.config.crystalPerTon)) || TON_TO_VOLT_RATE);
-  var max = tonBuckets().deposit;
+function setMaxVoltConvertAmount(){
+  var rate = convertRate();
+  var max = Number((S.user && S.user.balance) || 0);
   var input = document.getElementById('tcAmount');
   input.value = max > 0 ? max : '';
-  document.getElementById('tcVoltOutput').textContent = fmtShiba(max*rate);
+  document.getElementById('tcTonOutput').textContent = max > 0 ? fmtTonOut(max / rate) : '0';
 }
-function submitTonToVoltConvert(){
-  var amount = Number(document.getElementById('tcAmount').value);
-  if (!Number.isFinite(amount) || amount <= 0){ showToast('Enter a valid TON amount','error'); return; }
-  if (amount > tonBuckets().deposit + 1e-9){ showToast(t('store.needDeposit'),'error'); return; }
+function submitVoltToTonConvert(){
+  var voltAmount = Number(document.getElementById('tcAmount').value);
+  if (!Number.isFinite(voltAmount) || voltAmount <= 0){ showToast(t('common.enterValidAmount'),'error'); return; }
+  if (voltAmount > Number((S.user && S.user.balance) || 0) + 1e-9){ showToast(t('convert.insufficientVolt'),'error'); return; }
   var btn = document.getElementById('tcSubmitBtn');
   if (btn.disabled) return;
-  btn.disabled = true; btn.textContent = 'Converting...';
-  api('buyVoltWithTon', { tonAmount: amount, purchaseType: 'convert' }).then(function(res){
+  btn.disabled = true; btn.textContent = t('common.converting');
+  api('convertVoltToTon', { voltAmount: voltAmount }).then(function(res){
     btn.disabled = false; btn.textContent = t('convert.submit');
-    if (!res.success){ showToast(res.error||'Conversion failed','error'); return; }
+    if (!res.success){ showToast(res.error||t('convert.failed'),'error'); return; }
     S.user.balance = res.data.shibaBalance; syncTonFromServer(res.data);
-    updateGateAfterPurchase(res.data.maxPurchasedTon);
     updateVoltTonValueDisplays(); updateWalletTonBalance();
     document.getElementById('homeTon').textContent = fmtShiba(S.user.balance);
     document.getElementById('tcAmount').value = '';
-    document.getElementById('tcVoltOutput').textContent = '0';
+    document.getElementById('tcTonOutput').textContent = '0';
     switchPage('profile');
-    showToast('+' + fmtShiba(res.data.voltAdded) + ' VOLT added 🎉', null, true);
+    showToast(t('common.tonAdded').replace('{n}', fmtTonOut(res.data.tonAdded)), null, true);
   }).catch(function(){
     btn.disabled = false; btn.textContent = t('convert.submit');
-    showToast('Network error','error');
+    showToast(t('common.networkError'),'error');
   });
 }
-
 // ── Profile page ─────────────────────────────────────────────────────
 function renderProfile(){
   var u = S.user || {};
@@ -5273,7 +5710,7 @@ function copyProfileId(){
   var idEl = document.getElementById('profileId');
   if (!idEl) return;
   copyToClipboard(idEl.textContent);
-  showToast('ID copied 📋');
+  showToast(t('profile.idCopied'));
 }
 function shortAddr(addr){
   if (!addr || addr.length < 10) return addr || '';
@@ -5474,8 +5911,8 @@ function renderTasks(tab){
   var btnId = isAdsgram ? 'adsgramWatchBtn' : isGigapub ? 'gigapubWatchBtn' : isAdloop ? 'adloopWatchBtn' : '';
   var cooldownSeconds = Math.max(0, Math.ceil((cooldownUntilVal - Date.now()) / 1000));
   var isLocked = (isAdsgram || isGigapub || isAdloop) && (busy || cooldownSeconds > 0);
-  var displayButton = busy ? 'Watching...' :
-    cooldownSeconds > 0 ? 'Wait '+cooldownSeconds+'s' : button;
+  var displayButton = busy ? t('ads.watching') :
+    cooldownSeconds > 0 ? t('ads.waitSec').replace('{s}', cooldownSeconds) : button;
    var counter = !disabled && typeof watched === 'number' ? '<span class="task-limit">'+watched+'/'+limit+' today</span>' : '';
    return '<div class="task-item"><div class="task-logo ic-logo">'+icon+'</div><div class="task-info"><div class="task-name">'+name+'</div>'+
      '<div class="task-reward">'+(disabled?'<span class="maintenance">Under maintenance</span>':reward)+counter+'</div></div>'+
@@ -5499,7 +5936,7 @@ function watchAdsgram(){
   ensureAdsSdk('adsgram');
   if (adsgramWatchBusy || Date.now() < adsgramCooldownUntil) return;
   var controller = ensureAdsgramInit();
-  if (!controller){ showToast('Ad loading, try again','error'); return; }
+  if (!controller){ showToast(t('ads.loading'),'error'); return; }
   adsgramWatchBusy = true;
   renderTasks('ads');
   startAdsgramButtonTimer();
@@ -5512,7 +5949,7 @@ function watchAdsgram(){
       adsgramWatchBusy = false;
       stopAdsgramButtonTimer();
       renderTasks('ads');
-      showToast((ticketRes && ticketRes.error) || 'Ad reward unavailable','error');
+      showToast((ticketRes && ticketRes.error) || t('ads.rewardUnavailable'),'error');
       return;
     }
     var adTicket = ticketRes.data.sid;
@@ -5537,20 +5974,20 @@ function watchAdsgram(){
         adsgramCooldownUntil = Date.now() + 15000;
         startAdsgramButtonTimer();
         renderTasks('ads');
-        showToast('+'+fmtShiba(res.data.shibaAdded)+' VOLT added 🎉',null,true);
+        showToast(t('common.voltAdded').replace('{n}', fmtShiba(res.data.shibaAdded)),null,true);
       });
       });
     }).catch(function(err){
       adsgramWatchBusy = false;
       stopAdsgramButtonTimer();
       renderTasks('ads');
-      showToast((err && (err.description || err.message)) || 'Ad was not completed','error');
+      showToast((err && (err.description || err.message)) || t('ads.notCompleted'),'error');
     });
   }).catch(function(){
     adsgramWatchBusy = false;
     stopAdsgramButtonTimer();
     renderTasks('ads');
-    showToast('Network error','error');
+    showToast(t('common.networkError'),'error');
   });
 }
 
@@ -5560,12 +5997,12 @@ function startAdsgramButtonTimer(){
   adsgramTimerId = setInterval(function(){
     var btn = document.getElementById('adsgramWatchBtn');
     if (adsgramWatchBusy){
-      if (btn){ btn.disabled = true; btn.textContent = 'Watching...'; }
+      if (btn){ btn.disabled = true; btn.textContent = t('ads.watching'); }
       return;
     }
     var cooldown = Math.max(0, Math.ceil((adsgramCooldownUntil - Date.now()) / 1000));
     if (cooldown > 0){
-      if (btn){ btn.disabled = true; btn.textContent = 'Wait '+cooldown+'s'; }
+      if (btn){ btn.disabled = true; btn.textContent = t('ads.waitSec').replace('{s}', cooldown); }
     } else {
       stopAdsgramButtonTimer();
       adsgramCooldownUntil = 0;
@@ -5583,9 +6020,6 @@ function stopAdsgramButtonTimer(){
 // on the ad for at least GIGAPUB_MIN_WATCH_MS. Leaving earlier shows an
 // error and nothing is claimed / executed.
 var GIGAPUB_MIN_WATCH_MS = 15000;
-var GIGAPUB_STAY_MSG = 'لازم تفضل في الإعلان 15 ثانية على الأقل عشان تاخد المكافأة';
-var GIGAPUB_GATE_STAY_MSG = 'لازم تفضل في الإعلان 15 ثانية على الأقل عشان تقدر تكمل';
-var GIGAPUB_GATE_MSG = 'لازم تشاهد الإعلان للآخر عشان تقدر تكمل';
 var gigapubGateBusy = false;
 function showGigapubGateAd(cb){
   var done = false;
@@ -5603,13 +6037,13 @@ function requireGigapubAd(next){
   if (!adsReady('gigapub')){ showAdsPendingNotice(); return; }
   ensureAdsSdk('gigapub');
   if (gigapubGateBusy) return;
-  if (typeof window.showGiga !== 'function'){ showToast('Ad loading, try again','error'); return; }
+  if (typeof window.showGiga !== 'function'){ showToast(t('ads.loading'),'error'); return; }
   gigapubGateBusy = true;
   showGigapubGateAd(function(r){
     gigapubGateBusy = false;
     if (r.status === 'completed'){ next(); return; }
-    if (r.reason === 'too_early'){ showToast(GIGAPUB_GATE_STAY_MSG, 'error'); return; }
-    showToast(GIGAPUB_GATE_MSG, 'error');
+    if (r.reason === 'too_early'){ showToast(t('ads.stayToContinue'), 'error'); return; }
+    showToast(t('ads.watchToEnd'), 'error');
   });
 }
 // ── GigaPub (rewarded format) ───────────────────────────────────────────
@@ -5617,7 +6051,7 @@ function watchGigapub(){
   if (!adsReady('gigapub')){ showAdsPendingNotice(); return; }
   ensureAdsSdk('gigapub');
   if (gigapubWatchBusy || Date.now() < gigapubCooldownUntil) return;
-  if (typeof window.showGiga !== 'function'){ showToast('Ad loading, try again','error'); return; }
+  if (typeof window.showGiga !== 'function'){ showToast(t('ads.loading'),'error'); return; }
   gigapubWatchBusy = true;
   renderTasks('ads');
   startGigapubButtonTimer();
@@ -5627,7 +6061,7 @@ function watchGigapub(){
       gigapubWatchBusy = false;
       stopGigapubButtonTimer();
       renderTasks('ads');
-      showToast((ticketRes && ticketRes.error) || 'Ad reward unavailable','error');
+      showToast((ticketRes && ticketRes.error) || t('ads.rewardUnavailable'),'error');
       return;
     }
     var adTicket = ticketRes.data.sid;
@@ -5656,19 +6090,19 @@ function watchGigapub(){
       gigapubCooldownUntil = Date.now() + 15000;
       startGigapubButtonTimer();
       renderTasks('ads');
-      showToast('+'+fmtShiba(res.data.shibaAdded)+' VOLT added 🎉',null,true);
+      showToast(t('common.voltAdded').replace('{n}', fmtShiba(res.data.shibaAdded)),null,true);
     }).catch(function(err){
       gigapubWatchBusy = false;
       stopGigapubButtonTimer();
       renderTasks('ads');
-      if (err && err.code === 'AD_TOO_EARLY') showToast(GIGAPUB_STAY_MSG,'error');
-      else showToast((err && (err.description || err.message)) || 'Ad was not completed','error');
+      if (err && err.code === 'AD_TOO_EARLY') showToast(t('ads.stayForReward'),'error');
+      else showToast((err && (err.description || err.message)) || t('ads.notCompleted'),'error');
     });
   }).catch(function(){
     gigapubWatchBusy = false;
     stopGigapubButtonTimer();
     renderTasks('ads');
-    showToast('Network error','error');
+    showToast(t('common.networkError'),'error');
   });
 }
 
@@ -5678,12 +6112,12 @@ function startGigapubButtonTimer(){
   gigapubTimerId = setInterval(function(){
     var btn = document.getElementById('gigapubWatchBtn');
     if (gigapubWatchBusy){
-      if (btn){ btn.disabled = true; btn.textContent = 'Watching...'; }
+      if (btn){ btn.disabled = true; btn.textContent = t('ads.watching'); }
       return;
     }
     var cooldown = Math.max(0, Math.ceil((gigapubCooldownUntil - Date.now()) / 1000));
     if (cooldown > 0){
-      if (btn){ btn.disabled = true; btn.textContent = 'Wait '+cooldown+'s'; }
+      if (btn){ btn.disabled = true; btn.textContent = t('ads.waitSec').replace('{s}', cooldown); }
     } else {
       stopGigapubButtonTimer();
       gigapubCooldownUntil = 0;
@@ -5727,7 +6161,7 @@ function watchAdloop(){
   if (!adsReady('adloop')){ showAdsPendingNotice(); return; }
   ensureAdsSdk('adloop');
   if (adloopWatchBusy || Date.now() < adloopCooldownUntil) return;
-  if (typeof window.Adloop === 'undefined' || typeof window.Adloop.init !== 'function'){ showToast('Ad loading, try again','error'); return; }
+  if (typeof window.Adloop === 'undefined' || typeof window.Adloop.init !== 'function'){ showToast(t('ads.loading'),'error'); return; }
   adloopWatchBusy = true;
   renderTasks('ads');
   startAdloopButtonTimer();
@@ -5737,7 +6171,7 @@ function watchAdloop(){
       adloopWatchBusy = false;
       stopAdloopButtonTimer();
       renderTasks('ads');
-      showToast((ticketRes && ticketRes.error) || 'Ad reward unavailable','error');
+      showToast((ticketRes && ticketRes.error) || t('ads.rewardUnavailable'),'error');
       return;
     }
     var adTicket = ticketRes.data.sid;
@@ -5752,9 +6186,9 @@ function watchAdloop(){
         stopAdloopButtonTimer();
         renderTasks('ads');
         if (res && (res.reason === 'too_early' || res.reason === 'not_done')){
-          showToast('Watch the full ad (15s) to earn','error');
+          showToast(t('ads.watchFull15'),'error');
         } else {
-          showToast('Ad was not completed' + (res && res.reason ? ' (' + res.reason + ')' : ''),'error');
+          showToast(t('ads.notCompleted') + (res && res.reason ? ' (' + res.reason + ')' : ''),'error');
         }
         return;
       }
@@ -5766,7 +6200,7 @@ function watchAdloop(){
           adloopWatchBusy = false;
           stopAdloopButtonTimer();
           renderTasks('ads');
-          showToast(result.error||'Ad reward unavailable','error');
+          showToast(result.error||t('ads.rewardUnavailable'),'error');
           return;
         }
         S.user.balance = result.data.shibaBalance;
@@ -5777,12 +6211,12 @@ function watchAdloop(){
         adloopCooldownUntil = Date.now() + 15000;
         startAdloopButtonTimer();
         renderTasks('ads');
-        showToast('+'+fmtShiba(result.data.shibaAdded)+' VOLT added 🎉',null,true);
+        showToast(t('common.voltAdded').replace('{n}', fmtShiba(result.data.shibaAdded)),null,true);
       }).catch(function(){
         adloopWatchBusy = false;
         stopAdloopButtonTimer();
         renderTasks('ads');
-        showToast('Network error','error');
+        showToast(t('common.networkError'),'error');
       });
       });
     });
@@ -5790,7 +6224,7 @@ function watchAdloop(){
     adloopWatchBusy = false;
     stopAdloopButtonTimer();
     renderTasks('ads');
-    showToast('Network error','error');
+    showToast(t('common.networkError'),'error');
   });
 }
 
@@ -5800,12 +6234,12 @@ function startAdloopButtonTimer(){
   adloopTimerId = setInterval(function(){
     var btn = document.getElementById('adloopWatchBtn');
     if (adloopWatchBusy){
-      if (btn){ btn.disabled = true; btn.textContent = 'Watching...'; }
+      if (btn){ btn.disabled = true; btn.textContent = t('ads.watching'); }
       return;
     }
     var cooldown = Math.max(0, Math.ceil((adloopCooldownUntil - Date.now()) / 1000));
     if (cooldown > 0){
-      if (btn){ btn.disabled = true; btn.textContent = 'Wait '+cooldown+'s'; }
+      if (btn){ btn.disabled = true; btn.textContent = t('ads.waitSec').replace('{s}', cooldown); }
     } else {
       stopAdloopButtonTimer();
       adloopCooldownUntil = 0;
@@ -5869,10 +6303,10 @@ function doJoinTask(id, btn){
     }
     S.taskJoined[id] = true;
     renderTasks(currentTab);
-    showToast(isBotTask(task) ? 'Open bot, wait 5s, then Verify' : 'Join channel, then Verify ✓');
+    showToast(isBotTask(task) ? t('tasks.openBotHint') : t('tasks.joinHint'));
     openTaskLink(task);
   }).catch(function(){
-    showToast('Network error','error');
+    showToast(t('common.networkError'),'error');
     if (btn){ btn.disabled = false; btn.textContent = btn.dataset.label || 'Join'; }
   });
 }
@@ -5894,9 +6328,9 @@ function doVerifyTask(id, btn){
     document.getElementById('homeTon').textContent = fmtShiba(S.user.balance);
     updateWalletTonBalance();
     renderTasks(currentTab);
-    showToast('+'+fmtShiba(res.data.shibaAdded)+' '+SHIBA_ICON+' added! 🎉',null,true);
+    showToast(t('ads.addedWithIcon').replace('{n}', fmtShiba(res.data.shibaAdded)).replace('{icon}', SHIBA_ICON),null,true);
   }).catch(function(){
-    showToast('Network error — tap Open to try again','error');
+    showToast(t('tasks.networkRetry'),'error');
     resetTaskToOpen(id);     // timeout / network error -> never stays stuck on "Checking..."
   });
 }
@@ -6025,15 +6459,15 @@ function spinWheel(){
       updateWalletTonBalance();
       renderWheelInfo();
       if (res.data.reward > 0){
-        showToast('🎉 You won '+fmtShiba(res.data.reward)+' '+SHIBA_ICON+'!',null,true);
+        showToast(t('wheel.won').replace('{n}', fmtShiba(res.data.reward)).replace('{icon}', SHIBA_ICON),null,true);
       } else {
-        showToast('😬 No reward. Try again!');
+        showToast(t('wheel.noReward'));
       }
     }, 6950);
   }).catch(function(){
     wheelSpinning = false;
     wheelLightsChase(false);
-    showToast('Network error','error');
+    showToast(t('common.networkError'),'error');
     renderWheelInfo();
   });
 }
@@ -6057,7 +6491,7 @@ function shareInvite(){
     try { Telegram.WebApp.openTelegramLink(url); return; } catch(_){}
   }
   copyToClipboard(link);
-  showToast('Invite link copied! 🎉');
+  showToast(t('referrals.inviteCopied'));
 }
 
 // Actually copies text to the clipboard (with a fallback for older browsers/versions
@@ -6086,7 +6520,7 @@ function fallbackCopy(text){
 function copyRefLink(){
   var link = buildRefLink(S.user ? S.user.referralCode : '0');
   copyToClipboard(link);
-  showToast('Referral link copied! 📋');
+  showToast(t('referrals.linkCopied'));
 }
 
 // ── Page switching ────────────────────────────────────────────────────
@@ -6184,19 +6618,19 @@ function submitAddTask(){
   var link = document.getElementById('addTaskLink').value.trim();
   var members = parseInt(document.getElementById('addTaskMembers').value);
   var desc = document.getElementById('addTaskDesc').value.trim();
-   if (!name){ showToast('Enter a task name','error'); return; }
-   if (!link){ showToast('Enter your Telegram link','error'); return; }
-  if (!members || members < 100){ showToast('Enter at least 100 members','error'); return; }
+   if (!name){ showToast(t('addTask.name'),'error'); return; }
+   if (!link){ showToast(t('addTask.link'),'error'); return; }
+  if (!members || members < 100){ showToast(t('addTask.members'),'error'); return; }
   var units = Math.ceil(members/100);
   var price = getPricePer100();
   var priceShiba = units * price.shiba;
   var priceUsd = units * price.usd;
    var priceTon = units * price.ton;
   var btn = document.getElementById('addTaskSubmitBtn');
-  btn.disabled = true; btn.textContent = 'Submitting...';
+  btn.disabled = true; btn.textContent = t('common.submitting');
    api('submitTaskSuggestion', { name:name, link:link, category:selectedTaskCategory, membersNeeded:members, desc:desc, priceTon:priceTon }).then(function(res){
     btn.disabled = false; btn.textContent = '📤 Submit Request';
-    if (!res || !res.success){ showToast((res && res.error)||'Failed to submit','error'); return; }
+    if (!res || !res.success){ showToast((res && res.error)||t('common.failedSubmit'),'error'); return; }
     // The task is already created and paid for on the server at this point, so any
     // UI-refresh problem below must never be reported to the user as a failure.
     try {
@@ -6212,11 +6646,11 @@ function submitAddTask(){
       document.getElementById('addTaskSuccessView').style.display = 'block';
     } catch (uiErr) {
       console.error('addTask: UI update failed after a successful submit', uiErr);
-      showToast('Task added successfully ✅');
+      showToast(t('addTask.success'));
     }
   }, function(){
     btn.disabled = false; btn.textContent = '📤 Submit Request';
-    showToast('Network error','error');
+    showToast(t('common.networkError'),'error');
   });
 }
 
@@ -6407,7 +6841,7 @@ function gameOver(score, maxed){
     requireGigapubAd(function(){
     cb.disabled = true; cb.textContent = '...';
     api('claimGameReward', { gameId: d.id, score: score }).then(function(res){
-      if (!res || !res.success){ showToast((res && res.error) || 'Could not collect', 'error'); cb.disabled = false; cb.textContent = 'Collect'; return; }
+      if (!res || !res.success){ showToast((res && res.error) || t('games.couldNotCollect'), 'error'); cb.disabled = false; cb.textContent = t('common.collect'); return; }
       var gd = res.data || {};
       if (S.user && gd.shibaBalance != null) S.user.balance = gd.shibaBalance;
       if (S.data){
@@ -6423,10 +6857,10 @@ function gameOver(score, maxed){
       cb.textContent = '✓ Collected +' + fmtNum(gd.reward || 0) + ' VOLT';
       try { SFX.success(); } catch(_){}
       if (typeof renderArcade === 'function') renderArcade();
-      showToast('+' + fmtNum(gd.reward || 0) + ' VOLT added to your balance 🎉');
+      showToast(t('common.voltAddedBalance').replace('{n}', fmtNum(gd.reward || 0)));
       try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback) Telegram.WebApp.HapticFeedback.notificationOccurred('success'); } catch(_){}
       render();
-    }).catch(function(){ showToast('Network error', 'error'); cb.disabled = false; cb.textContent = 'Collect'; });
+    }).catch(function(){ showToast(t('common.networkError'), 'error'); cb.disabled = false; cb.textContent = t('common.collect'); });
     });
   };
   var ab = document.getElementById('gameAgainBtn');
