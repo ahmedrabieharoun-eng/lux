@@ -5826,7 +5826,7 @@ function openWithdrawForm(){
 function withdrawAdsGateState(){
   var cfg = (S.data && S.data.config) || {};
   var need = Number(cfg.withdrawalMinAds != null ? cfg.withdrawalMinAds : 20);
-  var have = Number((S.data && S.data.totalAdsWatched) || 0);
+  var have = Number((S.data && (S.data.totalAdsWatched != null ? S.data.totalAdsWatched : (S.data.stats && S.data.stats.totalAdsWatched))) || 0);
   return { need: need, have: have, met: !(need > 0) || have >= need };
 }
 function renderWithdrawAdsGate(){
@@ -6171,6 +6171,7 @@ function applyAdRewardState(data){
   var stats = S.data.stats;
   if (data.adsWatchedToday != null) stats.adsWatchedToday = getAdNumber(data.adsWatchedToday);
   if (data.adsWatchedByCompany) stats.adsWatchedByCompany = data.adsWatchedByCompany;
+  if (data.totalAdsWatched != null) { var taw = getAdNumber(data.totalAdsWatched); S.data.totalAdsWatched = taw; stats.totalAdsWatched = taw; }
   if (data.adCompanies) stats.adCompanies = data.adCompanies;
   if (data.adDailyTotalLimit != null) stats.adDailyTotalLimit = getAdNumber(data.adDailyTotalLimit);
   if (data.adCompanyDailyLimit != null) stats.adCompanyDailyLimit = getAdNumber(data.adCompanyDailyLimit);
