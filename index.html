@@ -1647,6 +1647,10 @@ html,body{
 .wd-receive b{font-size:15px;color:var(--text);font-variant-numeric:tabular-nums}
 .wd-fee{display:flex;align-items:center;justify-content:space-between;margin:10px 0 8px;padding:12px 14px;border-radius:14px;background:rgba(255,196,0,.10);border:1px dashed rgba(255,196,0,.6);font-size:13.5px;font-weight:700;color:#FFC400}
 .wd-fee b{font-size:15px;color:#FFDE59;font-variant-numeric:tabular-nums}
+.wd-adgate{display:flex;align-items:center;justify-content:space-between;margin:10px 0 8px;padding:12px 14px;border-radius:14px;background:rgba(231,76,60,.10);border:1px dashed rgba(231,76,60,.55);font-size:13.5px;font-weight:700;color:#FF8A75}
+.wd-adgate b{font-size:15px;font-variant-numeric:tabular-nums}
+.wd-adgate.met{background:rgba(46,204,113,.10);border-color:rgba(46,204,113,.55);color:#2ECC71}
+.rr-commission{margin-top:10px;padding:10px 12px;border-radius:12px;background:rgba(255,196,0,.10);border:1px dashed rgba(255,196,0,.55);color:#FFDE59;font-size:13px;font-weight:700;line-height:1.5}
 .nav-item{flex:1 1 0;min-width:0}
 .nav-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 /* Invite tasks (Referrals page) */
@@ -3046,6 +3050,7 @@ canvas.game-canvas{touch-action:none}
             </div>
           </div>
           <div class="rr-claim-rule">Every friend who joins with your link and watches <b>10 ads</b> becomes active — and you receive <b id="rrClaimActAmt">100</b> VOLT here, ready to collect.</div>
+          <div class="rr-commission" id="rrCommissionLine" style="display:none"></div>
           <div class="rr-actions">
             <button class="rr-btn collect" id="rrCollectBtn" onclick="collectReferralEarnings()">Collect</button>
           </div>
@@ -3286,6 +3291,7 @@ canvas.game-canvas{touch-action:none}
         <div class="bal-note" data-i18n="wd.note">Your full TON balance is available to withdraw, or to spend on VOLT packages and conversions.</div>
         <input class="wallet-input" id="withdrawWallet" placeholder="TON Wallet Address (UQ...)" data-i18n-placeholder="withdraw.walletPh">
         <input class="wallet-input" id="withdrawAmount" type="number" step="0.01" inputmode="decimal" placeholder="TON amount" data-i18n-placeholder="deposit.amountPh">
+        <div class="wd-adgate" id="wdAdsGateRow"><span id="wdAdsGateText">Withdrawal condition: watch 20 ads</span><b id="wdAdsGateProgress">0 / 20</b></div>
         <div class="wd-fee"><span id="withdrawFeeLabel">Withdrawal fee (10%)</span><b id="withdrawFeeAmount">−0.0000 TON</b></div>
         <div class="wd-receive"><span data-i18n="withdraw.receive">You receive</span><b id="withdrawNetAmount">0.0000 TON</b></div>
         <button class="wallet-submit" id="withdrawSubmitBtn" onclick="submitWithdrawal()" data-i18n="withdraw.submit">Submit TON Withdrawal</button>
@@ -3768,6 +3774,9 @@ var LANG = {
     'wdStatus.pending':'Processing',
     'wdStatus.completed':'Completed',
     'wdStatus.rejected':'Rejected',
+    'referrals.commissionLine': 'Plus: you earn {pct}% of everything your referrals earn — automatically, on every VOLT they collect.',
+    'withdraw.adsGate': 'Withdrawal condition: watch {n} ads (any company)',
+    'withdraw.adsGateError': 'Watch {n} ads before withdrawing — you have watched {x} so far.',
     'withdraw.fee': 'Withdrawal fee ({pct}%)',
     'ambassador.tab': 'Ambassadors',
     'ambassador.title': 'Ambassador Program',
@@ -3893,6 +3902,9 @@ var LANG = {
     'wdStatus.pending':'قيد المعالجة',
     'wdStatus.completed':'مكتمل',
     'wdStatus.rejected':'مرفوض',
+    'referrals.commissionLine': 'وزيادة: بتكسب عمولة {pct}% من كل أرباح إحالاتك — تلقائيًا، على كل فولت بيجمعوه.',
+    'withdraw.adsGate': 'شرط السحب: مشاهدة {n} إعلان (من أي شركة)',
+    'withdraw.adsGateError': 'لازم تشاهد {n} إعلان قبل ما تسحب — انت شاهدت {x} لحد دلوقتي.',
     'withdraw.fee': 'رسوم السحب ({pct}%)',
     'ambassador.tab': 'السفراء',
     'ambassador.title': 'برنامج السفراء',
@@ -4018,6 +4030,9 @@ var LANG = {
     'wdStatus.pending':'En traitement',
     'wdStatus.completed':'Terminé',
     'wdStatus.rejected':'Rejeté',
+    'referrals.commissionLine': 'En plus : vous gagnez {pct}% de tout ce que vos filleuls gagnent — automatiquement, sur chaque VOLT qu’ils collectent.',
+    'withdraw.adsGate': 'Condition de retrait : regardez {n} publicités (toute entreprise)',
+    'withdraw.adsGateError': 'Regardez {n} publicités avant de retirer — vous en avez regardé {x} pour le moment.',
     'withdraw.fee': 'Frais de retrait ({pct}%)',
     'ambassador.tab': 'Ambassadeurs',
     'ambassador.title': 'Programme Ambassadeur',
@@ -4115,6 +4130,9 @@ var LANG = {
     'wdStatus.pending':'В обработке',
     'wdStatus.completed':'Выполнено',
     'wdStatus.rejected':'Отклонено',
+    'referrals.commissionLine': 'Плюс: вы получаете {pct}% от всего заработка ваших рефералов — автоматически, с каждого собранного ими VOLT.',
+    'withdraw.adsGate': 'Условие вывода: посмотрите {n} реклам (любая компания)',
+    'withdraw.adsGateError': 'Посмотрите {n} реклам перед выводом — пока вы посмотрели {x}.',
     'withdraw.fee': 'Комиссия за вывод ({pct}%)',
     'ambassador.tab': 'Амбассадоры',
     'ambassador.title': 'Программа амбассадоров',
@@ -4212,6 +4230,9 @@ var LANG = {
     'wdStatus.pending':'در حال پردازش',
     'wdStatus.completed':'تکمیل شد',
     'wdStatus.rejected':'رد شد',
+    'referrals.commissionLine': 'به‌علاوه: شما {pct}% از هرچه ارجاع‌هایتان کسب می‌کنند را به‌طور خودکار از هر VOLT که جمع می‌کنند، دریافت می‌کنید.',
+    'withdraw.adsGate': 'شرط برداشت: تماشای {n} تبلیغ (از هر شرکتی)',
+    'withdraw.adsGateError': 'قبل از برداشت باید {n} تبلیغ تماشا کنید — تاکنون {x} تماشا کرده‌اید.',
     'withdraw.fee': 'کارمزد برداشت ({pct}%)',
     'ambassador.tab': 'سفیران',
     'ambassador.title': 'برنامه سفیران',
@@ -4309,6 +4330,9 @@ var LANG = {
     'wdStatus.pending':'प्रोसेसिंग',
     'wdStatus.completed':'पूर्ण',
     'wdStatus.rejected':'अस्वीकृत',
+    'referrals.commissionLine': 'साथ ही: आप अपने रेफ़रल की हर कमाई का {pct}% पाते हैं — स्वचालित रूप से, उनके हर इकट्ठा किए VOLT पर।',
+    'withdraw.adsGate': 'निकासी की शर्त: {n} विज्ञापन देखें (किसी भी कंपनी के)',
+    'withdraw.adsGateError': 'निकासी से पहले {n} विज्ञापन देखें — आप अब तक {x} देख चुके हैं।',
     'withdraw.fee': 'निकासी शुल्क ({pct}%)',
     'ambassador.tab': 'एम्बेसडर',
     'ambassador.title': 'एम्बेसडर प्रोग्राम',
@@ -5329,6 +5353,12 @@ function renderReferralRewards(d){
     var c1 = document.getElementById('rrClaimActAmt'); if (c1) c1.textContent = actAmt;
     var c2 = document.getElementById('rrStepActAmt'); if (c2) c2.textContent = actAmt;
   }
+  var commEl = document.getElementById('rrCommissionLine');
+  if (commEl){
+    var pct = rr.commissionPct;
+    if (pct != null && Number(pct) > 0){ commEl.style.display = ''; commEl.textContent = t('referrals.commissionLine').replace('{pct}', String(Math.round(Number(pct) * 100) / 100)); }
+    else commEl.style.display = 'none';
+  }
 }
 
 function collectReferralEarnings(){
@@ -5781,9 +5811,26 @@ function openWithdrawForm(){
   document.getElementById('withdrawWallet').value = (S.user && S.user.tonWallet) || '';
   document.getElementById('withdrawAmount').value = '';
   updateWithdrawalNetAmount();
+  renderWithdrawAdsGate();
   document.getElementById('withdrawAmount').oninput = updateWithdrawalNetAmount;
 }
 
+function withdrawAdsGateState(){
+  var cfg = (S.data && S.data.config) || {};
+  var need = Number(cfg.withdrawalMinAds != null ? cfg.withdrawalMinAds : 20);
+  var have = Number((S.data && S.data.totalAdsWatched) || 0);
+  return { need: need, have: have, met: !(need > 0) || have >= need };
+}
+function renderWithdrawAdsGate(){
+  var row = document.getElementById('wdAdsGateRow');
+  if (!row) return;
+  var g = withdrawAdsGateState();
+  var txt = document.getElementById('wdAdsGateText');
+  var prog = document.getElementById('wdAdsGateProgress');
+  if (txt) txt.textContent = t('withdraw.adsGate').replace('{n}', g.need);
+  if (prog) prog.textContent = g.have + ' / ' + g.need + (g.met ? ' ✓' : '');
+  row.classList.toggle('met', g.met);
+}
 function renderWithdrawBalances(){
   var el = document.getElementById('wdBalTotal');
   if (el) el.textContent = tonBuckets().total.toFixed(4) + ' TON';
@@ -5824,6 +5871,8 @@ function renderWdHistory(){
 function submitWithdrawal(){ requireGigapubAd(submitWithdrawalReal); }
 function submitWithdrawalReal(){
   if (withdrawGateLocked()){ showWithdrawGate(getWithdrawGate()); return; }
+  var adsGate = withdrawAdsGateState();
+  if (!adsGate.met){ showToast(t('withdraw.adsGateError').replace('{n}', adsGate.need).replace('{x}', adsGate.have), 'error'); return; }
   var wallet = document.getElementById('withdrawWallet').value.trim();
   var amount = parseFloat(document.getElementById('withdrawAmount').value);
   if (!wallet){ showToast(t('withdraw.enterWallet'),'error'); return; }
@@ -5839,6 +5888,7 @@ function submitWithdrawalReal(){
   api('requestWithdrawal', { walletAddress:wallet, amountTon:amount }).then(function(res){
     resetBtn();
     if (!res.success){
+      if (res.error === 'withdraw_ads_gate'){ var ag = withdrawAdsGateState(); showToast(t('withdraw.adsGateError').replace('{n}', ag.need).replace('{x}', ag.have), 'error'); return; }
       if (res.code === 'PACKAGE_REQUIRED' && res.gate){ S.data.withdrawalGate = res.gate; showWithdrawGate(res.gate); return; }
       showToast(res.error||t('withdraw.failed'),'error'); return;
     }
