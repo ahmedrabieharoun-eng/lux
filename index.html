@@ -2649,6 +2649,30 @@ canvas.game-canvas{touch-action:none}
 /* referrals: share CTA + link box match the cards */
 #page-refs .dogs-cta{background:#121215 !important;border:1px solid rgba(255,196,0,.38) !important;color:#FFDE59 !important;box-shadow:none !important}
 #page-refs .ref-link-url{background:#121215 !important;border:1px solid rgba(255,196,0,.38) !important;color:#FFE9A8 !important}
+
+/* ═══ Ambassador Program (owner order 2026-11-11) ═══ */
+.amb-tabs{display:flex;gap:6px;background:#121215;border:1px solid rgba(255,196,0,.38);border-radius:14px;padding:5px;margin:14px 0 4px}
+.amb-tab{flex:1;padding:10px 6px;border:none;border-radius:10px;background:transparent;color:#B9BDC9;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.amb-tab.active{background:linear-gradient(135deg,#FFC400,#FFDE59);color:#171205;box-shadow:0 4px 14px rgba(255,196,0,.35)}
+.amb-card{background:#121215;border:1px solid rgba(255,196,0,.38);border-radius:16px;padding:16px;margin-top:12px;text-align:start}
+.amb-card-title{font-size:15px;font-weight:800;color:#FFE9A8;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.amb-badge{font-size:18px}
+.amb-line{display:flex;gap:9px;align-items:flex-start;padding:6px 0;color:#E8EAF2;font-size:13.5px;line-height:1.5}
+.amb-check{flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:rgba(255,196,0,.14);color:#FFC400;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;margin-top:1px}
+.amb-check.ok{background:rgba(46,204,113,.18);color:#2ECC71}
+.amb-check.no{background:rgba(231,76,60,.15);color:#E74C3C}
+.amb-desc{color:#9AA0AE;font-size:12.5px;line-height:1.6;margin-bottom:12px}
+.amb-cta{display:block;width:100%;box-sizing:border-box;text-align:center;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,#FFC400,#FFDE59);color:#171205;font-family:inherit;font-size:14.5px;font-weight:800;cursor:pointer;text-decoration:none}
+.amb-cta:disabled{opacity:.45;cursor:default}
+.amb-input{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,196,0,.38);background:#0B0B0D;color:#fff;font-family:inherit;font-size:14px;margin-bottom:12px;outline:none}
+.amb-input:focus{border-color:#FFC400}
+.amb-msg{margin-top:10px;font-size:13px;line-height:1.5;min-height:18px}
+.amb-msg.ok{color:#2ECC71}.amb-msg.err{color:#E74C3C}
+.amb-req-row{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#E8EAF2;font-size:13.5px;font-weight:700;margin-bottom:8px}
+.amb-status{flex:0 0 auto;padding:4px 10px;border-radius:999px;font-size:11.5px;font-weight:800}
+.amb-status.st-pending{background:rgba(255,196,0,.16);color:#FFC400}
+.amb-status.st-approved{background:rgba(46,204,113,.18);color:#2ECC71}
+.amb-status.st-rejected{background:rgba(231,76,60,.15);color:#E74C3C}
 /* contest / ranking page */
 .ct-me{background:#121215 !important;border:1px solid rgba(255,196,0,.38) !important;border-radius:20px !important;box-shadow:none !important;color:#fff !important}
 .ct-me-name{color:#fff !important}
@@ -2984,6 +3008,11 @@ canvas.game-canvas{touch-action:none}
         <div class="page-sub" data-i18n="referrals.subtitle">Invite friends and earn rewards</div>
       </div>
 
+      <div class="amb-tabs">
+        <button class="amb-tab active"><span data-i18n="referrals.title">Referrals</span></button>
+        <button class="amb-tab" onclick="switchPage('ambassador')"><span data-i18n="ambassador.tab">Ambassadors</span></button>
+      </div>
+
       <div class="dogs-banner"><img src="assets/volt_crew.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('art-missing');this.remove()"></div>
 
       <div class="ref-link-box">
@@ -3037,6 +3066,49 @@ canvas.game-canvas{touch-action:none}
     </div>
 
   <!-- ARCADE / GAMES -->
+    <div class="page" id="page-ambassador">
+      <div class="page-header" style="text-align:center">
+        <div class="page-title" data-i18n="ambassador.title">Ambassador Program</div>
+        <div class="page-sub" data-i18n="ambassador.intro">Promote your channel as an official task in VOLT</div>
+      </div>
+
+      <div class="amb-tabs">
+        <button class="amb-tab" onclick="switchPage('refs')"><span data-i18n="referrals.title">Referrals</span></button>
+        <button class="amb-tab active"><span data-i18n="ambassador.tab">Ambassadors</span></button>
+      </div>
+
+      <div class="amb-card">
+        <div class="amb-card-title"><span class="amb-badge">👑</span><span data-i18n="ambassador.benefits">Verified Ambassador benefits</span></div>
+        <div class="amb-line"><span class="amb-check ok">✓</span><span data-i18n="ambassador.benefitTask">Your channel is added as a task in the Partner section</span></div>
+        <div class="amb-line"><span class="amb-check ok">✓</span><span data-i18n="ambassador.benefitVerify">Real verification of every join through your task</span></div>
+      </div>
+
+      <div class="amb-card">
+        <div class="amb-card-title" data-i18n="ambassador.conditions">Acceptance conditions</div>
+        <div class="amb-line"><span class="amb-check" id="ambCondSubsIcon">•</span><span id="ambCondSubs">Channel has more than 1,000 subscribers</span></div>
+        <div class="amb-line"><span class="amb-check" id="ambCondRefsIcon">•</span><span><span id="ambCondRefs">More than 25 active referrals</span> — <b id="ambActiveRefs">0</b></span></div>
+      </div>
+
+      <div class="amb-card">
+        <div class="amb-card-title" data-i18n="ambassador.step1">Step 1: Add the bot as admin in your channel</div>
+        <div class="amb-desc" data-i18n="ambassador.step1Desc">Add the official bot as an administrator in your channel. Verification runs right after you apply.</div>
+        <a class="amb-cta" href="https://t.me/Ad_VOLT_bot?startchannel&admin=manage_chat+invite_users+post_messages" target="_blank" rel="noopener"><span data-i18n="ambassador.addBot">Add the bot to my channel</span></a>
+      </div>
+
+      <div class="amb-card">
+        <div class="amb-card-title" data-i18n="ambassador.step2">Step 2: Verify and apply</div>
+        <input class="amb-input" id="ambChannelInput" type="text" placeholder="@channel or https://t.me/channel">
+        <button class="amb-cta" id="ambSubmitBtn" onclick="submitAmbassador()"><span data-i18n="ambassador.verifyBtn">Verify &amp; Apply</span></button>
+        <div class="amb-msg" id="ambMsg"></div>
+      </div>
+
+      <div class="amb-card" id="ambMyRequest" style="display:none">
+        <div class="amb-card-title" data-i18n="ambassador.yourRequest">Your request</div>
+        <div class="amb-req-row"><span id="ambReqChannel"></span><span class="amb-status" id="ambReqStatus"></span></div>
+        <div class="amb-desc" id="ambReqNote"></div>
+      </div>
+    </div>
+
     <div class="page" id="page-games">
       <div class="arc-head">
         <div class="arc-kicker">⚡ PLAY · EARN · REPEAT</div>
@@ -3693,6 +3765,35 @@ var LANG = {
     'wdStatus.pending':'Processing',
     'wdStatus.completed':'Completed',
     'wdStatus.rejected':'Rejected',
+    'ambassador.tab': 'Ambassadors',
+    'ambassador.title': 'Ambassador Program',
+    'ambassador.intro': 'Promote your channel as an official task in VOLT',
+    'ambassador.benefits': 'Verified Ambassador benefits',
+    'ambassador.benefitTask': 'Your channel is added as a task in the Partner section',
+    'ambassador.benefitVerify': 'Real verification of every join through your task',
+    'ambassador.conditions': 'Acceptance conditions',
+    'ambassador.condSubs': 'Channel has more than {n} subscribers',
+    'ambassador.condRefs': 'You have more than {n} active referrals',
+    'ambassador.step1': 'Step 1: Add the bot as admin in your channel',
+    'ambassador.step1Desc': 'Add the official bot as an administrator in your channel. Verification runs right after you apply.',
+    'ambassador.addBot': 'Add the bot to my channel',
+    'ambassador.step2': 'Step 2: Verify and apply',
+    'ambassador.verifyBtn': 'Verify & Apply',
+    'ambassador.sent': 'Your request was sent! It will be reviewed by the admin and the result will appear here and in the bot.',
+    'ambassador.yourRequest': 'Your request',
+    'ambassador.statusPending': 'Under review',
+    'ambassador.statusApproved': 'Approved',
+    'ambassador.statusRejected': 'Rejected',
+    'ambassador.pendingNote': 'Your request is being reviewed by the admin now.',
+    'ambassador.approvedNote': 'Your channel is now a live task in the Partner section — good luck!',
+    'ambassador.rejectedNote': 'You can apply again once your channel and referrals grow.',
+    'ambassador.errRefs': 'You have not reached the required number of active referrals yet.',
+    'ambassador.errSubs': 'Your channel has not reached the required number of subscribers yet.',
+    'ambassador.errAdmin': 'The bot is not an admin in this channel — add it as an administrator first, then try again.',
+    'ambassador.errInvalid': 'Enter a valid public channel link (e.g. https://t.me/channel).',
+    'ambassador.errExists': 'You already have an open ambassador request.',
+    'ambassador.errTaken': 'This channel is already registered in the program.',
+    'ambassador.errGeneric': 'Something went wrong — please try again in a bit.',
     'convert.formTitle':'Convert VOLT to TON'
   },
   ar: {
@@ -3788,6 +3889,35 @@ var LANG = {
     'wdStatus.pending':'قيد المعالجة',
     'wdStatus.completed':'مكتمل',
     'wdStatus.rejected':'مرفوض',
+    'ambassador.tab': 'السفراء',
+    'ambassador.title': 'برنامج السفراء',
+    'ambassador.intro': 'روّج لقناتك كمهمة رسمية داخل VOLT',
+    'ambassador.benefits': 'مزايا السفير الموثّق',
+    'ambassador.benefitTask': 'قناتك بتتضاف كمهمة في قسم الشركاء في صفحة المهام',
+    'ambassador.benefitVerify': 'تحقق حقيقي من كل انضمام بيتم من خلال مهمة قناتك',
+    'ambassador.conditions': 'شروط القبول',
+    'ambassador.condSubs': 'القناة عدّت {n} مشترك',
+    'ambassador.condRefs': 'عندك أكتر من {n} إحالة نشطة',
+    'ambassador.step1': 'الخطوة 1: ضيف البوت مشرف في قناتك',
+    'ambassador.step1Desc': 'ضيف البوت الرسمي كمسؤول (مشرف) في قناتك. التحقق بيتم فورًا لما تقدّم الطلب.',
+    'ambassador.addBot': 'إضافة البوت إلى قناتي',
+    'ambassador.step2': 'الخطوة 2: التحقق وتقديم الطلب',
+    'ambassador.verifyBtn': 'تحقق وتقديم الطلب',
+    'ambassador.sent': 'تم إرسال طلبك! هيتراجع من الإدارة والنتيجة هتظهر هنا وفي البوت.',
+    'ambassador.yourRequest': 'طلبك',
+    'ambassador.statusPending': 'قيد المراجعة',
+    'ambassador.statusApproved': 'مقبول',
+    'ambassador.statusRejected': 'مرفوض',
+    'ambassador.pendingNote': 'طلبك بيتراجع دلوقتي من الإدارة.',
+    'ambassador.approvedNote': 'قناتك بقت مهمة شغالة في قسم الشركاء — بالتوفيق!',
+    'ambassador.rejectedNote': 'ممكن تقدّم تاني لما قناتك وإحالاتك تكبر.',
+    'ambassador.errRefs': 'لسه موصلتش لعدد الإحالات النشطة المطلوب.',
+    'ambassador.errSubs': 'قناتك لسه موصلتش لعدد المشتركين المطلوب.',
+    'ambassador.errAdmin': 'البوت مش مشرف في القناة دي — ضيفه كمسؤول الأول وبعدين حاول تاني.',
+    'ambassador.errInvalid': 'حط رابط قناة عام صحيح (زي https://t.me/channel).',
+    'ambassador.errExists': 'عندك طلب سفير مفتوح بالفعل.',
+    'ambassador.errTaken': 'القناة دي متسجلة في البرنامج بالفعل.',
+    'ambassador.errGeneric': 'حصلت مشكلة — حاول تاني بعد شوية.',
     'convert.formTitle':'تحويل VOLT إلى TON'
   },
   fr: {
@@ -3883,6 +4013,35 @@ var LANG = {
     'wdStatus.pending':'En traitement',
     'wdStatus.completed':'Terminé',
     'wdStatus.rejected':'Rejeté',
+    'ambassador.tab': 'Ambassadeurs',
+    'ambassador.title': 'Programme Ambassadeur',
+    'ambassador.intro': 'Promouvez votre chaîne comme tâche officielle dans VOLT',
+    'ambassador.benefits': 'Avantages Ambassadeur vérifié',
+    'ambassador.benefitTask': 'Votre chaîne est ajoutée comme tâche dans la section Partenaires',
+    'ambassador.benefitVerify': 'Vérification réelle de chaque adhésion via votre tâche',
+    'ambassador.conditions': 'Conditions d’acceptation',
+    'ambassador.condSubs': 'La chaîne compte plus de {n} abonnés',
+    'ambassador.condRefs': 'Vous avez plus de {n} filleuls actifs',
+    'ambassador.step1': 'Étape 1 : Ajoutez le bot comme admin de votre chaîne',
+    'ambassador.step1Desc': 'Ajoutez le bot officiel comme administrateur de votre chaîne. La vérification a lieu juste après votre demande.',
+    'ambassador.addBot': 'Ajouter le bot à ma chaîne',
+    'ambassador.step2': 'Étape 2 : Vérifier et postuler',
+    'ambassador.verifyBtn': 'Vérifier et postuler',
+    'ambassador.sent': 'Votre demande a été envoyée ! Elle sera examinée par l’admin et le résultat apparaîtra ici et dans le bot.',
+    'ambassador.yourRequest': 'Votre demande',
+    'ambassador.statusPending': 'En cours d’examen',
+    'ambassador.statusApproved': 'Approuvée',
+    'ambassador.statusRejected': 'Rejetée',
+    'ambassador.pendingNote': 'Votre demande est en cours d’examen par l’admin.',
+    'ambassador.approvedNote': 'Votre chaîne est maintenant une tâche active dans la section Partenaires — bonne chance !',
+    'ambassador.rejectedNote': 'Vous pourrez postuler à nouveau quand votre chaîne et vos filleuls auront grandi.',
+    'ambassador.errRefs': 'Vous n’avez pas encore atteint le nombre de filleuls actifs requis.',
+    'ambassador.errSubs': 'Votre chaîne n’a pas encore atteint le nombre d’abonnés requis.',
+    'ambassador.errAdmin': 'Le bot n’est pas admin de cette chaîne — ajoutez-le d’abord comme administrateur, puis réessayez.',
+    'ambassador.errInvalid': 'Saisissez un lien de chaîne publique valide (ex. https://t.me/channel).',
+    'ambassador.errExists': 'Vous avez déjà une demande ambassadeur ouverte.',
+    'ambassador.errTaken': 'Cette chaîne est déjà inscrite au programme.',
+    'ambassador.errGeneric': 'Un problème est survenu — réessayez dans un instant.',
     'convert.formTitle':'Convertir VOLT en TON'
   },
   ru: {
@@ -3950,6 +4109,35 @@ var LANG = {
     'wdStatus.pending':'В обработке',
     'wdStatus.completed':'Выполнено',
     'wdStatus.rejected':'Отклонено',
+    'ambassador.tab': 'Амбассадоры',
+    'ambassador.title': 'Программа амбассадоров',
+    'ambassador.intro': 'Продвигайте свой канал как официальное задание в VOLT',
+    'ambassador.benefits': 'Преимущества верифицированного амбассадора',
+    'ambassador.benefitTask': 'Ваш канал добавляется как задание в разделе «Партнёры»',
+    'ambassador.benefitVerify': 'Реальная проверка каждого вступления через ваше задание',
+    'ambassador.conditions': 'Условия приёма',
+    'ambassador.condSubs': 'В канале больше {n} подписчиков',
+    'ambassador.condRefs': 'У вас больше {n} активных рефералов',
+    'ambassador.step1': 'Шаг 1: Добавьте бота админом в свой канал',
+    'ambassador.step1Desc': 'Добавьте официального бота администратором в свой канал. Проверка выполняется сразу после подачи заявки.',
+    'ambassador.addBot': 'Добавить бота в мой канал',
+    'ambassador.step2': 'Шаг 2: Проверка и подача заявки',
+    'ambassador.verifyBtn': 'Проверить и подать',
+    'ambassador.sent': 'Ваша заявка отправлена! Её рассмотрит администратор, результат появится здесь и в боте.',
+    'ambassador.yourRequest': 'Ваша заявка',
+    'ambassador.statusPending': 'На рассмотрении',
+    'ambassador.statusApproved': 'Одобрено',
+    'ambassador.statusRejected': 'Отклонено',
+    'ambassador.pendingNote': 'Ваша заявка сейчас рассматривается администратором.',
+    'ambassador.approvedNote': 'Ваш канал теперь — активное задание в разделе «Партнёры». Удачи!',
+    'ambassador.rejectedNote': 'Вы сможете подать заявку снова, когда канал и рефералы вырастут.',
+    'ambassador.errRefs': 'Вы ещё не набрали нужное число активных рефералов.',
+    'ambassador.errSubs': 'Ваш канал ещё не набрал нужное число подписчиков.',
+    'ambassador.errAdmin': 'Бот не является админом этого канала — сначала добавьте его администратором и попробуйте снова.',
+    'ambassador.errInvalid': 'Укажите корректную ссылку на публичный канал (например, https://t.me/channel).',
+    'ambassador.errExists': 'У вас уже есть открытая заявка амбассадора.',
+    'ambassador.errTaken': 'Этот канал уже зарегистрирован в программе.',
+    'ambassador.errGeneric': 'Что-то пошло не так — попробуйте чуть позже.',
     'convert.formTitle':'Конвертировать VOLT в TON'
   },
   fa: {
@@ -4017,6 +4205,35 @@ var LANG = {
     'wdStatus.pending':'در حال پردازش',
     'wdStatus.completed':'تکمیل شد',
     'wdStatus.rejected':'رد شد',
+    'ambassador.tab': 'سفیران',
+    'ambassador.title': 'برنامه سفیران',
+    'ambassador.intro': 'کانال خود را به‌عنوان یک مأموریت رسمی در VOLT تبلیغ کنید',
+    'ambassador.benefits': 'مزایای سفیر تأییدشده',
+    'ambassador.benefitTask': 'کانال شما به‌عنوان مأموریت در بخش شرکا اضافه می‌شود',
+    'ambassador.benefitVerify': 'تأیید واقعی هر عضویت از طریق مأموریت کانال شما',
+    'ambassador.conditions': 'شرایط پذیرش',
+    'ambassador.condSubs': 'کانال بیش از {n} مشترک دارد',
+    'ambassador.condRefs': 'شما بیش از {n} ارجاع فعال دارید',
+    'ambassador.step1': 'گام ۱: ربات را در کانال خود مدیر کنید',
+    'ambassador.step1Desc': 'ربات رسمی را به‌عنوان مدیر به کانال خود اضافه کنید. بررسی بلافاصله پس از ثبت درخواست انجام می‌شود.',
+    'ambassador.addBot': 'افزودن ربات به کانال من',
+    'ambassador.step2': 'گام ۲: بررسی و ثبت درخواست',
+    'ambassador.verifyBtn': 'بررسی و ثبت درخواست',
+    'ambassador.sent': 'درخواست شما ارسال شد! توسط مدیر بررسی می‌شود و نتیجه اینجا و در ربات نمایش داده می‌شود.',
+    'ambassador.yourRequest': 'درخواست شما',
+    'ambassador.statusPending': 'در حال بررسی',
+    'ambassador.statusApproved': 'تأیید شد',
+    'ambassador.statusRejected': 'رد شد',
+    'ambassador.pendingNote': 'درخواست شما اکنون توسط مدیر در حال بررسی است.',
+    'ambassador.approvedNote': 'کانال شما اکنون یک مأموریت فعال در بخش شرکا است — موفق باشید!',
+    'ambassador.rejectedNote': 'وقتی کانال و ارجاع‌هایتان رشد کرد، می‌توانید دوباره درخواست دهید.',
+    'ambassador.errRefs': 'هنوز به تعداد ارجاع فعال موردنیاز نرسیده‌اید.',
+    'ambassador.errSubs': 'کانال شما هنوز به تعداد مشترک موردنیاز نرسیده است.',
+    'ambassador.errAdmin': 'ربات در این کانال مدیر نیست — ابتدا آن را مدیر کنید و دوباره تلاش کنید.',
+    'ambassador.errInvalid': 'یک پیوند کانال عمومی معتبر وارد کنید (مثل https://t.me/channel).',
+    'ambassador.errExists': 'شما از قبل یک درخواست سفیر باز دارید.',
+    'ambassador.errTaken': 'این کانال از قبل در برنامه ثبت شده است.',
+    'ambassador.errGeneric': 'مشکلی پیش آمد — کمی بعد دوباره تلاش کنید.',
     'convert.formTitle':'تبدیل VOLT به TON'
   },
   hi: {
@@ -4084,6 +4301,35 @@ var LANG = {
     'wdStatus.pending':'प्रोसेसिंग',
     'wdStatus.completed':'पूर्ण',
     'wdStatus.rejected':'अस्वीकृत',
+    'ambassador.tab': 'एम्बेसडर',
+    'ambassador.title': 'एम्बेसडर प्रोग्राम',
+    'ambassador.intro': 'अपने चैनल को VOLT में आधिकारिक टास्क के रूप में प्रमोट करें',
+    'ambassador.benefits': 'सत्यापित एम्बेसडर के लाभ',
+    'ambassador.benefitTask': 'आपका चैनल पार्टनर सेक्शन में टास्क के रूप में जुड़ जाता है',
+    'ambassador.benefitVerify': 'आपके टास्क से होने वाले हर जॉइन की असली जाँच',
+    'ambassador.conditions': 'स्वीकृति की शर्तें',
+    'ambassador.condSubs': 'चैनल के {n} से अधिक सब्सक्राइबर हैं',
+    'ambassador.condRefs': 'आपके पास {n} से अधिक सक्रिय रेफ़रल हैं',
+    'ambassador.step1': 'चरण 1: बॉट को अपने चैनल में एडमिन बनाएं',
+    'ambassador.step1Desc': 'आधिकारिक बॉट को अपने चैनल में एडमिनिस्ट्रेटर के रूप में जोड़ें। आप आवेदन करते ही जाँच हो जाती है।',
+    'ambassador.addBot': 'बॉट को मेरे चैनल में जोड़ें',
+    'ambassador.step2': 'चरण 2: जाँचें और आवेदन करें',
+    'ambassador.verifyBtn': 'जाँचें और आवेदन करें',
+    'ambassador.sent': 'आपका आवेदन भेज दिया गया! एडमिन इसकी समीक्षा करेगा और परिणाम यहाँ और बॉट में दिखेगा।',
+    'ambassador.yourRequest': 'आपका आवेदन',
+    'ambassador.statusPending': 'समीक्षाधीन',
+    'ambassador.statusApproved': 'स्वीकृत',
+    'ambassador.statusRejected': 'अस्वीकृत',
+    'ambassador.pendingNote': 'एडमिन अभी आपके आवेदन की समीक्षा कर रहा है।',
+    'ambassador.approvedNote': 'आपका चैनल अब पार्टनर सेक्शन में लाइव टास्क है — शुभकामनाएँ!',
+    'ambassador.rejectedNote': 'जब आपका चैनल और रेफ़रल बढ़ जाएँ, तो फिर से आवेदन कर सकते हैं।',
+    'ambassador.errRefs': 'आप अभी आवश्यक सक्रिय रेफ़रल संख्या तक नहीं पहुँचे हैं।',
+    'ambassador.errSubs': 'आपका चैनल अभी आवश्यक सब्सक्राइबर संख्या तक नहीं पहुँचा है।',
+    'ambassador.errAdmin': 'बॉट इस चैनल का एडमिन नहीं है — पहले उसे एडमिनिस्ट्रेटर जोड़ें, फिर फिर कोशिश करें।',
+    'ambassador.errInvalid': 'एक मान्य सार्वजनिक चैनल लिंक डालें (जैसे https://t.me/channel)।',
+    'ambassador.errExists': 'आपके पास पहले से एक खुला एम्बेसडर आवेदन है।',
+    'ambassador.errTaken': 'यह चैनल पहले से प्रोग्राम में पंजीकृत है।',
+    'ambassador.errGeneric': 'कुछ गलत हो गया — थोड़ी देर बाद फिर कोशिश करें।',
     'convert.formTitle':'VOLT को TON में बदलें'
   }
 };
@@ -4953,6 +5199,7 @@ function render(){
   document.getElementById('refLinkUrl').textContent = buildRefLink(u.referralCode);
   renderReferralRewards(d);
   renderRefs(S.refPage || 0);
+  renderAmbassador();
   /* v6.2: Invite Tasks section removed from the Referrals page — getState may still return inviteTasks; the page no longer renders them. */
   // Wallet (Balance & History)
    updateWalletTonBalance();
@@ -5096,6 +5343,52 @@ function collectReferralEarnings(){
   });
 }
 
+function renderAmbassador(){
+  var amb = (S.data && S.data.ambassador) || {};
+  var stats = (S.data && S.data.referralStats) || { active: 0 };
+  var minSubs = amb.minSubs != null ? amb.minSubs : 1000;
+  var minRefs = amb.minActiveRefs != null ? amb.minActiveRefs : 25;
+  var cs = document.getElementById('ambCondSubs');
+  if (cs) cs.textContent = t('ambassador.condSubs').replace('{n}', Number(minSubs).toLocaleString('en-US'));
+  var cr = document.getElementById('ambCondRefs');
+  if (cr) cr.textContent = t('ambassador.condRefs').replace('{n}', minRefs);
+  var ar = document.getElementById('ambActiveRefs');
+  if (ar) ar.textContent = stats.active || 0;
+  var ri = document.getElementById('ambCondRefsIcon');
+  if (ri) { var okR = (stats.active || 0) > minRefs; ri.textContent = okR ? '✓' : '✕'; ri.className = 'amb-check ' + (okR ? 'ok' : 'no'); }
+  var req = amb.request;
+  var card = document.getElementById('ambMyRequest');
+  if (!card) return;
+  if (!req) { card.style.display = 'none'; return; }
+  card.style.display = '';
+  document.getElementById('ambReqChannel').textContent = (req.channelTitle || req.channelUsername || '') + ' — ' + (req.channelLink || '');
+  var st = document.getElementById('ambReqStatus');
+  st.textContent = t(req.status === 'approved' ? 'ambassador.statusApproved' : (req.status === 'rejected' ? 'ambassador.statusRejected' : 'ambassador.statusPending'));
+  st.className = 'amb-status st-' + req.status;
+  document.getElementById('ambReqNote').textContent = req.status === 'approved' ? t('ambassador.approvedNote') : (req.status === 'rejected' ? t('ambassador.rejectedNote') : t('ambassador.pendingNote'));
+  if (req.status === 'pending' || req.status === 'approved') { var sb = document.getElementById('ambSubmitBtn'); if (sb) sb.disabled = true; }
+}
+async function submitAmbassador(){
+  var input = document.getElementById('ambChannelInput');
+  var msg = document.getElementById('ambMsg');
+  var btn = document.getElementById('ambSubmitBtn');
+  var channel = ((input && input.value) || '').trim();
+  if (!channel) { msg.textContent = t('ambassador.errInvalid'); msg.className = 'amb-msg err'; return; }
+  btn.disabled = true; msg.textContent = ''; msg.className = 'amb-msg';
+  try {
+    var res = await api('applyAmbassador', { channel: channel });
+    if (res && res.success) {
+      msg.textContent = t('ambassador.sent'); msg.className = 'amb-msg ok';
+      loadState();
+      setTimeout(renderAmbassador, 1500);
+    } else {
+      var code = (res && res.error) || '';
+      var key = { ambassador_refs_low: 'ambassador.errRefs', ambassador_subs_low: 'ambassador.errSubs', ambassador_bot_not_admin: 'ambassador.errAdmin', ambassador_invalid_channel: 'ambassador.errInvalid', ambassador_exists: 'ambassador.errExists', ambassador_channel_taken: 'ambassador.errTaken' }[code] || 'ambassador.errGeneric';
+      msg.textContent = t(key); msg.className = 'amb-msg err';
+    }
+  } catch (e) { msg.textContent = t('ambassador.errGeneric'); msg.className = 'amb-msg err'; }
+  btn.disabled = false;
+}
 function renderRefs(page){
   var el = document.getElementById('refList');
   if (!el) return;
@@ -6535,6 +6828,7 @@ function switchPage(name){
     }, 0);
   }
   if (name === 'games') renderArcade();
+  if (name === 'ambassador') renderAmbassador();
   if (name === 'record') loadRecordPage();
   if (name === 'profile') renderProfile();
     if (name === 'wallet') updateProfileWalletStatus(tonConnectUI ? (tonConnectUI.wallet || tonConnectUI.account || null) : null);
