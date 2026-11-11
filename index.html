@@ -587,7 +587,7 @@ html,body{height:100%;
 .forcesub-item-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(11, 26, 59, .65);border:1px solid rgba(255, 196, 0, .3)}
 .forcesub-item-icon .ic{width:36px;height:36px}
 .forcesub-item-title{flex:1;min-width:0;font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.forcesub-item-btn{padding:8px 18px;border-radius:20px;background:linear-gradient(135deg,var(--orange),var(--orange2));border:none;font-size:13px;font-weight:700;color:#FFFFFF;cursor:pointer;flex-shrink:0;transition:transform .15s}
+.forcesub-item-btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:8px 18px;border-radius:20px;background:linear-gradient(135deg,var(--orange),var(--orange2));border:none;font-size:13px;font-weight:700;color:#FFFFFF;cursor:pointer;flex-shrink:0;transition:transform .15s}
 .forcesub-item-btn:active{transform:scale(.94)}
 .forcesub-verify-btn{position:relative;width:100%;padding:15px;border-radius:16px;background:linear-gradient(135deg,var(--orange),var(--orange2));border:none;font-size:15px;font-weight:800;color:#FFFFFF;cursor:pointer;box-shadow:0 6px 18px rgba(255, 196, 0, .25);transition:transform .15s,opacity .15s}
 .forcesub-verify-btn:active{transform:scale(.97)}
@@ -1400,7 +1400,8 @@ html,body{
 .wheel-page-header,.wheel-title{color:var(--text) !important}
 
 /* ── Screens (force-sub / ban) ── */
-.forcesub-screen,.ban-screen{background:rgba(237, 240, 247, .92) !important}
+.ban-screen{background:rgba(237, 240, 247, .92) !important}
+.forcesub-screen{background:#070708 !important}
 .forcesub-title,.ban-title{color:var(--text) !important}
 .forcesub-desc,.ban-desc{color:var(--text2) !important}
 
@@ -4452,19 +4453,30 @@ function renderForceSub(fs){
     return '<div class="forcesub-item">'+
       '<div class="forcesub-item-icon">'+IC.channels+'</div>'+
       '<div class="forcesub-item-title">'+esc(c.title)+'</div>'+
-      '<button class="forcesub-item-btn" onclick="openForceSubChannel('+i+')">Join</button>'+
+      '<a class="forcesub-item-btn" href="'+esc(forceSubUrl(c))+'" target="_blank" rel="noopener" onclick="return openForceSubChannel('+i+')">Join</a>'+
     '</div>';
   }).join('');
 }
 
+function forceSubUrl(c){
+  var raw = (c && (c.link || c.url || c.username)) || '';
+  raw = String(raw).trim();
+  if (!raw) return '';
+  if (/^https?:\/\//i.test(raw)) return raw;
+  if (raw.charAt(0) === '@') return 'https://t.me/' + raw.slice(1);
+  if (/^t\.me\//i.test(raw)) return 'https://' + raw;
+  return 'https://t.me/' + raw.replace(/^\/+/, '');
+}
+
 function openForceSubChannel(i){
   var fs = S.data && S.data.forceSub;
-  if (!fs || !fs.channels || !fs.channels[i]) return;
-  var link = fs.channels[i].link;
+  if (!fs || !fs.channels || !fs.channels[i]) return true;
+  var url = forceSubUrl(fs.channels[i]);
+  if (!url) return true;
   if (window.Telegram && Telegram.WebApp && Telegram.WebApp.openTelegramLink){
-    try { Telegram.WebApp.openTelegramLink(link); return; } catch(_){}
+    try { Telegram.WebApp.openTelegramLink(url); return false; } catch(_){}
   }
-  window.open(link, '_blank');
+  return true; /* fall through to the anchor's own href navigation */
 }
 
 function verifyForceSub(){
