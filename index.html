@@ -6226,9 +6226,9 @@ function renderTasks(tab){
      var watchedTotal = getAdNumber(stats.adsWatchedToday, 0);
      var adsByCompany = stats.adsWatchedByCompany || {};
     document.getElementById('tasksContent').innerHTML =
-       adTask(IC.adsgram,'Adsgram','+'+fmtShiba(adsgramCfg.reward)+' VOLT','Watch', 'watchAdsgram()', false, Number(adsByCompany.adsgram||0), adsgramCfg.dailyLimit)+
-       adTask(IC.gigapub,'GigaPub','+'+fmtShiba(gigapubCfg.reward)+' VOLT','Watch', 'watchGigapub()', false, Number(adsByCompany.gigapub||0), gigapubCfg.dailyLimit)+
-       adTask(IC.monetag,'Adloop','+'+fmtShiba(adloopCfg.reward)+' VOLT','Watch', 'watchAdloop()', false, Number(adsByCompany.adloop||0), adloopCfg.dailyLimit);
+       adTask(IC.adsgram,'Adsgram','+'+fmtShiba(adsgramCfg.reward)+' VOLT','Watch', 'watchAdsgram()', adsgramCfg.dailyLimit <= 0, Number(adsByCompany.adsgram||0), adsgramCfg.dailyLimit)+
+       adTask(IC.gigapub,'GigaPub','+'+fmtShiba(gigapubCfg.reward)+' VOLT','Watch', 'watchGigapub()', gigapubCfg.dailyLimit <= 0, Number(adsByCompany.gigapub||0), gigapubCfg.dailyLimit)+
+       adTask(IC.monetag,'Adloop','+'+fmtShiba(adloopCfg.reward)+' VOLT','Watch', 'watchAdloop()', adloopCfg.dailyLimit <= 0, Number(adsByCompany.adloop||0), adloopCfg.dailyLimit);
     return;
   }
 
