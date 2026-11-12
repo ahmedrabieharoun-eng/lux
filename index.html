@@ -4823,8 +4823,12 @@ function runAdPulseChain(sid){
     finish: function(){
       stopped = true;
       if (timer){ clearTimeout(timer); timer = null; }
-      // Wait for a pulse that's already in flight so we don't hand back a
-      // chk list that's shorter than what the server actually recorded.
+      // The server accepts any ordered prefix of the pulses it recorded
+      // (minimum 1), so once at least one pulse is in hand there is no
+      // reason to wait for a pulse still in flight — that wait was pure
+      // latency between the ad closing and the reward claim. Only when
+      // nothing has been collected yet do we wait for the in-flight call.
+      if (collected.length) return Promise.resolve(collected.slice());
       return Promise.resolve(currentStep).then(function(){
         return collected.length ? collected.slice() : null;
       });
@@ -6536,52 +6540,53 @@ function showAdloopAd(cb){
 }
 
 // ── Adloop (rewarded format) ────────────────────────────────────────
+// Waits (with the button already in its busy state) for Adloop's SDK to
+// finish loading instead of bouncing the tap with a "loading" toast —
+// their script comes from a small network and can lag seconds behind
+// the rest of the app.
+function waitForAdloopSdk(timeoutMs){
+  return new Promise(function(resolve){
+    var startedAt = Date.now();
+    (function poll(){
+      if (typeof window.Adloop !== 'undefined' && typeof window.Adloop.init === 'function'){ resolve(true); return; }
+      if (Date.now() - startedAt >= timeoutMs){ resolve(false); return; }
+      setTimeout(poll, 200);
+    })();
+  });
+}
+
 function watchAdloop(){
   if (!adsReady('adloop')){ showAdsPendingNotice(); return; }
   ensureAdsSdk('adloop');
   if (adloopWatchBusy || Date.now() < adloopCooldownUntil) return;
-  if (typeof window.Adloop === 'undefined' || typeof window.Adloop.init !== 'function'){ showToast(t('ads.loading'),'error'); return; }
   adloopWatchBusy = true;
   renderTasks('ads');
   startAdloopButtonTimer();
-  // Single-use ad ticket — see the comment in watchAdsgram() above.
-  api('checkSession', {company:'adloop'}).then(function(ticketRes){
-    if (!ticketRes || !ticketRes.success){
-      adloopWatchBusy = false;
-      stopAdloopButtonTimer();
-      renderTasks('ads');
-      showToast((ticketRes && ticketRes.error) || t('ads.rewardUnavailable'),'error');
-      return;
+
+  function resetBtn(){
+    adloopWatchBusy = false;
+    stopAdloopButtonTimer();
+    renderTasks('ads');
+  }
+  function failWith(msg){ resetBtn(); showToast(msg, 'error'); }
+  // showAdloopAd() resolves with { status: 'completed' } when Adloop's
+  // ad.show() promise resolves { done: true } (ad fully watched), or
+  // { status: 'skipped' } when it rejects (no ad available / failed) —
+  // only the former should ever grant a reward.
+  function failAd(res){
+    resetBtn();
+    if (res && (res.reason === 'too_early' || res.reason === 'not_done')){
+      showToast(t('ads.watchFull15'), 'error');
+    } else {
+      showToast(t('ads.notCompleted') + (res && res.reason ? ' (' + res.reason + ')' : ''), 'error');
     }
-    var adTicket = ticketRes.data.sid;
-    var pulseChain = runAdPulseChain(adTicket);
-    showAdloopAd(function(res){
-      // showAdloopAd() resolves with { status: 'completed' } when Adloop's
-      // ad.show() promise resolves (ad was shown), or { status: 'skipped' }
-      // when it rejects (no ad available / failed) — only the former
-      // should ever grant a reward.
-      if (!res || res.status !== 'completed'){
-        adloopWatchBusy = false;
-        stopAdloopButtonTimer();
-        renderTasks('ads');
-        if (res && (res.reason === 'too_early' || res.reason === 'not_done')){
-          showToast(t('ads.watchFull15'),'error');
-        } else {
-          showToast(t('ads.notCompleted') + (res && res.reason ? ' (' + res.reason + ')' : ''),'error');
-        }
-        return;
-      }
-      pulseChain.finish().then(function(chk){
+  }
+  function doClaim(adTicket, pulseChain){
+    pulseChain.finish().then(function(chk){
       var claimPayload = {company:'adloop', sid:adTicket, ct: Date.now()};
       if (chk) claimPayload.chk = chk;
       apiCaptcha('syncBalance', claimPayload).then(function(result){
-        if (!result.success){
-          adloopWatchBusy = false;
-          stopAdloopButtonTimer();
-          renderTasks('ads');
-          showToast(result.error||t('ads.rewardUnavailable'),'error');
-          return;
-        }
+        if (!result.success){ failWith(result.error || t('ads.rewardUnavailable')); return; }
         S.user.balance = result.data.shibaBalance;
         updateVoltTonValueDisplays();
         applyAdRewardState(result.data);
@@ -6590,20 +6595,58 @@ function watchAdloop(){
         adloopCooldownUntil = Date.now() + 15000;
         startAdloopButtonTimer();
         renderTasks('ads');
-        showToast(t('common.voltAdded').replace('{n}', fmtShiba(result.data.shibaAdded)),null,true);
-      }).catch(function(){
-        adloopWatchBusy = false;
-        stopAdloopButtonTimer();
-        renderTasks('ads');
-        showToast(t('common.networkError'),'error');
-      });
-      });
+        showToast(t('common.voltAdded').replace('{n}', fmtShiba(result.data.shibaAdded)), null, true);
+      }).catch(function(){ failWith(t('common.networkError')); });
     });
-  }).catch(function(){
-    adloopWatchBusy = false;
-    stopAdloopButtonTimer();
-    renderTasks('ads');
-    showToast(t('common.networkError'),'error');
+  }
+
+  waitForAdloopSdk(12000).then(function(ready){
+    if (!ready){ failWith(t('ads.loading')); return; }
+    // FAST PATH: when the locally-known counters say the user is below
+    // every limit, the single-use ticket is all but guaranteed — fire it
+    // IN PARALLEL with the ad load so Adloop's slow /ad-serve wait
+    // overlaps our ticket round-trip instead of queueing behind it.
+    // Near a limit we keep the serial order (ticket first), so a server
+    // rejection still lands before any ad is shown and never wastes a
+    // view. The server re-checks everything at claim time either way.
+    var stats = (S.data && S.data.stats) || {};
+    var comp = (stats.adCompanies || {}).adloop || {};
+    var lim = Number(comp.dailyLimit);
+    var watchedC = Number((stats.adsWatchedByCompany || {}).adloop || 0);
+    var totalLim = Number(stats.adDailyTotalLimit);
+    var watchedT = Number(stats.adsWatchedToday || 0);
+    var underLimits = isFinite(lim) && lim > 0 && watchedC < lim &&
+      (!isFinite(totalLim) || totalLim <= 0 || watchedT < totalLim);
+
+    if (underLimits){
+      var ticketPromise = api('checkSession', {company:'adloop'});
+      var pulseChainP = ticketPromise.then(function(tr){
+        return (tr && tr.success && tr.data && tr.data.sid) ? runAdPulseChain(tr.data.sid) : null;
+      }, function(){ return null; });
+      var adPromise = new Promise(function(res){ showAdloopAd(res); });
+      Promise.all([ticketPromise, pulseChainP, adPromise]).then(function(vals){
+        var ticketRes = vals[0], pulseChain = vals[1], res = vals[2];
+        if (!ticketRes || !ticketRes.success || !pulseChain){
+          failWith((ticketRes && ticketRes.error) || t('ads.rewardUnavailable'));
+          return;
+        }
+        if (!res || res.status !== 'completed'){ failAd(res); return; }
+        doClaim(ticketRes.data.sid, pulseChain);
+      }).catch(function(){ failWith(t('common.networkError')); });
+      return;
+    }
+    // SERIAL PATH: ticket first, then the ad (original order).
+    api('checkSession', {company:'adloop'}).then(function(ticketRes){
+      if (!ticketRes || !ticketRes.success){
+        failWith((ticketRes && ticketRes.error) || t('ads.rewardUnavailable'));
+        return;
+      }
+      var pulseChain = runAdPulseChain(ticketRes.data.sid);
+      showAdloopAd(function(res){
+        if (!res || res.status !== 'completed'){ failAd(res); return; }
+        doClaim(ticketRes.data.sid, pulseChain);
+      });
+    }).catch(function(){ failWith(t('common.networkError')); });
   });
 }
 
