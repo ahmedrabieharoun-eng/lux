@@ -1476,7 +1476,7 @@ function renderTasks(){
     return `
     <div class="mini-card">
       <h4><span>${escapeHtml(t.title||id)}</span>${t.status==='active'?'<span class="badge b-green">مفعّلة</span>':'<span class="badge b-gray">موقوفة</span>'}</h4>
-      <div class="mini-row"><span>التصنيف</span><b>${escapeHtml(t.category||'—')}</b></div>
+      <div class="mini-row"><span>التصنيف</span><b>${escapeHtml(({channels:'قنوات · TASKS',bots:'بوتات · TASKS',invite:'دعوة · TASKS',partner:'شركاء · Partner'})[t.category]||t.category||'—')}</b></div>
       <div class="mini-row"><span>المكافأة</span><b>${fmt(t.reward)} VOLT</b></div>
       ${t.requiredReferrals?`<div class="mini-row"><span>إحالات مطلوبة</span><b>${fmt(t.requiredReferrals)}</b></div>`:''}
       ${target?`<div class="mini-row"><span>الهدف (عدد الأعضاء)</span><b>${fmt(target)}</b></div>
@@ -1499,7 +1499,13 @@ function openTaskModal(id){
   document.getElementById('modalBody').innerHTML = `
     <div class="field"><label>عنوان المهمة</label><input type="text" class="sans" id="t_title" value="${escapeHtml(t.title||'')}"></div>
     <div class="field"><label>الرابط</label><input type="text" class="sans" id="t_link" value="${escapeHtml(t.link||'')}"></div>
-    <div class="field"><label>التصنيف</label>
+    <div class="field"><label>القسم</label>
+      <select id="t_section">
+        <option value="tasks" ${t.category!=='partner'?'selected':''}>مهام TASKS</option>
+        <option value="partner" ${t.category==='partner'?'selected':''}>مهام الشركاء Partner</option>
+      </select>
+    </div>
+    <div class="field" id="t_categoryWrap" style="display:${t.category==='partner'?'none':'flex'}"><label>التصنيف</label>
       <select id="t_category">
         <option value="channels" ${t.category==='channels'?'selected':''}>قنوات</option>
         <option value="bots" ${t.category==='bots'?'selected':''}>بوتات</option>
@@ -1511,10 +1517,16 @@ function openTaskModal(id){
     <div class="field" id="t_targetWrap" style="display:${t.category==='invite'?'none':'flex'}"><label>عدد الأعضاء المستهدف (اختياري — تُحذف المهمة تلقائيًا عند الوصول له، اتركه فارغًا لعدم وجود هدف)</label><input type="number" id="t_target" value="${Number(t.membersNeeded)||''}"></div>
     <div class="switch-row"><div class="lbl"><b>مفعّلة</b><span>إظهار المهمة للمستخدمين الآن</span></div><label class="switch"><input type="checkbox" id="t_status" ${t.status!=='disabled'?'checked':''}><span class="slider"></span></label></div>
   `;
-  document.getElementById('t_category').addEventListener('change', e=>{
-    document.getElementById('t_reqRefWrap').style.display = e.target.value==='invite' ? 'flex':'none';
-    document.getElementById('t_targetWrap').style.display = e.target.value==='invite' ? 'none':'flex';
-  });
+  const syncTaskSection = ()=>{
+    const partner = document.getElementById('t_section').value==='partner';
+    const cat = partner ? 'partner' : document.getElementById('t_category').value;
+    document.getElementById('t_categoryWrap').style.display = partner ? 'none':'flex';
+    document.getElementById('t_reqRefWrap').style.display = cat==='invite' ? 'flex':'none';
+    document.getElementById('t_targetWrap').style.display = cat==='invite' ? 'none':'flex';
+  };
+  document.getElementById('t_section').addEventListener('change', syncTaskSection);
+  document.getElementById('t_category').addEventListener('change', syncTaskSection);
+  syncTaskSection();
   document.getElementById('modalFoot').innerHTML = `<button class="btn btn-ghost" onclick="closeModal()">إلغاء</button><button class="btn btn-gold" onclick='saveTask(${JSON.stringify(id||null)})'>حفظ</button>`;
   showModal();
 }
@@ -1522,7 +1534,7 @@ function openTaskModal(id){
 function saveTask(id){
   const title = document.getElementById('t_title').value.trim();
   const link = document.getElementById('t_link').value.trim();
-  const category = document.getElementById('t_category').value;
+  const category = document.getElementById('t_section').value==='partner' ? 'partner' : document.getElementById('t_category').value;
   const reward = Number(document.getElementById('t_reward').value)||0;
   const status = document.getElementById('t_status').checked ? 'active' : 'disabled';
   if(!title){ toast('يرجى إدخال عنوان المهمة', true); return; }
