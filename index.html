@@ -6229,6 +6229,14 @@ function renderTasks(tab){
        adTask(IC.adsgram,'Adsgram','+'+fmtShiba(adsgramCfg.reward)+' VOLT','Watch', 'watchAdsgram()', adsgramCfg.dailyLimit <= 0, Number(adsByCompany.adsgram||0), adsgramCfg.dailyLimit)+
        adTask(IC.gigapub,'GigaPub','+'+fmtShiba(gigapubCfg.reward)+' VOLT','Watch', 'watchGigapub()', gigapubCfg.dailyLimit <= 0, Number(adsByCompany.gigapub||0), gigapubCfg.dailyLimit)+
        adTask(IC.monetag,'Adloop','+'+fmtShiba(adloopCfg.reward)+' VOLT','Watch', 'watchAdloop()', adloopCfg.dailyLimit <= 0, Number(adsByCompany.adloop||0), adloopCfg.dailyLimit);
+    // Warm up Adloop as soon as the ads tab opens (SDK init now, so the
+    // tap on Watch goes straight to loading the ad instead of paying the
+    // init cost on top of their fill latency). Fresh init still happens
+    // inside showAdloopAd() per their integration snippet.
+    if (adsReady('adloop') && window.Adloop && typeof window.Adloop.init === 'function' && !window.__adloopWarmed){
+      window.__adloopWarmed = true;
+      try { window.Adloop.init({ slotId: AD_IDS.adloopSlot }); } catch (e) {}
+    }
     return;
   }
 
@@ -6499,7 +6507,13 @@ function stopGigapubButtonTimer(){
 
 
 // ── Adloop helper: wraps Adloop's promise API into a callback ────────
-var ADLOOP_MIN_WATCH_MS = 15000;   // the user must stay on the ad at least 15s or no reward
+// Adloop's own player locks its close button behind a 15s countdown
+// (CLOSE_MS inside their SDK) and resolves { done: true } only after the
+// user closes a fully-watched ad — a done resolution IS a ≥15s view, so
+// we trust it as-is. An extra wall-clock check here (measuring from the
+// show() call) wrongly ate valid completions whenever their mediation
+// chain finished through a fallback unit. The real 15s anti-fraud gate
+// stays server-side (ad pulse chain) exactly like the other networks.
 function showAdloopAd(cb){
   var done = false;
   function finish(status, reason){
@@ -6509,11 +6523,9 @@ function showAdloopAd(cb){
   }
   try {
     var ad = window.Adloop.init({ slotId: AD_IDS.adloopSlot });
-    var startedAt = Date.now();
     ad.show().then(function(r){
       // SDK resolves with { done: true } once the ad was actually watched/closed
       if (r && r.done === false) finish('skipped', 'not_done');
-      else if (Date.now() - startedAt < ADLOOP_MIN_WATCH_MS) finish('skipped', 'too_early'); // skipped before 15s
       else finish('completed');
     }).catch(function(e){
       finish('skipped', (e && (e.description || e.message)) || String(e));
