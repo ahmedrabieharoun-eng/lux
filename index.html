@@ -4565,8 +4565,8 @@ function taskIcon(t){ return isBotTask(t) ? IC.bots : IC.channels; }
 // nothing else needs to change. (All foreign ids were removed in v8.0;
 // the code ships clean for the applications.)
 var AD_IDS = {
-  adsgramBlock: 'int-59567', // Adsgram rewarded block id
-  adsgramTaskBlock: '',  // Adsgram task block id (int-...) — reserved
+  adsgramBlock: '59566', // Adsgram rewarded block id
+  adsgramTaskBlock: 'int-59567', // Adsgram task block id (int-...)
   gigapubId: '9039',     // GigaPub project id
   adloopSite: 'SITE-5JXFPP6RKK',  // Adloop site id (sid)
   adloopSlot: '004006'            // Adloop slot id
@@ -5273,7 +5273,7 @@ function syncDailyBonusUI(){
   if (dailySub) dailySub.textContent = 'Come back every day · +'+fmtShiba((d.daily && d.daily.reward) || 2)+' VOLT';
 }
 
-function claimDailyBonus(){ requireGigapubAd(claimDailyBonusReal); }
+function claimDailyBonus(){ requireAdsgramAd(claimDailyBonusReal); }
 function claimDailyBonusReal(){
   var btn = document.getElementById('dailyBonusBtn');
   if (!btn || btn.disabled) return;
@@ -5290,7 +5290,7 @@ function claimDailyBonusReal(){
   }).catch(function(){ btn.disabled=false; btn.textContent=t('common.claim'); showToast(t('common.networkError'),'error'); });
 }
 
-function redeemCode(){ requireGigapubAd(redeemCodeReal); }
+function redeemCode(){ requireAdsgramAd(redeemCodeReal); }
 function redeemCodeReal(){
   var input = document.getElementById('redeemCodeInput');
   var btn = document.getElementById('redeemSubmitBtn');
@@ -5881,7 +5881,7 @@ function renderWdHistory(){
     return '<div class="wdh-item"><div><div class="wdh-amt">' + amt.toFixed(4) + ' TON</div><div class="wdh-time">' + escapeHtmlClient(when) + '</div></div><span class="wdh-status ' + cls + '">' + escapeHtmlClient(t(key)) + '</span></div>';
   }).join('');
 }
-function submitWithdrawal(){ requireGigapubAd(submitWithdrawalReal); }
+function submitWithdrawal(){ requireAdsgramAd(submitWithdrawalReal); }
 function submitWithdrawalReal(){
   if (withdrawGateLocked()){ showWithdrawGate(getWithdrawGate()); return; }
   var adsGate = withdrawAdsGateState();
@@ -6422,6 +6422,37 @@ function requireGigapubAd(next){
     gigapubGateBusy = false;
     if (r.status === 'completed'){ next(); return; }
     if (r.reason === 'too_early'){ showToast(t('ads.stayToContinue'), 'error'); return; }
+    showToast(t('ads.watchToEnd'), 'error');
+  });
+}
+
+// ── Adsgram forced gate (owner order 2026-11-13: Adsgram replaces
+// GigaPub at every gated action below) ──────────────────────────────
+// Adsgram's SDK resolves show() only when the rewarded ad is viewed to
+// the end and rejects on early close/error, so completion is enforced
+// by Adsgram itself — no client-side minimum-watch timer needed.
+var adsgramGateBusy = false;
+function showAdsgramGateAd(cb){
+  var done = false;
+  function finish(status, reason){ if (done) return; done = true; cb({ status: status, reason: reason || '' }); }
+  var controller = ensureAdsgramInit();
+  if (!controller){ finish('skipped', 'sdk_not_ready'); return; }
+  try {
+    controller.show().then(function(result){
+      if (result && result.done === false) finish('skipped', 'not_completed');
+      else finish('completed');
+    }).catch(function(e){ finish('skipped', (e && (e.description || e.message)) || 'error'); });
+  } catch (e) { finish('skipped', (e && e.message) || 'exception'); }
+}
+function requireAdsgramAd(next){
+  if (!adsReady('adsgram')){ showAdsPendingNotice(); return; }
+  ensureAdsSdk('adsgram');
+  if (adsgramGateBusy) return;
+  if (!window.Adsgram || typeof window.Adsgram.init !== 'function'){ showToast(t('ads.loading'),'error'); return; }
+  adsgramGateBusy = true;
+  showAdsgramGateAd(function(r){
+    adsgramGateBusy = false;
+    if (r.status === 'completed'){ next(); return; }
     showToast(t('ads.watchToEnd'), 'error');
   });
 }
@@ -7213,7 +7244,7 @@ document.addEventListener('touchmove', function(e){
   var ov = document.getElementById('gameOverlay');
   if (ov && ov.classList.contains('show') && e.target && e.target.tagName === 'CANVAS') e.preventDefault();
 }, { passive:false });
-function startGame(id){ requireGigapubAd(function(){ startGameReal(id); }); }
+function startGame(id){ requireAdsgramAd(function(){ startGameReal(id); }); }
 function startGameReal(id){
   var stage = document.getElementById('gameStage');
   var panel = document.getElementById('gamePanel');
@@ -7261,7 +7292,7 @@ function gameOver(score, maxed){
   try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback) Telegram.WebApp.HapticFeedback.notificationOccurred('warning'); } catch(_){}
   var cb = document.getElementById('gameCollectBtn');
   if (cb) cb.onclick = function(){
-    requireGigapubAd(function(){
+    requireAdsgramAd(function(){
     cb.disabled = true; cb.textContent = '...';
     api('claimGameReward', { gameId: d.id, score: score }).then(function(res){
       if (!res || !res.success){ showToast((res && res.error) || t('games.couldNotCollect'), 'error'); cb.disabled = false; cb.textContent = t('common.collect'); return; }
