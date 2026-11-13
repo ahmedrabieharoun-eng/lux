@@ -749,6 +749,12 @@ function voltShowKeyGate(){
 
 let _voltConnCbs = [];
 function _voltConnNotify(ok){ _voltConnCbs.forEach(cb=>{ try{ cb(ok); }catch(_){} }); }
+const _voltTickers = [];
+let _voltRefreshTimer = null;
+function _voltRefreshSoon(){
+  if(_voltRefreshTimer) return;
+  _voltRefreshTimer = setTimeout(()=>{ _voltRefreshTimer = null; _voltTickers.forEach(t=>{ try{ t(); }catch(_){} }); }, 400);
+}
 async function voltGateway(op, path, value){
   const res = await fetch(API_URL + '/', {
     method: 'POST',
@@ -764,6 +770,7 @@ async function voltGateway(op, path, value){
     throw err;
   }
   _voltConnNotify(true);
+  if(op !== 'get' && op !== 'shallow') _voltRefreshSoon();
   return j;
 }
 function voltSnapshot(key, value){
@@ -804,11 +811,18 @@ class VoltRef {
         if(sj !== lastJson){ lastJson = sj; cb(voltSnapshot(this.key, v)); }
       }catch(_){ }
     };
+    _voltTickers.push(tick);
     tick();
-    // users node is huge (thousands of records, ~2MB): polling it every
-    // 4s froze the panel on phones. 30s is plenty for dashboard stats;
-    // small nodes keep the fast 4s rhythm.
-    setInterval(tick, this.path === 'users' ? 30000 : 4000);
+    // Polling diet (2026-11-13): the panel used to re-download every node
+    // every 4s — the users node alone is ~2MB, which froze phones. Heavy
+    // nodes now poll rarely, light ones every 12s, starts are staggered so
+    // polls don't land in the same second, everything pauses while the tab
+    // is hidden, and any write from the panel itself triggers one immediate
+    // refresh (_voltRefreshSoon) so admin actions still feel instant.
+    const VOLT_POLL_MS = { users: 60000, withdrawals: 20000, withdrawQueue: 20000, blocked_accounts: 20000, blocks: 20000, 'adsContest/counts': 20000 };
+    const pollMs = VOLT_POLL_MS[this.path] || 12000;
+    let h = 0; for(const c of this.path) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+    setTimeout(()=> setInterval(tick, pollMs), h % 4000);
     return cb;
   }
   set(v){ return voltGateway('set', this.path, v === undefined ? null : v); }
