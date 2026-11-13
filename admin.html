@@ -797,6 +797,7 @@ class VoltRef {
     }
     let lastJson = ' __none__';
     const tick = async ()=>{
+      if (typeof document !== 'undefined' && document.hidden) return;
       try{
         const v = await this._get();
         const sj = JSON.stringify(v);
@@ -804,7 +805,10 @@ class VoltRef {
       }catch(_){ }
     };
     tick();
-    setInterval(tick, 4000);
+    // users node is huge (thousands of records, ~2MB): polling it every
+    // 4s froze the panel on phones. 30s is plenty for dashboard stats;
+    // small nodes keep the fast 4s rhythm.
+    setInterval(tick, this.path === 'users' ? 30000 : 4000);
     return cb;
   }
   set(v){ return voltGateway('set', this.path, v === undefined ? null : v); }
