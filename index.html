@@ -3292,7 +3292,7 @@ canvas.game-canvas{touch-action:none}
         <div class="bal-note" data-i18n="wd.note">Your full TON balance is available to withdraw, or to spend on VOLT packages and conversions.</div>
         <input class="wallet-input" id="withdrawWallet" placeholder="TON Wallet Address (UQ...)" data-i18n-placeholder="withdraw.walletPh">
         <input class="wallet-input" id="withdrawAmount" type="number" step="0.01" inputmode="decimal" placeholder="TON amount" data-i18n-placeholder="deposit.amountPh">
-        <div class="wd-adgate" id="wdAdsGateRow"><span id="wdAdsGateText">Withdrawal condition: watch 20 ads</span><b id="wdAdsGateProgress">0 / 20</b></div>
+        <div class="wd-adgate" id="wdAdsGateRow"><span id="wdAdsGateText">Withdrawal condition: watch 20 Adsgram ads</span><b id="wdAdsGateProgress">0 / 20</b></div>
         <div class="wd-fee"><span id="withdrawFeeLabel">Withdrawal fee (10%)</span><b id="withdrawFeeAmount">−0.0000 TON</b></div>
         <div class="wd-receive"><span data-i18n="withdraw.receive">You receive</span><b id="withdrawNetAmount">0.0000 TON</b></div>
         <button class="wallet-submit" id="withdrawSubmitBtn" onclick="submitWithdrawal()" data-i18n="withdraw.submit">Submit TON Withdrawal</button>
@@ -3776,8 +3776,8 @@ var LANG = {
     'wdStatus.completed':'Completed',
     'wdStatus.rejected':'Rejected',
     'referrals.commissionLine': 'Plus: you earn {pct}% of everything your referrals earn — automatically, on every VOLT they collect.',
-    'withdraw.adsGate': 'Withdrawal condition: watch {n} ads (any company)',
-    'withdraw.adsGateError': 'Watch {n} ads before withdrawing — you have watched {x} so far.',
+    'withdraw.adsGate': 'Withdrawal condition: watch {n} Adsgram ads (only Adsgram ads count)',
+    'withdraw.adsGateError': 'Watch {n} Adsgram ads before withdrawing — only Adsgram ads count. You have watched {x} so far.',
     'withdraw.fee': 'Withdrawal fee ({pct}%)',
     'ambassador.tab': 'Ambassadors',
     'ambassador.title': 'Ambassador Program',
@@ -3904,8 +3904,8 @@ var LANG = {
     'wdStatus.completed':'مكتمل',
     'wdStatus.rejected':'مرفوض',
     'referrals.commissionLine': 'وزيادة: بتكسب عمولة {pct}% من كل أرباح إحالاتك — تلقائيًا، على كل فولت بيجمعوه.',
-    'withdraw.adsGate': 'شرط السحب: مشاهدة {n} إعلان (من أي شركة)',
-    'withdraw.adsGateError': 'لازم تشاهد {n} إعلان قبل ما تسحب — انت شاهدت {x} لحد دلوقتي.',
+    'withdraw.adsGate': 'شرط السحب: مشاهدة {n} إعلان من Adsgram (إعلانات Adsgram بس هي اللي بتتحسب)',
+    'withdraw.adsGateError': 'لازم تشاهد {n} إعلان من Adsgram قبل ما تسحب — إعلانات Adsgram بس هي اللي بتتحسب، وانت شاهدت {x} لحد دلوقتي.',
     'withdraw.fee': 'رسوم السحب ({pct}%)',
     'ambassador.tab': 'السفراء',
     'ambassador.title': 'برنامج السفراء',
@@ -4032,8 +4032,8 @@ var LANG = {
     'wdStatus.completed':'Terminé',
     'wdStatus.rejected':'Rejeté',
     'referrals.commissionLine': 'En plus : vous gagnez {pct}% de tout ce que vos filleuls gagnent — automatiquement, sur chaque VOLT qu’ils collectent.',
-    'withdraw.adsGate': 'Condition de retrait : regardez {n} publicités (toute entreprise)',
-    'withdraw.adsGateError': 'Regardez {n} publicités avant de retirer — vous en avez regardé {x} pour le moment.',
+    'withdraw.adsGate': 'Condition de retrait : regardez {n} publicités Adsgram (seules les publicités Adsgram comptent)',
+    'withdraw.adsGateError': 'Regardez {n} publicités Adsgram avant de retirer — seules les publicités Adsgram comptent. Vous en avez regardé {x} pour le moment.',
     'withdraw.fee': 'Frais de retrait ({pct}%)',
     'ambassador.tab': 'Ambassadeurs',
     'ambassador.title': 'Programme Ambassadeur',
@@ -4132,8 +4132,8 @@ var LANG = {
     'wdStatus.completed':'Выполнено',
     'wdStatus.rejected':'Отклонено',
     'referrals.commissionLine': 'Плюс: вы получаете {pct}% от всего заработка ваших рефералов — автоматически, с каждого собранного ими VOLT.',
-    'withdraw.adsGate': 'Условие вывода: посмотрите {n} реклам (любая компания)',
-    'withdraw.adsGateError': 'Посмотрите {n} реклам перед выводом — пока вы посмотрели {x}.',
+    'withdraw.adsGate': 'Условие вывода: посмотрите {n} реклам Adsgram (засчитывается только реклама Adsgram)',
+    'withdraw.adsGateError': 'Посмотрите {n} реклам Adsgram перед выводом — засчитывается только реклама Adsgram. Пока вы посмотрели {x}.',
     'withdraw.fee': 'Комиссия за вывод ({pct}%)',
     'ambassador.tab': 'Амбассадоры',
     'ambassador.title': 'Программа амбассадоров',
@@ -4232,8 +4232,8 @@ var LANG = {
     'wdStatus.completed':'تکمیل شد',
     'wdStatus.rejected':'رد شد',
     'referrals.commissionLine': 'به‌علاوه: شما {pct}% از هرچه ارجاع‌هایتان کسب می‌کنند را به‌طور خودکار از هر VOLT که جمع می‌کنند، دریافت می‌کنید.',
-    'withdraw.adsGate': 'شرط برداشت: تماشای {n} تبلیغ (از هر شرکتی)',
-    'withdraw.adsGateError': 'قبل از برداشت باید {n} تبلیغ تماشا کنید — تاکنون {x} تماشا کرده‌اید.',
+    'withdraw.adsGate': 'شرط برداشت: تماشای {n} تبلیغ Adsgram (فقط تبلیغات Adsgram حساب می‌شود)',
+    'withdraw.adsGateError': 'قبل از برداشت باید {n} تبلیغ Adsgram تماشا کنید — فقط تبلیغات Adsgram حساب می‌شود. تاکنون {x} تماشا کرده‌اید.',
     'withdraw.fee': 'کارمزد برداشت ({pct}%)',
     'ambassador.tab': 'سفیران',
     'ambassador.title': 'برنامه سفیران',
@@ -4332,8 +4332,8 @@ var LANG = {
     'wdStatus.completed':'पूर्ण',
     'wdStatus.rejected':'अस्वीकृत',
     'referrals.commissionLine': 'साथ ही: आप अपने रेफ़रल की हर कमाई का {pct}% पाते हैं — स्वचालित रूप से, उनके हर इकट्ठा किए VOLT पर।',
-    'withdraw.adsGate': 'निकासी की शर्त: {n} विज्ञापन देखें (किसी भी कंपनी के)',
-    'withdraw.adsGateError': 'निकासी से पहले {n} विज्ञापन देखें — आप अब तक {x} देख चुके हैं।',
+    'withdraw.adsGate': 'निकासी की शर्त: {n} Adsgram विज्ञापन देखें (केवल Adsgram विज्ञापन ही गिने जाते हैं)',
+    'withdraw.adsGateError': 'निकासी से पहले {n} Adsgram विज्ञापन देखें — केवल Adsgram विज्ञापन ही गिने जाते हैं। आप अब तक {x} देख चुके हैं।',
     'withdraw.fee': 'निकासी शुल्क ({pct}%)',
     'ambassador.tab': 'एम्बेसडर',
     'ambassador.title': 'एम्बेसडर प्रोग्राम',
@@ -5831,7 +5831,7 @@ function openWithdrawForm(){
 function withdrawAdsGateState(){
   var cfg = (S.data && S.data.config) || {};
   var need = Number(cfg.withdrawalMinAds != null ? cfg.withdrawalMinAds : 20);
-  var have = Number((S.data && (S.data.totalAdsWatched != null ? S.data.totalAdsWatched : (S.data.stats && S.data.stats.totalAdsWatched))) || 0);
+  var have = Number((S.data && S.data.adsgramAdsWatched) || 0);
   return { need: need, have: have, met: !(need > 0) || have >= need };
 }
 function renderWithdrawAdsGate(){
@@ -6177,6 +6177,7 @@ function applyAdRewardState(data){
   if (data.adsWatchedToday != null) stats.adsWatchedToday = getAdNumber(data.adsWatchedToday);
   if (data.adsWatchedByCompany) stats.adsWatchedByCompany = data.adsWatchedByCompany;
   if (data.totalAdsWatched != null) { var taw = getAdNumber(data.totalAdsWatched); S.data.totalAdsWatched = taw; stats.totalAdsWatched = taw; }
+  if (data.adsgramAdsWatched != null) { var agw = getAdNumber(data.adsgramAdsWatched); S.data.adsgramAdsWatched = agw; stats.adsgramAdsWatched = agw; }
   if (data.adCompanies) stats.adCompanies = data.adCompanies;
   if (data.adDailyTotalLimit != null) stats.adDailyTotalLimit = getAdNumber(data.adDailyTotalLimit);
   if (data.adCompanyDailyLimit != null) stats.adCompanyDailyLimit = getAdNumber(data.adCompanyDailyLimit);
